@@ -1,6 +1,7 @@
 import "./App.css";
 import PosNegBarChart from './Components/BarChart';
 import Header from './Components/Header';
+import NavDrawer from './Components/NavigationDrawer'
 
 function App() {
 
@@ -8,7 +9,10 @@ function App() {
     <>
       <h1>InsightECR</h1>
       <PosNegBarChart />
-      <Header title="Container Title" />
+      <Header title="Bar Chart" />
+      <Header title="Pie Chart" />
+      <Header title="Detail Card" />
+      <NavDrawer />
     </>
   );
 }
