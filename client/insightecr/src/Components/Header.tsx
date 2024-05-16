@@ -6,6 +6,6 @@ const Header: React.FC<{ title: string }> = ({ title }) => {
       <h3>{title}</h3>
     </header>
   );
-}
+};
 
 export default Header;

@@ -1,12 +1,11 @@
-import "./App.scss";
-import VulnerabilityDetails from './Components/VulnerabilityDetails.tsx'
+import './App.scss';
+import VulnerabilityDetails from './Components/VulnerabilityDetails.tsx';
 
 function App() {
-
   return (
     <>
       {/* <h1>InsightECR</h1> */}
-      <VulnerabilityDetails/>
+      <VulnerabilityDetails />
     </>
   );
 }
