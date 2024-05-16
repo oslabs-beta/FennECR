@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { AxisConfig } from '@mui/x-charts';
 
+const infoData = [50, 90, 65, 75, 85, 95, 99];
 const lowData = [10, 20, 30, 40, 50, 60, 70];
 const medData = [5, 10, 15, 20, 25, 30, 35];
 const highData = [90, 80, 70, 60, 50, 40, 30];
@@ -24,20 +25,24 @@ export default function PosNegBarChart() {
       height={330}
       series={[
         {
-          data: lowData,
-          label: 'low',
+          data: critData,
+          label: 'critical',
         },
         {
-            data: medData,
-            label: 'medium',
-          },
-          {
             data: highData,
             label: 'high',
           },
           {
-            data: critData,
-            label: 'critical',
+            data: medData,
+            label: 'medium',
+          },
+          {
+            data: lowData,
+            label: 'low',
+          },
+          {
+            data: infoData,
+            label: 'informational',
           },
       ]}
       xAxis={[
