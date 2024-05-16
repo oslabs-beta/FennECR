@@ -1,0 +1,38 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+#detailsCard1 {
+  margin-left: 20%;
+}
+
+#detailsCard1, #detailsCard2 {
+  display: flex;
+  width: 356px;
+  height: 414px;
+  min-width: 280px;
+  max-width: 560px;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 28px;
+  background-color: #E8DEF8;
+  
+}
+
+
+
+#detailsPaper {
+  background-color: #E8E8FD;
+  display: flex;
+  width: 1010px;
+  height: 559px;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+}
