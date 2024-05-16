@@ -11,13 +11,15 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@mui/x-charts": "^7.4.0",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "sass": "^1.77.1"
