@@ -1,9 +1,8 @@
-import React from 'react';
-import { Paper, colors } from '@mui/material';
+import { Paper } from '@mui/material';
 import '../App.css'
 import { Grid } from '@mui/material';
 
-const DetailsCard = props => {
+const DetailsCard = () => {
     return (
     <Grid container spacing={20}>
     <Grid item>
