@@ -17,7 +17,7 @@ app.get("/",(req:Request, res:Response) => {
 
 // getImages
 app.get('/images/:repoName',imagesController.getImages, (req:Request, res:Response)=>{
-    res.status(200).send(...res.locals.images) //use res.locals.xxx to pass variables/response
+    res.status(200).send(...res.locals.images);
 });
 
 
@@ -44,6 +44,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
 
+
+// Server settings
 const port = process.env.PORT || 3000;
 app.listen(port,()=>{
     console.log(`InsightECR server is running at http://localhost:${port}`);

@@ -12,7 +12,6 @@ const imagesController: ImagesController = {
         try {
             const command = new DescribeImagesCommand({ repositoryName: repoName });
             const data = await ecrClient.send(command);
-            console.log(data);
             res.locals.images = data;
             res.status(200).json(data.imageDetails);
         } catch (error) {
