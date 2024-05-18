@@ -1,6 +1,7 @@
 import express,{ Express, NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import path from 'path';
+import cors from 'cors';
 import imagesController from "./controllers/imagesController";
 
 dotenv.config();
@@ -8,7 +9,7 @@ dotenv.config();
 const app: Express = express();
 app.use(express.json());
 
-
+app.use(cors());
 
 // Routers
 app.get("/",(req:Request, res:Response) => {

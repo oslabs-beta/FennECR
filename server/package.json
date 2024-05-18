@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "@aws-sdk/client-ecr": "^3.577.0",
+    "@types/cors": "^2.8.17",
     "concurrently": "^8.2.2",
     "express": "^4.19.2"
   },
