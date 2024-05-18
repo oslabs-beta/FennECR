@@ -7,7 +7,7 @@ import NavDrawer from './NavigationDrawer'; // Import your NavDrawer component
 
 const NavBar: React.FC = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         {/* NavigationDrawer Icon */}
         <IconButton edge="start" color="inherit" aria-label="menu">

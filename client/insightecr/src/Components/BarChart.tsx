@@ -1,6 +1,4 @@
-import * as React from 'react';
-import { BarChart } from '@mui/x-charts/BarChart';
-import { AxisConfig } from '@mui/x-charts';
+import { AxisConfig, BarChart } from '@mui/x-charts';
 
 const infoData = [50, 90, 65, 75, 85, 95, 99];
 const lowData = [10, 20, 30, 40, 50, 60, 70];

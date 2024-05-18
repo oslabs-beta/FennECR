@@ -1,6 +1,4 @@
-import * as React from 'react';
-import { PieChart } from '@mui/x-charts/PieChart';
-import { DefaultizedPieValueType } from '@mui/x-charts';
+import { DefaultizedPieValueType, PieChart } from '@mui/x-charts';
 
 
 const data = [
@@ -31,14 +29,14 @@ export default function BasicPie() {
           },
         ]}
         width={400}
-        height={400}
-        margin={{ top: 100, bottom: 100, left: 100, right:100 }}
+        height={330}
+        margin={{bottom: 100,  left: 100, right:100 }}
         slotProps={{
             legend: {
                 direction:'row',
                 position: { vertical: 'bottom', horizontal: 'middle' },
-                padding: 0,
-                // labelStyle: {fontSize:15}
+                padding: 25,
+                labelStyle: {fontSize:15}
             },
         }}
       />
