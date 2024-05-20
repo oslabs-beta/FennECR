@@ -79,7 +79,6 @@ const DetailsCard = () => {
                 />
                 <Switch id="scanOnPushSwitch" sx={{}} />
               </ListItem>
-              {/* <Switch id="scanOnPushSwitch" sx={{ marginRight:  }} /> */}
             </List>
 
             <Button id="detailsButton" size="small">
