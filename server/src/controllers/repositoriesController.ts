@@ -1,38 +1,23 @@
 import { Request, Response, NextFunction } from 'express';
-import { ECRClient, DescribeRepositoriesCommand, DescribeRepositoriesCommandInput, PutImageScanningConfigurationCommand } from "@aws-sdk/client-ecr";
-
-// Function to configure AWS credentials dynamically
-const getECRClient = (accountId: string) => {
-  const region = process.env[`AWS_REGION_${accountId}`];
-  const accessKeyId = process.env[`AWS_ACCESS_KEY_ID_${accountId}`];
-  const secretAccessKey = process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`];
-
-  if (!region || !accessKeyId || !secretAccessKey) {
-      throw new Error(`Missing AWS credentials for account ID ${accountId}`);
-  }
-
-  return new ECRClient({
-      region: region,
-      credentials: {
-          accessKeyId: accessKeyId,
-          secretAccessKey: secretAccessKey,
-      },
-  });
-};
+import {
+  DescribeRepositoriesCommand,
+  DescribeRepositoriesCommandInput,
+  PutImageScanningConfigurationCommand,
+} from '@aws-sdk/client-ecr';
+import awsClients from '../utils/awsClients';
 
 const repositoriesController = {
-  getAllRepositories: async (req: Request, res: Response, next: NextFunction) => {
+  getAllRepositories: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     const { accountId } = req.params;
 
-    console.log({
-      region: process.env[`AWS_REGION_${accountId}`],
-      accessKeyId: process.env[`AWS_ACCESS_KEY_ID_${accountId}`],
-      secretAccessKey: process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`]
-    });
-
     try {
-      const ecrClient = getECRClient(accountId);
-      const command = new DescribeRepositoriesCommand({});
+      const ecrClient = awsClients.getECRClient(accountId);
+      const input: DescribeRepositoriesCommandInput = {};
+      const command = new DescribeRepositoriesCommand(input);
 
       const data = await ecrClient.send(command);
       //console.log(data)
@@ -46,28 +31,23 @@ const repositoriesController = {
       });
     }
   },
-  
+
   getRepositoryData: async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     const { repoName, accountId } = req.params;
-    // console.log(accountId)
-    console.log({
-      region: process.env[`AWS_REGION_${accountId}`],
-      accessKeyId: process.env[`AWS_ACCESS_KEY_ID_${accountId}`],
-      secretAccessKey: process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`]
-  });
-    const ecrClient = getECRClient(accountId);
 
-    const command = new DescribeRepositoriesCommand({
+    const ecrClient = awsClients.getECRClient(accountId);
+    const input:DescribeRepositoriesCommandInput = {
       repositoryNames: [repoName],
-    });
+    }
+    const command = new DescribeRepositoriesCommand(input);
 
     try {
       const data = await ecrClient.send(command);
-      res.locals.repository = data
+      res.locals.repository = data;
       return next();
     } catch (error) {
       return next({
@@ -81,7 +61,7 @@ const repositoriesController = {
   toggleScanOnPush: async (req: Request, res: Response, next: NextFunction) => {
     const { repoName, accountId } = req.params;
     const { scanOnPush } = req.body;
-    const ecrClient = getECRClient(accountId);
+    const ecrClient = awsClients.getECRClient(accountId);
 
     const command = new PutImageScanningConfigurationCommand({
       repositoryName: repoName,
