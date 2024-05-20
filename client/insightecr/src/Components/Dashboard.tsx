@@ -15,6 +15,7 @@ import {
   Paper,
 } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems } from './listItems';
@@ -217,10 +218,10 @@ export default function Dashboard() {
                 >
                   <Header title={'Vulnerability Details'} />
                   <Grid container xs={12} spacing={4} id="detailsContainer">
-                    <Grid item xs={5.5}>
+                    <Grid item xs={5}>
                       <DetailsCard />
                     </Grid>
-                    <Grid item xs={5.5}>
+                    <Grid item xs={5}>
                       <DetailsCard />
                     </Grid>
                   </Grid>
