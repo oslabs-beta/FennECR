@@ -18,11 +18,11 @@ import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems } from './listItems';
-import BasicPie from './PieChart';
-import Header from './Header';
-import BasicStacking from './BarChart';
-import DetailsCard from './DetailsCard';
+import { mainListItems } from '../Components/listItems';
+import BasicPie from '../Components/PieChart';
+import Header from '../Components/Header';
+import BasicStacking from '../Components/BarChart';
+import DetailsCard from '../Components/DetailsCard';
 
 // function Copyright(props: any) {
 //   return (
@@ -89,7 +89,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme({
   palette: {
     text: {
