@@ -4,17 +4,10 @@ import cors from 'cors';
 import dotenv from 'dotenv'
 import imagesController from "./controllers/imagesController";
 import repositoriesController from "./controllers/repositoriesController";
+import scanResultsController from "./controllers/scanResultsController";
+import dataHandlingController from "./controllers/dataHandlingController";
 
 dotenv.config();
-
-// console.log({
-//   AWS_REGION_1: process.env.AWS_REGION_1,
-//   AWS_ACCESS_KEY_ID_1: process.env.AWS_ACCESS_KEY_ID_1,
-//   AWS_SECRET_ACCESS_KEY_1: process.env.AWS_SECRET_ACCESS_KEY_1,
-//   AWS_REGION_2: process.env.AWS_REGION_2,
-//   AWS_ACCESS_KEY_ID_2: process.env.AWS_ACCESS_KEY_ID_2,
-//   AWS_SECRET_ACCESS_KEY_2: process.env.AWS_SECRET_ACCESS_KEY_2,
-// });
 
 const app: Express = express();
 app.use(express.json());
@@ -46,6 +39,15 @@ app.get('/images/:repoName',imagesController.getImages, (req:Request, res:Respon
     res.status(200).json(res.locals.images);
 });
 
+// Get single scan result
+app.get('/images/results/:accountId/:repoName/:imageTag',scanResultsController.getSingleScanResult, (req: Request, res: Response) => {
+  res.status(200).json(res.locals.singleScanResult);
+})
+
+// Get aggregated scan results
+app.get('/repository/results/:accountId/:repoName',scanResultsController.getAggregatedScanResults,dataHandlingController.aggregateScanResults, (req: Request, res: Response) => {
+  res.status(200).json(res.locals.severityCounts);
+})
 
 //Global error handler
 interface DefaultError {
@@ -67,7 +69,7 @@ app.use((err: DefaultError,req:Request, res: Response, next:NextFunction) => {
 
 // 404 Error
 app.use((req: Request, res: Response, next: NextFunction) => {
-    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+  res.sendStatus(404)
 });
 
 // Catch all error handler for debugging

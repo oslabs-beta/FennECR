@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { ECRClient, DescribeRepositoriesCommand, DescribeRepositoriesCommandInput, PutImageScanningConfigurationCommand } from "@aws-sdk/client-ecr";
+import {
+  ECRClient,
+  DescribeRepositoriesCommand,
+  DescribeRepositoriesCommandInput,
+  PutImageScanningConfigurationCommand,
+} from '@aws-sdk/client-ecr';
 
 // Function to configure AWS credentials dynamically
 const getECRClient = (accountId: string) => {
@@ -8,31 +13,36 @@ const getECRClient = (accountId: string) => {
   const secretAccessKey = process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`];
 
   if (!region || !accessKeyId || !secretAccessKey) {
-      throw new Error(`Missing AWS credentials for account ID ${accountId}`);
+    throw new Error(`Missing AWS credentials for account ID ${accountId}`);
   }
 
   return new ECRClient({
-      region: region,
-      credentials: {
-          accessKeyId: accessKeyId,
-          secretAccessKey: secretAccessKey,
-      },
+    region: region,
+    credentials: {
+      accessKeyId: accessKeyId,
+      secretAccessKey: secretAccessKey,
+    },
   });
 };
 
 const repositoriesController = {
-  getAllRepositories: async (req: Request, res: Response, next: NextFunction) => {
+  getAllRepositories: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     const { accountId } = req.params;
 
     console.log({
       region: process.env[`AWS_REGION_${accountId}`],
       accessKeyId: process.env[`AWS_ACCESS_KEY_ID_${accountId}`],
-      secretAccessKey: process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`]
+      secretAccessKey: process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`],
     });
 
     try {
       const ecrClient = getECRClient(accountId);
-      const command = new DescribeRepositoriesCommand({});
+      const input: DescribeRepositoriesCommandInput = {};
+      const command = new DescribeRepositoriesCommand(input);
 
       const data = await ecrClient.send(command);
       //console.log(data)
@@ -46,7 +56,7 @@ const repositoriesController = {
       });
     }
   },
-  
+
   getRepositoryData: async (
     req: Request,
     res: Response,
@@ -57,17 +67,18 @@ const repositoriesController = {
     console.log({
       region: process.env[`AWS_REGION_${accountId}`],
       accessKeyId: process.env[`AWS_ACCESS_KEY_ID_${accountId}`],
-      secretAccessKey: process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`]
-  });
+      secretAccessKey: process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`],
+    });
     const ecrClient = getECRClient(accountId);
 
-    const command = new DescribeRepositoriesCommand({
+    const input:DescribeRepositoriesCommandInput = {
       repositoryNames: [repoName],
-    });
+    }
+    const command = new DescribeRepositoriesCommand(input);
 
     try {
       const data = await ecrClient.send(command);
-      res.locals.repository = data
+      res.locals.repository = data;
       return next();
     } catch (error) {
       return next({
