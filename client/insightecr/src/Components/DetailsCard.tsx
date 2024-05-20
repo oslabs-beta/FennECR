@@ -1,93 +1,95 @@
-import { Paper } from '@mui/material';
+import {
+  Button,
+  Card,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+} from '@mui/material';
 import '../App.scss';
-import { Grid } from '@mui/material';
-import Header from './Header';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import { version } from 'react';
-import Summary from './Summary';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import CardContent from '@mui/material/CardContent';
+import Switch from '@mui/material/Switch';
+
+function createData(
+  critical: number,
+  high: number,
+  medium: number,
+  low: number,
+  info: number
+) {
+  return { critical, high, medium, low, info };
+}
+
+const rows = [createData(0, 0, 9, 15, 4)];
 
 const DetailsCard = () => {
   return (
-    <Grid container spacing={28}>
-      <Grid item>
-        <Paper id="detailsCard1" elevation={2}>
-          <Header title={'Header 1 goes here'} />
-          <Summary id="summaryContainer" />
-          <List id="detailsCardList2" subheader={<li />}>
-            <li>
-              <ul>
-                <ListSubheader id="detailsCardListSubHeader2">
-                  {'Package Name'}
-                </ListSubheader>
-                <ListItem>
-                  <ListItemText primary="Our Package Name" />
-                </ListItem>
-              </ul>
-            </li>
-            <li>
-              <ul>
-                <ListSubheader id="detailsCardListSubHeader2">
-                  {'Package Version'}
-                </ListSubheader>
-                <ListItem>
-                  <ListItemText primary={version} />
-                </ListItem>
-              </ul>
-            </li>
-            <li>
-              <ul>
-                <ListSubheader id="detailsCardListSubHeader2">
-                  {'Severity'}
-                </ListSubheader>
-                <ListItem>
-                  <ListItemText primary="Really really really bad..." />
-                </ListItem>
-              </ul>
-            </li>
-          </List>
-        </Paper>
-      </Grid>
-      <Grid item>
-        <Paper id="detailsCard2" elevation={2}>
-          <Header title={'Header 2 goes here'} />
-          <List id="detailsCardList2" subheader={<li />}>
-            <li>
-              <ul>
-                <ListSubheader id="detailsCardListSubHeader2">
-                  {'Package Name'}
-                </ListSubheader>
-                <ListItem>
-                  <ListItemText primary="Our Package Name" />
-                </ListItem>
-              </ul>
-            </li>
-            <li>
-              <ul>
-                <ListSubheader id="detailsCardListSubHeader2">
-                  {'Package Version'}
-                </ListSubheader>
-                <ListItem>
-                  <ListItemText primary={version} />
-                </ListItem>
-              </ul>
-            </li>
-            <li>
-              <ul>
-                <ListSubheader id="detailsCardListSubHeader2">
-                  {'Severity'}
-                </ListSubheader>
-                <ListItem>
-                  <ListItemText primary="Really really really bad..." />
-                </ListItem>
-              </ul>
-            </li>
-          </List>
-        </Paper>
-      </Grid>
-    </Grid>
+    <Card>
+      <CardContent>
+        <p id="headerP">Replace with Header Component</p>
+        <TableContainer>
+          <Table sx={{ minWidth: 300 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Critical</TableCell>
+                <TableCell align="center">High</TableCell>
+                <TableCell align="center">Medium</TableCell>
+                <TableCell align="center">Low</TableCell>
+                <TableCell align="center">Info</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((level) => (
+                <TableRow key={level.critical}>
+                  <TableCell align="center">{level.critical}</TableCell>
+                  <TableCell align="center">{level.high}</TableCell>
+                  <TableCell align="center">{level.medium}</TableCell>
+                  <TableCell align="center">{level.low}</TableCell>
+                  <TableCell align="center">{level.info}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <List>
+              <ListItem>
+                <ListItemText
+                  primary="Created At"
+                  secondary={'May 20, 2024, 12:56:00 (UTC-04)'}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary="Tag immutability"
+                  secondary={'Disabled'}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary="Scan frequency"
+                  secondary={'Scan on Push'}
+                />
+                <Switch id="scanOnPushSwitch" sx={{}} />
+              </ListItem>
+              {/* <Switch id="scanOnPushSwitch" sx={{ marginRight:  }} /> */}
+            </List>
+
+            <Button id="detailsButton" size="small">
+              Details
+            </Button>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   );
 };
 

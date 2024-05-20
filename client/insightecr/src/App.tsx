@@ -1,12 +1,14 @@
+import { Grid } from '@mui/material';
 import './App.scss';
 import VulnerabilityDetails from './Components/VulnerabilityDetails.tsx';
 
 function App() {
   return (
-    <>
-      {/* <h1>InsightECR</h1> */}
-      <VulnerabilityDetails />
-    </>
+    <Grid container spacing={12}>
+      <Grid item xs={8} id="vulnerabilityDetailsGrid">
+        <VulnerabilityDetails />
+      </Grid>
+    </Grid>
   );
 }
 
