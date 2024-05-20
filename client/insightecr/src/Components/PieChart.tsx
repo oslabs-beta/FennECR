@@ -1,4 +1,5 @@
 import { DefaultizedPieValueType, PieChart } from '@mui/x-charts';
+import React from 'react';
 
 
 const data = [
@@ -16,11 +17,13 @@ const getArcLabel = (params: DefaultizedPieValueType) => {
 
 export default function BasicPie() {
     return (
+      <React.Fragment>
+      <div style={{ width: '100%', flexGrow: 1, overflow: 'hidden' }}>
       <PieChart
         series={[
           {
             data,  
-            innerRadius: 75,
+            innerRadius: 60,
             paddingAngle: 1,
             cornerRadius: 5,
             arcLabel: getArcLabel,
@@ -28,17 +31,19 @@ export default function BasicPie() {
             faded:{ innerRadius: 10, additionalRadius: -30, color:'gray'},
           },
         ]}
-        width={400}
-        height={330}
+        // width={400}
+        // height={330}
         margin={{bottom: 100,  left: 100, right:100 }}
         slotProps={{
             legend: {
                 direction:'row',
                 position: { vertical: 'bottom', horizontal: 'middle' },
-                padding: 25,
+                padding: 0,
                 labelStyle: {fontSize:15}
             },
         }}
       />
+    </div>
+    </React.Fragment>
     );
   }
