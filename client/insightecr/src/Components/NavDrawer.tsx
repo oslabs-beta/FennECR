@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box, Drawer, IconButton, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, useTheme, CssBaseline, Toolbar, Typography, Grid, Paper} from '@mui/material';
+import {Box, Drawer, IconButton, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, useTheme, CssBaseline, Toolbar, Typography, Grid, Paper, Container} from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -12,19 +12,19 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import EmailIcon from '@mui/icons-material/Email';
 import BasicPie from './PieChart';
 import Header from './Header';
-import PosNegBarChart from './BarChart';
+import BasicStacking from './BarChart';
 
 
 
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: '#E8E8FD',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    // margin:0,
-  }));
+// const Item = styled(Paper)(({ theme }) => ({
+//     backgroundColor: '#E8E8FD',
+//     ...theme.typography.body2,
+//     padding: theme.spacing(1),
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+//     // margin:0,
+//   }));
 
 const drawerWidth = 240;
 
@@ -179,29 +179,43 @@ export default function NavDrawer() {
           ))}
         </List>
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        <Typography>
 
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid xs={5}>
-          <Item sx={{height:'50%'}}>
-            <Header title={'Vulnerability Summary'}/>
-            <BasicPie/>
-          </Item>
-        </Grid>
-        <Grid xs={5}>
-        <Item sx={{height:'50%'}}>
-          <Header title={'Severity Breakdown'}/>
-            <PosNegBarChart/>
-          </Item>
-        </Grid>
-        <Grid xsOffset={2} xs={12}>
-          <Item>Vulnerability Details</Item>
-        </Grid>
-        </Box>
-        
-        </Typography>
+      <Main open={open}>
+      <Container maxWidth="lg" sx={{ mt: 8, mb: 4 }} >
+            <Grid container spacing={3} >
+              <Grid item xs={12} md={5} lg={6} >
+                <Paper
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 360,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Header title={'Vulnerability Summary'}/>
+                  <BasicPie/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={7} lg={6}>
+                <Paper
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 360,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Header title={'Severity Breakdown'}/>
+                  <BasicStacking/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 0, display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
+                <Header title={'Vulnerability Details'}/>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Container>
       </Main>
     </Box>
   );
