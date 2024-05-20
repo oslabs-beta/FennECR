@@ -35,7 +35,6 @@ const imagesController = {
       const input: DescribeImagesCommandInput = {
         repositoryName: repoName,
       };
-      //   const command = new DescribeImagesCommand({ repositoryName: repoName });
       const command = new DescribeImagesCommand(input);
       const data = await ecrClient.send(command);
       res.locals.images = data;
