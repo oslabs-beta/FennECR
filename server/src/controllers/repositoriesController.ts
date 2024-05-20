@@ -40,9 +40,9 @@ const repositoriesController = {
     const { repoName, accountId } = req.params;
 
     const ecrClient = awsClients.getECRClient(accountId);
-    const input:DescribeRepositoriesCommandInput = {
+    const input: DescribeRepositoriesCommandInput = {
       repositoryNames: [repoName],
-    }
+    };
     const command = new DescribeRepositoriesCommand(input);
 
     try {

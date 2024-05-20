@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 import {
   DescribeImagesCommand,
   DescribeImagesCommandInput,
-} from "@aws-sdk/client-ecr";
-import awsClients from "../utils/awsClients";
+} from '@aws-sdk/client-ecr';
+import awsClients from '../utils/awsClients';
 
 const imagesController = {
   getImages: async (req: Request, res: Response, next: NextFunction) => {
@@ -22,7 +22,7 @@ const imagesController = {
       return next();
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: "Error when retrieving images from ECR." });
+      res.status(500).json({ error: 'Error when retrieving images from ECR.' });
     }
   },
 };
