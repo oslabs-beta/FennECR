@@ -16,6 +16,14 @@
   margin-left: 20%;
 }
 
+// #detailsCard1,
+// #detailsCard2 {
+//   Header {
+//     background-color: #e8def8;
+//     margin: 0;
+//   }
+// }
+
 #detailsCard1,
 #detailsCard2 {
   display: flex;
@@ -40,6 +48,7 @@
     position: relative;
     max-height: 300;
     overflow: auto;
+    // overflow-wrap: normal;
     border-radius: 28px;
 
     ul {
@@ -69,4 +78,8 @@
   align-items: center;
   flex-shrink: 0;
   border-radius: 12px;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

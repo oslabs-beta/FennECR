@@ -7,6 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import { version } from 'react';
+import Summary from './Summary';
 
 const DetailsCard = () => {
   return (
@@ -14,20 +15,8 @@ const DetailsCard = () => {
       <Grid item>
         <Paper id="detailsCard1" elevation={2}>
           <Header title={'Header 1 goes here'} />
+          <Summary id="summaryContainer" />
           <List id="detailsCardList2" subheader={<li />}>
-            <li>
-              <ul>
-                <ListSubheader id="detailsCardListSubHeader2">
-                  {'Summary'}
-                </ListSubheader>
-                <ListItem>
-                  <ListItemText
-                    id="detailsTextSummary"
-                    primary="A code execution vulnerability exists in the directory rehashing functionality of E2fsprogs e2fsck 1.45.4."
-                  />
-                </ListItem>
-              </ul>
-            </li>
             <li>
               <ul>
                 <ListSubheader id="detailsCardListSubHeader2">
