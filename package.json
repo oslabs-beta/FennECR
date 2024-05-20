@@ -1,7 +1,7 @@
 {
   "name": "insightecr",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./server/src",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client/insightecr\"",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,8 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "concurrently": "^8.2.2",
-    "dotenv": "^16.4.5"
+    "concurrently": "^8.2.2"
   },
   "devDependencies": {
     "sass": "^1.77.1"
