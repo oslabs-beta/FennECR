@@ -10,15 +10,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_ecr_1 = require("@aws-sdk/client-ecr");
+// Function to configure AWS credentials dynamically
+const getECRClient = (accountId) => {
+    const region = process.env[`AWS_REGION_${accountId}`];
+    const accessKeyId = process.env[`AWS_ACCESS_KEY_ID_${accountId}`];
+    const secretAccessKey = process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`];
+    if (!region || !accessKeyId || !secretAccessKey) {
+        throw new Error(`Missing AWS credentials for account ID ${accountId}`);
+    }
+    return new client_ecr_1.ECRClient({
+        region: region,
+        credentials: {
+            accessKeyId: accessKeyId,
+            secretAccessKey: secretAccessKey,
+        },
+    });
+};
 const imagesController = {
-    getImages: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    getImages: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const { repoName } = req.params;
+        const { accountId } = req.params;
         try {
-            const command = new client_ecr_1.DescribeImagesCommand({ repositoryName: repoName });
+            const ecrClient = getECRClient(accountId);
+            // Define the input variable using DescribeImagesCommandInput
+            const input = {
+                repositoryName: repoName,
+            };
+            //   const command = new DescribeImagesCommand({ repositoryName: repoName });
+            const command = new client_ecr_1.DescribeImagesCommand(input);
             const data = yield ecrClient.send(command);
-            console.log(data);
             res.locals.images = data;
-            res.status(200).json(data.imageDetails);
+            return next();
         }
         catch (error) {
             console.log(error);
@@ -26,6 +48,4 @@ const imagesController = {
         }
     }),
 };
-// Create the ECRClient 
-const ecrClient = new client_ecr_1.ECRClient({ region: process.env.AWS_REGION || "us-east-1" });
 exports.default = imagesController;
