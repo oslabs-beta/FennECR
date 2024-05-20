@@ -28,17 +28,17 @@ const getECRClient = (accountId) => {
 };
 const imagesController = {
     getImages: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const { repoName } = req.params;
-        const { accountId } = req.params;
+        const { repoName, accountId } = req.params;
         try {
             const ecrClient = getECRClient(accountId);
-            // Define the input variable using DescribeImagesCommandInput
             const input = {
                 repositoryName: repoName,
             };
-            //   const command = new DescribeImagesCommand({ repositoryName: repoName });
             const command = new client_ecr_1.DescribeImagesCommand(input);
             const data = yield ecrClient.send(command);
+            console.log("Images data from ECR:", data);
+            // Store images data in session
+            req.session.images = data;
             res.locals.images = data;
             return next();
         }

@@ -1,0 +1,203 @@
+{
+    "Items": [
+        {
+            "imageScanFindingsSummary": {
+                "M": {
+                    "vulnerabilitySourceUpdatedAt": {
+                        "S": "2024-05-16T17:19:22.000Z"
+                    },
+                    "findingSeverityCounts": {
+                        "M": {
+                            "MEDIUM": {
+                                "N": "8"
+                            },
+                            "INFORMATIONAL": {
+                                "N": "4"
+                            },
+                            "LOW": {
+                                "N": "15"
+                            }
+                        }
+                    },
+                    "imageScanCompletedAt": {
+                        "S": "2024-05-17T00:57:54.000Z"
+                    }
+                }
+            },
+            "artifactMediaType": {
+                "S": "application/vnd.docker.container.image.v1+json"
+            },
+            "imagePushedAt": {
+                "S": "2024-05-17T00:57:26.000Z"
+            },
+            "imageScanStatus": {
+                "M": {
+                    "description": {
+                        "S": "The scan was completed successfully."
+                    },
+                    "status": {
+                        "S": "COMPLETE"
+                    }
+                }
+            },
+            "registryId": {
+                "S": "471112977385"
+            },
+            "imageTags": {
+                "L": [
+                    {
+                        "S": "latest"
+                    }
+                ]
+            },
+            "repositoryName": {
+                "S": "testrepo"
+            },
+            "imageManifestMediaType": {
+                "S": "application/vnd.docker.distribution.manifest.v2
++json"
+            },
+            "imageSizeInBytes": {
+                "N": "49845850"
+            },
+            "imageDigest": {
+                "S": "sha256:8f76a1316902793d742379ba2b830e3cb785e3de
+9f6b1c4bb88e64ee4559091c"
+            }
+        },
+        {
+            "imageScanFindingsSummary": {
+                "M": {
+                    "vulnerabilitySourceUpdatedAt": {
+                        "S": "2024-05-16T17:19:22.000Z"
+                    },
+                    "findingSeverityCounts": {
+                        "M": {
+                            "MEDIUM": {
+                                "N": "9"
+                            },
+                            "INFORMATIONAL": {
+                                "N": "4"
+                            },
+                            "LOW": {
+                                "N": "15"
+                            }
+                        }
+                    },
+                    "imageScanCompletedAt": {
+                        "S": "2024-05-17T01:17:51.000Z"
+                    }
+                }
+            },
+            "artifactMediaType": {
+                "S": "application/vnd.docker.container.image.v1+json"
+            },
+            "imagePushedAt": {
+                "S": "2024-05-17T01:17:34.000Z"
+            },
+            "imageScanStatus": {
+                "M": {
+                    "description": {
+                        "S": "The scan was completed successfully."
+                    },
+                    "status": {
+                        "S": "COMPLETE"
+                    }
+                }
+            },
+            "registryId": {
+                "S": "471112977385"
+            },
+            "imageTags": {
+                "L": [
+                    {
+                        "S": "high"
+                    }
+                ]
+            },
+            "repositoryName": {
+                "S": "testrepo"
+            },
+            "imageManifestMediaType": {
+                "S": "application/vnd.docker.distribution.manifest.v2
++json"
+            },
+            "imageSizeInBytes": {
+                "N": "50596701"
+            },
+            "imageDigest": {
+                "S": "sha256:6ba2e0deff8dbd626a4d28208078f8bc71b53ed2
+c57b2951dbfb71584c100afc"
+            }
+        },
+        {
+            "artifactMediaType": {
+                "S": "application/vnd.docker.container.image.v1+json"
+            },
+            "imagePushedAt": {
+                "S": "2024-05-16T22:11:22.000Z"
+            },
+            "imageScanStatus": {
+                "M": {
+                    "description": {
+                        "S": "UnsupportedImageError: The operating sy
+stem 'debian' version '8' is not supported."
+                    },
+                    "status": {
+                        "S": "FAILED"
+                    }
+                }
+            },
+            "registryId": {
+                "S": "471112977385"
+            },
+            "imageTags": {
+                "L": [
+                    {
+                        "S": "vulnerable-image"
+                    }
+                ]
+            },
+            "repositoryName": {
+                "S": "testrepo"
+            },
+            "imageManifestMediaType": {
+                "S": "application/vnd.docker.distribution.manifest.v2
++json"
+            },
+            "imageSizeInBytes": {
+                "N": "273669922"
+            },
+            "imageDigest": {
+                "S": "sha256:70d179beedf693cae02271f6f6df5d8249533ea0
+432c36f9465557ce71225fca"
+            }
+        },
+        {
+            "artifactMediaType": {
+                "S": "application/vnd.docker.container.image.v1+json"
+            },
+            "imagePushedAt": {
+                "S": "2024-05-16T16:33:07.000Z"
+            },
+            "registryId": {
+                "S": "471112977385"
+            },
+            "repositoryName": {
+                "S": "testrepo"
+            },
+            "imageManifestMediaType": {
+                "S": "application/vnd.docker.distribution.manifest.v2+json"
+            },
+            "imageSizeInBytes": {
+                "N": "3348737"
+            },
+            "imageDigest": {
+                "S": "sha256:4075efd5ed86fef8aa33278cff0b76e213d9d19c05264c9a6020391f9b9ba5ad"
+            }
+        }
+    ],
+    "Count": 4,
+    "ScannedCount": 4,
+    "ConsumedCapacity": null
+}

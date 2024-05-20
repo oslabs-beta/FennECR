@@ -12,11 +12,14 @@
   "description": "",
   "dependencies": {
     "@aws-sdk/client-ecr": "^3.577.0",
+    "@aws-sdk/lib-dynamodb": "^3.577.0",
     "@types/cors": "^2.8.17",
+    "@types/express-session": "^1.18.0",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
