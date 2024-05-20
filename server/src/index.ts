@@ -42,7 +42,7 @@ app.post('/repository/:accountId/:repoName/scan-on-push', repositoriesController
 });
 
 // getImages
-app.get('/images/:repoName',imagesController.getImages, (req:Request, res:Response)=>{
+app.get('/images/:accountId/:repoName',imagesController.getImages, (req:Request, res:Response)=>{
     res.status(200).json(res.locals.images);
 });
 
