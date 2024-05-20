@@ -1,30 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import {
-  ECRClient,
   ListImagesCommand,
   ListImagesCommandInput,
   DescribeImageScanFindingsCommand,
   DescribeImageScanFindingsCommandInput,
 } from '@aws-sdk/client-ecr';
-
-// Function to configure AWS credentials dynamically
-const getECRClient = (accountId: string) => {
-  const region = process.env[`AWS_REGION_${accountId}`];
-  const accessKeyId = process.env[`AWS_ACCESS_KEY_ID_${accountId}`];
-  const secretAccessKey = process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`];
-
-  if (!region || !accessKeyId || !secretAccessKey) {
-    throw new Error(`Missing AWS credentials for account ID ${accountId}`);
-  }
-
-  return new ECRClient({
-    region: region,
-    credentials: {
-      accessKeyId: accessKeyId,
-      secretAccessKey: secretAccessKey,
-    },
-  });
-};
+import awsClients from '../utils/awsClients';
 
 const scanResultsController = {
   getSingleScanResult: async (
@@ -35,7 +16,7 @@ const scanResultsController = {
     const { repoName, accountId, imageTag } = req.params;
 
     try {
-      const ecrClient = getECRClient(accountId);
+      const ecrClient = awsClients.getECRClient(accountId);
       const input: DescribeImageScanFindingsCommandInput = {
         repositoryName: repoName, //required
         imageId: {
@@ -65,7 +46,7 @@ const scanResultsController = {
     const { repoName, accountId } = req.params;
 
     try {
-      const ecrClient = getECRClient(accountId);
+      const ecrClient = awsClients.getECRClient(accountId);
 
       // Fetch all image tags in the given repository
       const listImagesInput: ListImagesCommandInput = {
@@ -93,15 +74,19 @@ const scanResultsController = {
         };
         const command = new DescribeImageScanFindingsCommand(input);
         // Prevent 'ScanNotFoundException'
-        try{
+        try {
           const data = await ecrClient.send(command);
           if (data.imageScanFindings) scanResults.push(data);
-        } catch (err:any) {
+        } catch (err: any) {
           if (err.name === 'ScanNotFoundException') {
             // Skip images without scan result
-            console.log (`Scan result not found for image: ${imageId.imageDigest || imageId.imageTag}`)
+            console.log(
+              `Scan result not found for image: ${
+                imageId.imageDigest || imageId.imageTag
+              }`
+            );
           } else {
-            throw new Error(err)
+            throw new Error(err);
           }
         }
       }
