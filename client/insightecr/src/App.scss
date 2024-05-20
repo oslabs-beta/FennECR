@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  // padding: 2rem;
-  text-align: center;
-}
-
-=======
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 // #root {
 //   max-width: 1280px;
@@ -93,22 +84,41 @@
 //   display: none;
 // }
 
-#headerP {
-  text-align: center;
-}
+// #headerP {
+//   text-align: center;
+// }
 
-#vulnerabilityDetailsGrid {
-  background-color: #e8def8;
-}
+// #vulnerabilityDetailsGrid {
+//   background-color: #e8def8;
+// }
 
-#detailCard {
-  border-radius: 28px;
-}
+// #detailCard {
+//   border-radius: 28px;
+// }
 
 #detailsButton {
   color: #6750a4;
+  align-items: right;
 }
 
-#scanOnPush {
+// #scanOnPush {
+// }
+
+#detailsContainer {
+  display: flex;
+  justify-content: center;
+  // background-color: #e8def8;
 }
->>>>>>> origin/feature-detailCard
+
+.css-46bh2p-MuiCardContent-root {
+  background-color: #e8def8;
+  border-radius: 28px;
+}
+
+.css-jwc7ht-MuiPaper-root-MuiCard-root {
+  border-radius: 28px;
+}
+
+#detailCard1 {
+  border-radius: 28px;
+}

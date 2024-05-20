@@ -11,6 +11,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+// import { Unstable_Grid as Grid } from '@mui/system';
 import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -21,8 +22,7 @@ import { mainListItems } from './listItems';
 import BasicPie from './PieChart';
 import Header from './Header';
 import BasicStacking from './BarChart';
-
-
+import DetailsCard from './DetailsCard';
 
 // function Copyright(props: any) {
 //   return (
@@ -62,56 +62,52 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      background: '#D1D0FB',
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  '& .MuiDrawer-paper': {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    background: '#D1D0FB',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    boxSizing: 'border-box',
+    ...(!open && {
+      overflowX: 'hidden',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: theme.transitions.duration.leavingScreen,
       }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
+      width: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9),
+      },
+    }),
+  },
+}));
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme({
   palette: {
     text: {
-      primary:'#21005D'
+      primary: '#21005D',
     },
   },
-
-  // typography: {
-  //   fontFamily: '', // Set the default font family
-  // },
-
 });
 
+// Control whether Nav drawer loads open or closed
 export default function Dashboard() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: 'flex'}}>
+      <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open} elevation={2}>
           <Toolbar
@@ -133,9 +129,9 @@ export default function Dashboard() {
             <Typography
               component="h1"
               variant="h6"
-              color= "#21005D"
+              color="#21005D"
               noWrap
-              sx={{ flexGrow: 1 ,textAlign:'center'}}
+              sx={{ flexGrow: 1, textAlign: 'center' }}
             >
               InSightECR
             </Typography>
@@ -160,24 +156,18 @@ export default function Dashboard() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">
-            {mainListItems}
-          </List>
+          <List component="nav">{mainListItems}</List>
         </Drawer>
         <Box
           component="main"
           sx={{
-            // backgroundColor: (theme) =>
-            //   theme.palette.mode === 'light'
-            //     ? theme.palette.grey[100]
-            //     : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
           }}
         >
           <Toolbar />
-          <Container id = 'charts' maxWidth="lg" sx={{ mt: 4, mb: 4 }} >
+          <Container id="charts" maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={5}>
               {/* Vulnerability Summary */}
               <Grid item xs={12} md={5} lg={5}>
@@ -188,11 +178,11 @@ export default function Dashboard() {
                     flexDirection: 'column',
                     height: 360,
                     textAlign: 'center',
-                    background:'#E8E8FD',
-                    borderRadius: 3
+                    background: '#E8E8FD',
+                    borderRadius: 3,
                   }}
                 >
-                  <Header title={'Vulnerability Summary'}/>
+                  <Header title={'Vulnerability Summary'} />
                   <BasicPie />
                 </Paper>
               </Grid>
@@ -205,29 +195,39 @@ export default function Dashboard() {
                     flexDirection: 'column',
                     height: 360,
                     textAlign: 'center',
-                    background:'#E8E8FD',
-                    borderRadius: 3
+                    background: '#E8E8FD',
+                    borderRadius: 3,
                   }}
                 >
-                  <Header title={'Severity Breakdown'}/>
+                  <Header title={'Severity Breakdown'} />
                   <BasicStacking />
                 </Paper>
               </Grid>
               {/* Vulnerability Details */}
               <Grid item xs={12}>
-                <Paper sx={{ 
-                  p: 2, 
-                display: 'flex', 
-                flexDirection: 'column', 
-                textAlign: 'center', 
-                background:'#E8E8FD', 
-                borderRadius: 3
-                }}>
-                <Header title={'Vulnerability Details'}/>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    textAlign: 'center',
+                    background: '#E8E8FD',
+                    borderRadius: 3,
+                    alignItems: 'center',
+                  }}
+                >
+                  <Header title={'Vulnerability Details'} />
+                  <Grid container xs={12} spacing={4} id="detailsContainer">
+                    <Grid item xs={5.5}>
+                      <DetailsCard />
+                    </Grid>
+                    <Grid item xs={5.5}>
+                      <DetailsCard />
+                    </Grid>
+                  </Grid>
                 </Paper>
               </Grid>
             </Grid>
-            {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
         </Box>
       </Box>

@@ -13,7 +13,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import CardContent from '@mui/material/CardContent';
 import Switch from '@mui/material/Switch';
 
@@ -31,10 +30,10 @@ const rows = [createData(0, 0, 9, 15, 4)];
 
 const DetailsCard = () => {
   return (
-    <Card>
+    <Card id='detailCard1"' sx={{ borderRadius: 7 }}>
       <CardContent>
         <p id="headerP">Replace with Header Component</p>
-        <TableContainer>
+        <TableContainer id="myTable">
           <Table sx={{ minWidth: 300 }}>
             <TableHead>
               <TableRow>

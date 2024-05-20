@@ -1,5 +1,23 @@
 import * as React from 'react';
-import {Box, Drawer, IconButton, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, useTheme, CssBaseline, Toolbar, Typography, Grid, Paper, Container} from '@mui/material';
+import {
+  Box,
+  Drawer,
+  IconButton,
+  List,
+  Divider,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  styled,
+  useTheme,
+  CssBaseline,
+  Toolbar,
+  Typography,
+  Grid,
+  Paper,
+  Container,
+} from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -14,17 +32,14 @@ import BasicPie from './PieChart';
 import Header from './Header';
 import BasicStacking from './BarChart';
 
-
-
-
 // const Item = styled(Paper)(({ theme }) => ({
-//     backgroundColor: '#E8E8FD',
-//     ...theme.typography.body2,
-//     padding: theme.spacing(1),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-//     // margin:0,
-//   }));
+//   backgroundColor: '#E8E8FD',
+//   ...theme.typography.body2,
+//   padding: theme.spacing(1),
+//   textAlign: 'center',
+//   color: theme.palette.text.secondary,
+//   // margin:0,
+// }));
 
 const drawerWidth = 240;
 
@@ -78,16 +93,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 interface NavItem {
-    text: string;
-    icon: React.ReactNode;
-  }
+  text: string;
+  icon: React.ReactNode;
+}
 const toolsItems: NavItem[] = [
-    { text: 'Alert', icon: <EditNotificationsIcon /> },
-    { text: 'Documentation', icon: <DescriptionIcon /> },
-    { text: 'Contact Us', icon: <EmailIcon /> },
-  ];
-
-
+  { text: 'Alert', icon: <EditNotificationsIcon /> },
+  { text: 'Documentation', icon: <DescriptionIcon /> },
+  { text: 'Contact Us', icon: <EmailIcon /> },
+];
 
 export default function NavDrawer() {
   const theme = useTheme();
@@ -115,7 +128,7 @@ export default function NavDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" textAlign={'center'} >
+          <Typography variant="h6" noWrap component="div" textAlign={'center'}>
             InSightECR
           </Typography>
         </Toolbar>
@@ -135,7 +148,11 @@ export default function NavDrawer() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </DrawerHeader>
 
@@ -145,7 +162,7 @@ export default function NavDrawer() {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ?  <QueryStatsIcon /> : <AssessmentIcon />}
+                  {index % 2 === 0 ? <QueryStatsIcon /> : <AssessmentIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -158,9 +175,7 @@ export default function NavDrawer() {
           {['Repository1', 'Repository2'].map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
-                  {<PublicIcon /> }
-                </ListItemIcon>
+                <ListItemIcon>{<PublicIcon />}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
@@ -181,41 +196,48 @@ export default function NavDrawer() {
       </Drawer>
 
       <Main open={open}>
-      <Container maxWidth="lg" sx={{ mt: 8, mb: 4 }} >
-            <Grid container spacing={3} >
-              <Grid item xs={12} md={5} lg={6} >
-                <Paper
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 360,
-                    textAlign: 'center'
-                  }}
-                >
-                  <Header title={'Vulnerability Summary'}/>
-                  <BasicPie/>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={7} lg={6}>
-                <Paper
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 360,
-                    textAlign: 'center'
-                  }}
-                >
-                  <Header title={'Severity Breakdown'}/>
-                  <BasicStacking/>
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper sx={{ p: 0, display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-                <Header title={'Vulnerability Details'}/>
-                </Paper>
-              </Grid>
+        <Container maxWidth="lg" sx={{ mt: 8, mb: 4 }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={5} lg={6}>
+              <Paper
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: 360,
+                  textAlign: 'center',
+                }}
+              >
+                <Header title={'Vulnerability Summary'} />
+                <BasicPie />
+              </Paper>
             </Grid>
-          </Container>
+            <Grid item xs={12} md={7} lg={6}>
+              <Paper
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: 360,
+                  textAlign: 'center',
+                }}
+              >
+                <Header title={'Severity Breakdown'} />
+                <BasicStacking />
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper
+                sx={{
+                  p: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  textAlign: 'center',
+                }}
+              >
+                <Header title={'Vulnerability Details'} />
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
       </Main>
     </Box>
   );
