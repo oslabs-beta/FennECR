@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "./server/src",
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client/insightecr\"",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && tsc && nodemon dist/index.js",
+    "dev:client": "cd client/insightecr && npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,22 +13,24 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "concurrently": "^8.2.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.18",
+    "@mui/joy": "^5.0.0-beta.36",
     "@mui/material": "^5.15.18",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
-    "@mui/joy": "^5.0.0-beta.36",
     "@mui/x-charts": "^7.4.0",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "dotenv": "^16.4.5",
+    "nodemon": "^3.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "sass": "^1.77.1"
   }
 }

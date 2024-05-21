@@ -37,9 +37,11 @@ const imagesController = {
             const command = new client_ecr_1.DescribeImagesCommand(input);
             const data = yield ecrClient.send(command);
             console.log("Images data from ECR:", data);
+            // Ensure imageDetails is always an array
+            const imageDetails = data.imageDetails || [];
             // Store images data in session
-            req.session.images = data;
-            res.locals.images = data;
+            req.session.images = { imageDetails };
+            res.locals.images = { imageDetails };
             return next();
         }
         catch (error) {

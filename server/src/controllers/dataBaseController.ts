@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { ECRClient } from "@aws-sdk/client-ecr";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import {
   CreateTableCommand,
@@ -23,8 +22,8 @@ const dataBaseController = {
       return res.status(400).json({ error: "No image details found to store" });
     }
 
-    // const tableName = process.env.DYNAMODB_TABLE_NAME; // Use a string for the table name
-    const tableName = `${new Date().getTime()}`;
+    const tableName = process.env.DYNAMODB_TABLE_NAME; // Use a string for the table name
+    // const tableName = `${new Date().getTime()}`;
 
     const input: CreateTableCommandInput = {
       AttributeDefinitions: [
