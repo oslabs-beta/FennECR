@@ -8,29 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_ecr_1 = require("@aws-sdk/client-ecr");
-// Function to configure AWS credentials dynamically
-const getECRClient = (accountId) => {
-    const region = process.env[`AWS_REGION_${accountId}`];
-    const accessKeyId = process.env[`AWS_ACCESS_KEY_ID_${accountId}`];
-    const secretAccessKey = process.env[`AWS_SECRET_ACCESS_KEY_${accountId}`];
-    if (!region || !accessKeyId || !secretAccessKey) {
-        throw new Error(`Missing AWS credentials for account ID ${accountId}`);
-    }
-    return new client_ecr_1.ECRClient({
-        region: region,
-        credentials: {
-            accessKeyId: accessKeyId,
-            secretAccessKey: secretAccessKey,
-        },
-    });
-};
+const awsClients_1 = __importDefault(require("../utils/awsClients"));
 const imagesController = {
     getImages: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const { repoName, accountId } = req.params;
         try {
-            const ecrClient = getECRClient(accountId);
+            const ecrClient = awsClients_1.default.getECRClient(accountId);
+            // Define the input variable using DescribeImagesCommandInput
             const input = {
                 repositoryName: repoName,
             };
@@ -46,7 +35,7 @@ const imagesController = {
         }
         catch (error) {
             console.log(error);
-            res.status(500).json({ error: "Error when retrieving images from ECR." });
+            res.status(500).json({ error: 'Error when retrieving images from ECR.' });
         }
     }),
 };
