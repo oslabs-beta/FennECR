@@ -12,13 +12,17 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.17",
     "@mui/material": "^5.15.17",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-charts": "^7.4.0",
     "aws-sdk": "^2.1619.0",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "eslint-config-airbnb": "^19.0.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
@@ -30,6 +34,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "vite": "^5.2.11"
   }
 }

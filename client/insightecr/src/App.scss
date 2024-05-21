@@ -1,0 +1,124 @@
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+// #root {
+//   max-width: 1280px;
+//   margin: 0 auto;
+//   padding: 2rem;
+//   text-align: center;
+//   overflow: hidden;
+// }
+
+// ::-webkit-scrollbar {
+//   background: #e8def8;
+// }
+
+// #detailsCard1 {
+//   margin-left: 20%;
+// }
+
+// // #detailsCard1,
+// // #detailsCard2 {
+// //   Header {
+// //     background-color: #e8def8;
+// //     margin: 0;
+// //   }
+// // }
+
+// #detailsCard1,
+// #detailsCard2 {
+//   display: flex;
+//   width: 356px;
+//   height: 414px;
+//   min-width: 280px;
+//   max-width: 560px;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   border-radius: 28px;
+//   background-color: #e8def8;
+
+//   Header {
+//     margin-left: 27%;
+//   }
+
+//   #detailsCardList1,
+//   #detailsCardList2 {
+//     background-color: #e8def8;
+//     width: 100%;
+//     max-width: 360;
+//     position: relative;
+//     max-height: 300;
+//     overflow: auto;
+//     // overflow-wrap: normal;
+//     border-radius: 28px;
+
+//     ul {
+//       padding: 0;
+//       border-radius: 28px;
+//     }
+
+//     #detailsTextSummary important {
+//       color: red;
+//     }
+//   }
+
+//   #detailsCardListSubHeader1,
+//   #detailsCardListSubHeader2 {
+//     background-color: #e8def8;
+//   }
+// }
+
+// #VulnerabilityPaper {
+//   background-color: #e8e8fd;
+//   display: flex;
+//   width: 1010px;
+//   height: 559px;
+//   justify-content: center;
+//   gap: 10px;
+//   padding: 10px;
+//   align-items: center;
+//   flex-shrink: 0;
+//   border-radius: 12px;
+// }
+
+// ::-webkit-scrollbar {
+//   display: none;
+// }
+
+// #headerP {
+//   text-align: center;
+// }
+
+// #vulnerabilityDetailsGrid {
+//   background-color: #e8def8;
+// }
+
+// #detailCard {
+//   border-radius: 28px;
+// }
+
+#detailsButton {
+  color: #6750a4;
+  align-items: right;
+}
+
+// #scanOnPush {
+// }
+
+#detailsContainer {
+  display: flex;
+  justify-content: center;
+  // background-color: #e8def8;
+}
+
+.css-46bh2p-MuiCardContent-root {
+  background-color: #e8def8;
+  border-radius: 28px;
+}
+
+.css-jwc7ht-MuiPaper-root-MuiCard-root {
+  border-radius: 28px;
+}
+
+#detailCard1 {
+  border-radius: 28px;
+}

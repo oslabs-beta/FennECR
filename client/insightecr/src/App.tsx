@@ -1,12 +1,5 @@
-import "./App.css";
+import Dashboard from './Components/Dashboard';
 
-function App() {
-
-  return (
-    <>
-      <h1>InsightECR</h1>
-    </>
-  );
+export default function App() {
+  return <Dashboard />;
 }
-
-export default App;
