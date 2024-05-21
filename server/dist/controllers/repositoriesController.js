@@ -17,6 +17,7 @@ const awsClients_1 = __importDefault(require("../utils/awsClients"));
 const repositoriesController = {
     getAllRepositories: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const { accountId } = req.params;
+        console.log(`getAllRepositories middleware hit`);
         try {
             const ecrClient = awsClients_1.default.getECRClient(accountId);
             const input = {};

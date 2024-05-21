@@ -31,6 +31,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "concurrently": "^8.2.2",
     "sass": "^1.77.1"
   }
