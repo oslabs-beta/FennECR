@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import {
-  ECRClient,
   DescribeImagesCommand,
   DescribeImagesCommandInput,
 } from "@aws-sdk/client-ecr";
