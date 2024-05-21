@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import repositoriesRouter from './routes/repositories';
 import imagesRouter from './routes/images';
 import scanResultsRouter from './routes/scanResults';
+import session from 'express-session';
+
 
 dotenv.config();
 
@@ -12,6 +14,15 @@ const app: Express = express();
 app.use(express.json());
 
 app.use(cors());
+
+// Configure session middleware with secret from environment variables
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'fallbackSecret',
+    resave: false,
+    saveUninitialized: true,
+    // cookie: { secure: false } // Set secure to true if using HTTPS
+  }));
+  
 
 // Routers
 app.get('/', (req: Request, res: Response) => {
@@ -23,6 +34,7 @@ app.use('/repository', repositoriesRouter);
 
 // Images routes
 app.use('/images', imagesRouter);
+
 
 // Scan result routes
 app.use('/results', scanResultsRouter);
