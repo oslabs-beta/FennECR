@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Button,
   Card,
@@ -16,7 +16,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import CardContent from '@mui/material/CardContent';
 import Switch from '@mui/material/Switch';
+import { toggleScanOnPush } from '../utils/api';
 import { Repository } from '../utils/types';
+import { AccountContext } from '../contexts/AccountContext.tsx';
 
 function createData(
   critical: number,
@@ -32,12 +34,28 @@ const rows = [createData(0, 0, 9, 15, 4)];
 
 interface DetailsCardProps {
   data: Repository;
+  onScanOnPushToggle: (repoName: string, scanOnPush: boolean) => void;
 }
 
-const DetailsCard: React.FC<DetailsCardProps> = ({ data }) => {
+const DetailsCard: React.FC<DetailsCardProps> = ({ data, onScanOnPushToggle }) => {
+  const accountId = useContext(AccountContext);
+  const [scanOnPush, setScanOnPush] = useState(data.imageScanningConfiguration.scanOnPush);
+
+  const handleToggle = async () => {
+    try {
+      const newScanOnPush = !scanOnPush;
+      await toggleScanOnPush(accountId, data.repositoryName, newScanOnPush);
+      setScanOnPush(newScanOnPush);
+      onScanOnPushToggle(data.repositoryName, newScanOnPush);
+    } catch (error) {
+      console.error('Error toggling scan on push:', error);
+    }
+  };
+
   if (!data) {
     return null; // Render nothing if data is undefined
   }
+
   return (
     <Card
       id='detailCard1"'
@@ -109,6 +127,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data }) => {
                 <Switch
                   id='scanOnPushSwitch'
                   checked={data.imageScanningConfiguration.scanOnPush}
+                  onChange={handleToggle}
                   sx={{}}
                 />
               </ListItem>

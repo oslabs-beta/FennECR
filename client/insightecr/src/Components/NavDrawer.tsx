@@ -3,7 +3,7 @@ import { styled ,Divider, Toolbar,IconButton,List } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems } from './listItems.tsx';
+import ListItems from './ListItems.tsx';
 
 const drawerWidth: number = 240;
 
@@ -55,7 +55,7 @@ const NavDrawer:React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">{mainListItems}</List>
+          <List component="nav">{ListItems}</List>
         </DrawerStyle>
   );
 };

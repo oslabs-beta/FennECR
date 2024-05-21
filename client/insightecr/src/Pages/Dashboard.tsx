@@ -27,6 +27,22 @@ export default function Dashboard() {
     fetchRepoData();
   }, [accountId]);
 
+  const handleScanOnPushToggle = (repoName: string, scanOnPush:boolean) => {
+    setRepositories((prevRepos) =>
+      prevRepos.map((repo) =>
+        repo.repositoryName === repoName
+          ? {
+              ...repo,
+              imageScanningConfiguration: {
+                ...repo.imageScanningConfiguration,
+                scanOnPush,
+              },
+            }
+          : repo
+      )
+    );
+  };
+
   return (
     <Container id='charts' maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={5}>
@@ -81,7 +97,7 @@ export default function Dashboard() {
             <Grid container spacing={6} id='detailsContainer'>
                 {repositories.map((repo, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
-                    <DetailsCard data={repo} />
+                    <DetailsCard data={repo} onScanOnPushToggle={handleScanOnPushToggle}/>
                   </Grid>
                 ))}
             </Grid>

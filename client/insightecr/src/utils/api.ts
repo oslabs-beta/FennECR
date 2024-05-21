@@ -19,3 +19,14 @@ export const getAllRepositories = async (accountId: string) => {
     console.log('Error fetching all repositories data:', error);
   }
 };
+
+export const toggleScanOnPush = async (accountId: string, repoName: string, scanOnPush: boolean) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/repository/${accountId}/${repoName}/scan-on-push`, {
+      scanOnPush,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error toggling scan on push:', error);
+  }
+};
