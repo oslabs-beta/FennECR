@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import {
   CreateTableCommand,
   CreateTableCommandInput,
@@ -21,9 +21,8 @@ const dataBaseController = {
     if (!req.session.images || !req.session.images.imageDetails) {
       return res.status(400).json({ error: "No image details found to store" });
     }
-
-    const tableName = process.env.DYNAMODB_TABLE_NAME; // Use a string for the table name
-    // const tableName = `${new Date().getTime()}`;
+    // Read the table name from the env config file.
+    const tableName = process.env.DYNAMODB_TABLE_NAME;
 
     const input: CreateTableCommandInput = {
       AttributeDefinitions: [
@@ -40,8 +39,8 @@ const dataBaseController = {
         },
       ],
       ProvisionedThroughput: {
-        ReadCapacityUnits: 3,
-        WriteCapacityUnits: 3,
+        ReadCapacityUnits: 10,
+        WriteCapacityUnits: 10,
       },
     };
     // Create table logic
@@ -53,8 +52,8 @@ const dataBaseController = {
       await ddbDocClient.send(describeTableCommand);
       console.log("Table already exists. Skipping creation.");
     } catch (error) {
-      if (error === "ResourceNotFoundException") {
-        // Table does not exist, create it
+      if ((error as { name: string }).name === "ResourceNotFoundException") {
+        // If the table does not exist, create it
         console.log("Table does not exist. Creating table...");
         const createTableCommand = new CreateTableCommand(input);
         const createTableResponse = await ddbDocClient.send(createTableCommand);
@@ -79,10 +78,29 @@ const dataBaseController = {
         await ddbDocClient.send(new PutCommand(putParams));
       }
 
-      res.status(200).json({ message: "Images stored successfully" });
+      res
+        .status(200)
+        .json({ message: "Images successfully saved to dynamoDB." });
     } catch (error) {
       console.error("Error storing images:", error);
       res.status(500).json({ error: "Could not store images" });
+    }
+  },
+  // Read data from dynamoDB
+  readDataFromTable: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const tableName = process.env.DYNAMODB_TABLE_NAME;
+      const params = {
+        TableName: tableName,
+      };
+      const command = new ScanCommand(params);
+      const data = await ddbDocClient.send(command);
+      console.log("Data from scan table: ", data);
+      res.locals.dynamoDBdata = data.Items;
+      next();
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Error occurs when scan table." });
     }
   },
 };

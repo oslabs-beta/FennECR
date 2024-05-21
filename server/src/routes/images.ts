@@ -1,9 +1,10 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import imagesController from "../controllers/imagesController";
 import dataBaseController from "../controllers/dataBaseController";
 
 const imagesRouter = Router();
 
+//  Read the images details from specified Repo under current account. 
 imagesRouter.get(
   "/:accountId/:repoName",
   imagesController.getImages,
@@ -12,12 +13,22 @@ imagesRouter.get(
   }
 );
 
+// Store the images data to the DynamoDB
 imagesRouter.post(
   "/store/:accountId/:repoName",
   dataBaseController.storeImageDetails,
   (req: Request, res: Response) => {
-    res.status(200).send("Store images detail success");
+    res.status(200).send("Save images detail to the DB is success");
   }
 );
+
+// Read the images data from DynamoDB
+imagesRouter.get(
+    '/read/:accountId/:repoName',
+    dataBaseController.readDataFromTable,
+    (req:Request,res:Response,next:NextFunction) => {
+        res.status(200).json(res.locals.dynamoDBdata);
+    }
+)
 
 export default imagesRouter;
