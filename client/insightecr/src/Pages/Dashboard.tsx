@@ -1,33 +1,37 @@
-import React, { useEffect, useState, useContext } from 'react';
+// import React, { useEffect, useState, useContext } from 'react';
+import { Key, useContext } from 'react';
 import { Container, Grid, Paper } from '@mui/material';
 import BasicPie from '../Components/PieChart';
 import Header from '../Components/Header';
 import BasicStacking from '../Components/BarChart';
 import DetailsCard from '../Components/DetailsCard';
-import { getAllRepositories } from '../utils/api';
-import { AccountContext } from '../contexts/AccountContext.tsx';
+// import { getAllRepositories } from '../utils/api';
+// import { AccountContext } from '../contexts/AccountContext.tsx';
 import { Repository } from '../utils/types';
+import { RepoContext } from '../contexts/RepoContext.tsx';
 
 // Control whether Nav drawer loads open or closed
 export default function Dashboard() {
-  const [repositories, setRepositories] = useState<Repository[]>([]);
-  const accountId = useContext(AccountContext);
+  // const [repositories, setRepositories] = useState<Repository[]>([]);
+  // const accountId = useContext(AccountContext);
+  const repoContext = useContext(RepoContext);
+  const { repositories, setRepositories } = repoContext;
   // console.log(`I am accountId: ${accountId}`)
 
-  useEffect(() => {
-    const fetchRepoData = async () => {
-      try {
-        const data = await getAllRepositories(accountId);
-        setRepositories(data.repositories);
-      } catch (error) {
-        console.error('Error fetching repositories data:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchRepoData = async () => {
+  //     try {
+  //       const data = await getAllRepositories(accountId);
+  //       setRepositories(data.repositories);
+  //     } catch (error) {
+  //       console.error('Error fetching repositories data:', error);
+  //     }
+  //   };
 
-    fetchRepoData();
-  }, [accountId]);
+  //   fetchRepoData();
+  // }, [accountId]);
 
-  const handleScanOnPushToggle = (repoName: string, scanOnPush:boolean) => {
+  const handleScanOnPushToggle = (repoName: string, scanOnPush: boolean) => {
     setRepositories((prevRepos) =>
       prevRepos.map((repo) =>
         repo.repositoryName === repoName
@@ -95,11 +99,16 @@ export default function Dashboard() {
           >
             <Header title={'Repository Vulnerability Details'} />
             <Grid container spacing={6} id='detailsContainer'>
-                {repositories.map((repo, index) => (
+              {repositories.map(
+                (repo: Repository, index: Key | null | undefined) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
-                    <DetailsCard data={repo} onScanOnPushToggle={handleScanOnPushToggle}/>
+                    <DetailsCard
+                      data={repo}
+                      onScanOnPushToggle={handleScanOnPushToggle}
+                    />
                   </Grid>
-                ))}
+                )
+              )}
             </Grid>
           </Paper>
         </Grid>

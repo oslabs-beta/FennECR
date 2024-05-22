@@ -8,3 +8,8 @@ export interface Repository {
   repositoryName: string;
   repositoryUri: string;
 }
+
+export interface RepoContextType {
+  repositories: Repository[];
+  setRepositories: React.Dispatch<React.SetStateAction<Repository[]>>;
+}
