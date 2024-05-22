@@ -3,7 +3,7 @@ import React from 'react';
 
 
 const data = [
-  { id: 0, value: 34, color: '#B6C5FC' , label: 'Total Number of Vulnerability Found'},
+  { id: 0, value: 34, color: '#B6C5FC' , label: 'Images with Critical and High Vulnerabilities'},
   { id: 1, value: 66, color: '#7965AF' ,  label: 'Total Number of Scanned Image' },
 ];
 
@@ -15,7 +15,7 @@ const getArcLabel = (params: DefaultizedPieValueType) => {
 }
 
 
-export default function BasicPie() {
+const BasicPie:React.FC = () => {
     return (
       <React.Fragment>
       <div style={{ width: '100%', flexGrow: 1, overflow: 'hidden' }}>
@@ -47,3 +47,5 @@ export default function BasicPie() {
     </React.Fragment>
     );
   }
+
+  export default BasicPie

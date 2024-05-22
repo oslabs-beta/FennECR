@@ -19,7 +19,7 @@ scanResultsRouter.get(
   scanResultsController.getAggregatedScanResults,
   dataHandlingController.aggregateScanResults,
   (req: Request, res: Response) => {
-    res.status(200).json(res.locals.severityCounts);
+    res.status(200).json(res.locals.results);
   }
 );
 

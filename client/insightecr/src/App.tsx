@@ -37,6 +37,7 @@ export default function App() {
               flexGrow: 1,
               height: '100vh',
               overflow: 'auto',
+              padding: (theme) => theme.spacing(3),
             }}
           >
             <Toolbar />

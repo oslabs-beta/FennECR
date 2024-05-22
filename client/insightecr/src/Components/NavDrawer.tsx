@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { styled ,Divider, Toolbar,IconButton,List } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
-
+import { RepoContext } from '../contexts/RepoContext.tsx';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItems from './ListItems.tsx';
 
@@ -40,6 +40,7 @@ const DrawerStyle = styled(MuiDrawer, {
 }));
 
 const NavDrawer:React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
+  const { repositories } = useContext(RepoContext)
   return (
     <DrawerStyle variant="permanent" open={open}>
           <Toolbar
@@ -55,7 +56,9 @@ const NavDrawer:React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">{ListItems}</List>
+          <List component="nav">
+            <ListItems repo={repositories}/>
+          </List>
         </DrawerStyle>
   );
 };

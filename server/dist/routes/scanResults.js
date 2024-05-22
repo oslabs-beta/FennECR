@@ -13,6 +13,6 @@ scanResultsRouter.get('/:accountId/:repoName/:imageTag', scanResultsController_1
 });
 // Get aggregated scan results from given repo
 scanResultsRouter.get('/:accountId/:repoName', scanResultsController_1.default.getAggregatedScanResults, dataHandlingController_1.default.aggregateScanResults, (req, res) => {
-    res.status(200).json(res.locals.severityCounts);
+    res.status(200).json(res.locals.results);
 });
 exports.default = scanResultsRouter;
