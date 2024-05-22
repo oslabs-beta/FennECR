@@ -4,7 +4,7 @@ import BasicPie from '../Components/PieChart';
 import Header from '../Components/Header';
 import BasicStacking from '../Components/BarChart';
 import DetailsCard from '../Components/DetailsCard';
-import { Repository, Image } from '../utils/types';
+import { Repository } from '../utils/types';
 import { RepoContext } from '../contexts/RepoContext.tsx';
 
 // Control whether Nav drawer loads open or closed

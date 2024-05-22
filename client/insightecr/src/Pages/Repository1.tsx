@@ -19,3 +19,7 @@ import CardContent from '@mui/material/CardContent';
 // import Switch from '@mui/material/Switch';
 import axios from 'axios';
 import { Image } from '../utils/types';
+
+interface ImageDetailProps {
+  data: Image;
+}
