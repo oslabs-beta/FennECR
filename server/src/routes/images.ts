@@ -24,10 +24,18 @@ imagesRouter.post(
 
 // Read the images data from DynamoDB
 imagesRouter.get(
-    '/read/:accountId/:repoName',
-    dataBaseController.readDataFromTable,
+    '/readimg/:accountId/:repoName',
+    dataBaseController.readImageDataFromTable,
     (req:Request,res:Response,next:NextFunction) => {
-        res.status(200).json(res.locals.dynamoDBdata);
+        res.status(200).json(res.locals.imgDataFromDB);
+    }
+)
+
+imagesRouter.get(
+    '/readscanresult/:accountId/:reponame',
+    dataBaseController.readScanResultDataFromTable,
+    (req:Request,res:Response,next:NextFunction) => {
+        res.status(200).json(res.locals.resultDataFromDB)
     }
 )
 

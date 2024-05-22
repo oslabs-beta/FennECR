@@ -22,7 +22,7 @@ const dataBaseController = {
       return res.status(400).json({ error: "No image details found to store" });
     }
     // Read the table name from the env config file.
-    const tableName = process.env.DYNAMODB_TABLE_NAME;
+    const tableName = process.env.IMAGES_TABLE_NAME;
 
     const input: CreateTableCommandInput = {
       AttributeDefinitions: [
@@ -86,17 +86,17 @@ const dataBaseController = {
       res.status(500).json({ error: "Could not store images" });
     }
   },
-  // Read data from dynamoDB
-  readDataFromTable: async (req: Request, res: Response, next: NextFunction) => {
+  // Read images detail data from dynamoDB
+  readImageDataFromTable: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const tableName = process.env.DYNAMODB_TABLE_NAME;
+      const tableName = process.env.IMAGES_TABLE_NAME;
       const params = {
         TableName: tableName,
       };
       const command = new ScanCommand(params);
       const data = await ddbDocClient.send(command);
       console.log("Data from scan table: ", data);
-      res.locals.dynamoDBdata = data.Items;
+      res.locals.imgDataFromDB = data.Items;
       next();
     } catch (error) {
       console.log(error);
@@ -107,7 +107,7 @@ const dataBaseController = {
     // Read from scanResult controller
     const scanResults = res.locals.singleScanResult;
 
-    const tableName = process.env.DYNAMODB_SCAN_RESULT_TABLE;
+    const tableName = process.env.SCAN_RESULT_TABLE;
     const input: CreateTableCommandInput = {
         AttributeDefinitions: [
           {
@@ -171,6 +171,23 @@ const dataBaseController = {
         res.status(500).json({ error: 'Could not store scan result' });
       }
     },
+      // Read Scan Result data from 
+  readScanResultDataFromTable: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const tableName = process.env.SCAN_RESULT_TABLE;
+      const params = {
+        TableName: tableName,
+      };
+      const command = new ScanCommand(params);
+      const data = await ddbDocClient.send(command);
+      console.log("Data from scan table: ", data);
+      res.locals.resultDataFromDB = data.Items;
+      next();
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Error occurs when scan table." });
+    }
+  },
   }
 
 export default dataBaseController;
