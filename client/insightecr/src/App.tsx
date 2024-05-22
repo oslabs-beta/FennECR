@@ -10,6 +10,7 @@ import {
 import AppBar from './Components/AppBar';
 import NavDrawer from './Components/NavDrawer';
 import Dashboard from './Pages/Dashboard';
+import Repo1 from './Pages/Dummypage';
 
 const defaultTheme = createTheme({
   palette: {
@@ -37,12 +38,12 @@ export default function App() {
               flexGrow: 1,
               height: '100vh',
               overflow: 'auto',
-              padding: (theme) => theme.spacing(3),
             }}
           >
             <Toolbar />
             <Routes>
-              <Route path='/' element={<Dashboard />} />
+              <Route path='/' element={<Repo1/>} />
+              
               {/* other routes here */}
             </Routes>
           </Box>
