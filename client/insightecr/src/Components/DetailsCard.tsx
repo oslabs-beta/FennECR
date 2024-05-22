@@ -37,9 +37,14 @@ interface DetailsCardProps {
   onScanOnPushToggle: (repoName: string, scanOnPush: boolean) => void;
 }
 
-const DetailsCard: React.FC<DetailsCardProps> = ({ data, onScanOnPushToggle }) => {
+const DetailsCard: React.FC<DetailsCardProps> = ({
+  data,
+  onScanOnPushToggle,
+}) => {
   const accountId = useContext(AccountContext);
-  const [scanOnPush, setScanOnPush] = useState(data.imageScanningConfiguration.scanOnPush);
+  const [scanOnPush, setScanOnPush] = useState(
+    data.imageScanningConfiguration.scanOnPush
+  );
 
   const handleToggle = async () => {
     try {
@@ -55,7 +60,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data, onScanOnPushToggle }) =
   if (!data) {
     return null; // Render nothing if data is undefined
   }
-
+  console.log(data);
   return (
     <Card
       id='detailCard1"'
@@ -69,28 +74,28 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data, onScanOnPushToggle }) =
       }}
     >
       <CardContent>
-        <p id='headerP' style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+        <p id="headerP" style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
           {data.repositoryName}
         </p>
-        <TableContainer id='myTable'>
-          <Table sx={{ minWidth: 300, tableLayout:'fixed'}}>
+        <TableContainer id="myTable">
+          <Table sx={{ minWidth: 300, tableLayout: 'fixed' }}>
             <TableHead>
               <TableRow>
-                <TableCell align='center'>Critical</TableCell>
-                <TableCell align='center'>High</TableCell>
-                <TableCell align='center'>Medium</TableCell>
-                <TableCell align='center'>Low</TableCell>
-                <TableCell align='center'>Info</TableCell>
+                <TableCell align="center">Critical</TableCell>
+                <TableCell align="center">High</TableCell>
+                <TableCell align="center">Medium</TableCell>
+                <TableCell align="center">Low</TableCell>
+                <TableCell align="center">Info</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((level) => (
                 <TableRow key={level.critical}>
-                  <TableCell align='center'>{level.critical}</TableCell>
-                  <TableCell align='center'>{level.high}</TableCell>
-                  <TableCell align='center'>{level.medium}</TableCell>
-                  <TableCell align='center'>{level.low}</TableCell>
-                  <TableCell align='center'>{level.info}</TableCell>
+                  <TableCell align="center">{level.critical}</TableCell>
+                  <TableCell align="center">{level.high}</TableCell>
+                  <TableCell align="center">{level.medium}</TableCell>
+                  <TableCell align="center">{level.low}</TableCell>
+                  <TableCell align="center">{level.info}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -101,13 +106,13 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data, onScanOnPushToggle }) =
             <List>
               <ListItem>
                 <ListItemText
-                  primary='Created At'
+                  primary="Created At"
                   secondary={new Date(data.createdAt).toLocaleString()}
                 />
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary='Tag immutability'
+                  primary="Tag immutability"
                   secondary={
                     data.imageTagMutability === 'IMMUTABLE'
                       ? 'Enabled'
@@ -117,7 +122,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data, onScanOnPushToggle }) =
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary='Scan frequency'
+                  primary="Scan frequency"
                   secondary={
                     data.imageScanningConfiguration.scanOnPush
                       ? 'Scan on Push'
@@ -125,7 +130,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data, onScanOnPushToggle }) =
                   }
                 />
                 <Switch
-                  id='scanOnPushSwitch'
+                  id="scanOnPushSwitch"
                   checked={data.imageScanningConfiguration.scanOnPush}
                   onChange={handleToggle}
                   sx={{}}
@@ -133,7 +138,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data, onScanOnPushToggle }) =
               </ListItem>
             </List>
 
-            <Button id='detailsButton' size='small' sx={{ marginTop: 2 }}>
+            <Button id="detailsButton" size="small" sx={{ marginTop: 2 }}>
               Details
             </Button>
           </Grid>

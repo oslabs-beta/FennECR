@@ -4,7 +4,7 @@ import BasicPie from '../Components/PieChart';
 import Header from '../Components/Header';
 import BasicStacking from '../Components/BarChart';
 import DetailsCard from '../Components/DetailsCard';
-import { Repository } from '../utils/types';
+import { Repository, Image } from '../utils/types';
 import { RepoContext } from '../contexts/RepoContext.tsx';
 
 // Control whether Nav drawer loads open or closed
@@ -29,7 +29,7 @@ export default function Dashboard() {
   };
 
   return (
-    <Container id='charts' maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+    <Container id="charts" maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={5}>
         {/* Vulnerability Summary */}
         <Grid item xs={12} md={5} lg={5}>
@@ -79,7 +79,7 @@ export default function Dashboard() {
             }}
           >
             <Header title={'Repository Vulnerability Details'} />
-            <Grid container spacing={6} id='detailsContainer'>
+            <Grid container spacing={6} id="detailsContainer">
               {repositories.map(
                 (repo: Repository, index: Key | null | undefined) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
