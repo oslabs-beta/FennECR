@@ -21,15 +21,21 @@ const dataHandlingController = {
       low: 0,
       informational: 0,
     };
+    // Initialize image counter
+    let imageScanned:number = 0
+    let vulnerbleImageCount: number = 0
     try {
       // Aggregate scan result severity from each image
       const scanResults = res.locals.scanResults;
 
       for (const scanResult of scanResults) {
+        if(scanResult.imageScanStatus.status === 'COMPLETE') imageScanned++
         //console.log(`I am scanResult in data handler: ${JSON.stringify(scanResult)}`)
         const findingSeverityCounts =
           scanResult.imageScanFindings.findingSeverityCounts || {};
 
+        if (findingSeverityCounts.CRITICAL || findingSeverityCounts.HIGH) vulnerbleImageCount++
+        
         severityCounts.critical += findingSeverityCounts.CRITICAL || 0;
         severityCounts.high += findingSeverityCounts.HIGH || 0;
         severityCounts.medium += findingSeverityCounts.MEDIUM || 0;
@@ -37,8 +43,12 @@ const dataHandlingController = {
         severityCounts.informational +=
           findingSeverityCounts.INFORMATIONAL || 0;
       }
-
-      res.locals.severityCounts = severityCounts;
+      const results = {
+        imageScanned: imageScanned,
+        vulnerbleImageCount: vulnerbleImageCount,
+        severityCounts: severityCounts
+      }
+      res.locals.results = results;
       return next();
     } catch (error) {
       return next({

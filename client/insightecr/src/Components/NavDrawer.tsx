@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { styled, Divider, Toolbar, IconButton, List } from '@mui/material';
+import React, { useContext } from 'react';
+import { styled ,Divider, Toolbar,IconButton,List } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
-
+import { RepoContext } from '../contexts/RepoContext.tsx';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItems from './listItems.tsx';
 
@@ -39,24 +39,27 @@ const DrawerStyle = styled(MuiDrawer, {
   },
 }));
 
-const NavDrawer: React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
+const NavDrawer:React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
+  const { repositories } = useContext(RepoContext)
   return (
     <DrawerStyle variant="permanent" open={open}>
-      <Toolbar
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          px: [1],
-        }}
-      >
-        <IconButton onClick={toggleDrawer}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </Toolbar>
-      <Divider />
-      <List component="nav">{ListItems}</List>
-    </DrawerStyle>
+          <Toolbar
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              px: [1],
+            }}
+          >
+            <IconButton onClick={toggleDrawer}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </Toolbar>
+          <Divider />
+          <List component="nav">
+            <ListItems repo={repositories}/>
+          </List>
+        </DrawerStyle>
   );
 };
 

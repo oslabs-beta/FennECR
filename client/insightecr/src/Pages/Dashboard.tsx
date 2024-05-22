@@ -8,7 +8,7 @@ import { Repository } from '../utils/types';
 import { RepoContext } from '../contexts/RepoContext.tsx';
 
 // Control whether Nav drawer loads open or closed
-export default function Dashboard() {
+const Dashboard:React.FC = () => {
   const repoContext = useContext(RepoContext);
   const { repositories, setRepositories } = repoContext;
 
@@ -97,3 +97,5 @@ export default function Dashboard() {
     </Container>
   );
 }
+
+export default Dashboard
