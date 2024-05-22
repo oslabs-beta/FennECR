@@ -16,6 +16,7 @@ export interface RepoContextType {
 
 
 export interface Image {
+  
   imageDetails: {
     imageTags: string[];
     imageSizeInBytes: number;
