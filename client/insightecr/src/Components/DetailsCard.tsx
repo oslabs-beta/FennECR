@@ -17,30 +17,16 @@ import TableRow from '@mui/material/TableRow';
 import CardContent from '@mui/material/CardContent';
 import Switch from '@mui/material/Switch';
 import { toggleScanOnPush } from '../utils/api';
-import { Repository } from '../utils/types';
+import { Repository, SeverityCounts } from '../utils/types';
 import { AccountContext } from '../contexts/AccountContext.tsx';
-
-function createData(
-  critical: number,
-  high: number,
-  medium: number,
-  low: number,
-  info: number
-) {
-  return { critical, high, medium, low, info };
-}
-
-const rows = [createData(0, 0, 9, 15, 4)];
 
 interface DetailsCardProps {
   data: Repository;
+  severityCounts:SeverityCounts;
   onScanOnPushToggle: (repoName: string, scanOnPush: boolean) => void;
 }
 
-const DetailsCard: React.FC<DetailsCardProps> = ({
-  data,
-  onScanOnPushToggle,
-}) => {
+const DetailsCard: React.FC<DetailsCardProps> = ({ data, severityCounts, onScanOnPushToggle }) => {
   const accountId = useContext(AccountContext);
   const [scanOnPush, setScanOnPush] = useState(
     data.imageScanningConfiguration.scanOnPush
@@ -60,7 +46,17 @@ const DetailsCard: React.FC<DetailsCardProps> = ({
   if (!data) {
     return null; // Render nothing if data is undefined
   }
-  console.log(data);
+
+  const rows = [
+    {
+      critical: severityCounts.critical,
+      high: severityCounts.high,
+      medium: severityCounts.medium,
+      low: severityCounts.low,
+      info: severityCounts.informational,
+    },
+  ];
+
   return (
     <Card
       id='detailCard1"'

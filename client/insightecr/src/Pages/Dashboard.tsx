@@ -1,4 +1,4 @@
-import { Key, useContext } from 'react';
+import { Key, useContext, useState, useEffect } from 'react';
 import { Container, Grid, Paper } from '@mui/material';
 import BasicPie from '../Components/PieChart';
 import Header from '../Components/Header';
@@ -6,11 +6,64 @@ import BasicStacking from '../Components/BarChart';
 import DetailsCard from '../Components/DetailsCard';
 import { Repository } from '../utils/types';
 import { RepoContext } from '../contexts/RepoContext.tsx';
+import { AccountContext } from '../contexts/AccountContext.tsx';
+import { getAggregatedScanResults } from '../utils/api';
+import { SeverityCountsMap } from '../utils/types';
 
 // Control whether Nav drawer loads open or closed
-const Dashboard:React.FC = () => {
+const Dashboard: React.FC = () => {
+  const accountId = useContext(AccountContext);
   const repoContext = useContext(RepoContext);
   const { repositories, setRepositories } = repoContext;
+  const [aggregatedPieData, setAggregatedPieData] = useState({
+    imageScanned: 0 as number,
+    vulnerableImageCount: 0 as number,
+  });
+  const [severityCounts, setSeverityCounts] = useState<SeverityCountsMap>({});
+
+  useEffect(() => {
+    const fetchResultData = async () => {
+      try {
+        let totalImageScanned = 0;
+        let totalVulnerableImageCount = 0;
+        const newSeverityCounts: SeverityCountsMap = {};
+
+        await Promise.all(
+          repositories.map(async (repo) => {
+            const data = await getAggregatedScanResults(
+              accountId,
+              repo.repositoryName
+            );
+            if (data) {
+              totalImageScanned += data.imageScanned;
+              totalVulnerableImageCount += data.vulnerbleImageCount;
+              newSeverityCounts[repo.repositoryName] = data.severityCounts;
+            } else {
+              // If no data is found, set default severity counts
+              newSeverityCounts[repo.repositoryName] = {
+                critical: 0,
+                high: 0,
+                medium: 0,
+                low: 0,
+                informational: 0,
+              };
+            }
+          })
+        );
+
+        setAggregatedPieData({
+          imageScanned: totalImageScanned,
+          vulnerableImageCount: totalVulnerableImageCount,
+        });
+
+        setSeverityCounts(newSeverityCounts);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      }
+    };
+
+    fetchResultData();
+  }, [accountId, repositories]);
 
   const handleScanOnPushToggle = (repoName: string, scanOnPush: boolean) => {
     setRepositories((prevRepos) =>
@@ -45,7 +98,7 @@ const Dashboard:React.FC = () => {
             }}
           >
             <Header title={'Vulnerability Summary'} />
-            <BasicPie />
+            <BasicPie inputData={aggregatedPieData} />
           </Paper>
         </Grid>
         {/* Severity Breakdown */}
@@ -62,7 +115,7 @@ const Dashboard:React.FC = () => {
             }}
           >
             <Header title={'Severity Breakdown'} />
-            <BasicStacking />
+            <BasicStacking inputData = {severityCounts}/>
           </Paper>
         </Grid>
         {/* Vulnerability Details */}
@@ -85,6 +138,15 @@ const Dashboard:React.FC = () => {
                   <Grid item xs={12} sm={6} md={4} key={index}>
                     <DetailsCard
                       data={repo}
+                      severityCounts={
+                        severityCounts[repo.repositoryName] || {
+                          critical: 0,
+                          high: 0,
+                          medium: 0,
+                          low: 0,
+                          informational: 0,
+                        }
+                      }
                       onScanOnPushToggle={handleScanOnPushToggle}
                     />
                   </Grid>
@@ -96,6 +158,6 @@ const Dashboard:React.FC = () => {
       </Grid>
     </Container>
   );
-}
+};
 
-export default Dashboard
+export default Dashboard;

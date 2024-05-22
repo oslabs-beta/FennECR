@@ -35,3 +35,14 @@ export interface Image {
     }
   }
 }
+export type SeverityCounts = {
+  critical: number;
+  high: number;
+  medium: number;
+  low: number;
+  informational: number;
+};
+
+export type SeverityCountsMap = {
+  [key: string]: SeverityCounts;
+};

@@ -40,7 +40,7 @@ const ListItems: React.FC<ListItemsProps> = ({ repo }) => {
         {`AWS Account - ${accountId}`}
       </ListSubheader>
       {repo.map((repo) => (
-        <ListItemButton>
+        <ListItemButton key= {repo.repositoryName}>
           <ListItemIcon>
             <PublicIcon />
           </ListItemIcon>

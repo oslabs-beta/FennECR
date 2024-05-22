@@ -77,7 +77,9 @@ const scanResultsController = {
                         console.log(`Scan result not found for image: ${imageId.imageDigest || imageId.imageTag}`);
                     }
                     else {
-                        throw new Error(err);
+                        // update for better error handling
+                        console.error(`Error fetching scan result for image: ${imageId.imageDigest || imageId.imageTag}`, err);
+                        return res.status(500).json({ error: 'Error fetching scan results' });
                     }
                 }
             }
