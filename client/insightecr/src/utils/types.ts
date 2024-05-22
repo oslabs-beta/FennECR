@@ -24,7 +24,7 @@ export interface Image {
     };
     imagePushedAt: string;
     imageScanFindingsSummary: {
-      findingSeverityCounts?:{
+      findingSeverityCounts:{
         CRITICAL: number,
         HIGH: number,
         MEDIUM: number,
