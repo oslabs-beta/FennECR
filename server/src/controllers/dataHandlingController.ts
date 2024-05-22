@@ -23,7 +23,7 @@ const dataHandlingController = {
     };
     // Initialize image counter
     let imageScanned:number = 0
-
+    let vulnerbleImageCount: number = 0
     try {
       // Aggregate scan result severity from each image
       const scanResults = res.locals.scanResults;
@@ -34,6 +34,8 @@ const dataHandlingController = {
         const findingSeverityCounts =
           scanResult.imageScanFindings.findingSeverityCounts || {};
 
+        if (findingSeverityCounts.CRITICAL || findingSeverityCounts.HIGH) vulnerbleImageCount++
+        
         severityCounts.critical += findingSeverityCounts.CRITICAL || 0;
         severityCounts.high += findingSeverityCounts.HIGH || 0;
         severityCounts.medium += findingSeverityCounts.MEDIUM || 0;
@@ -43,6 +45,7 @@ const dataHandlingController = {
       }
       const results = {
         imageScanned: imageScanned,
+        vulnerbleImageCount: vulnerbleImageCount,
         severityCounts: severityCounts
       }
       res.locals.results = results;
