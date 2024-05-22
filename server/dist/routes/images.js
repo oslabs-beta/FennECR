@@ -11,12 +11,12 @@ const imagesRouter = (0, express_1.Router)();
 imagesRouter.get("/:accountId/:repoName", imagesController_1.default.getImages, (req, res) => {
     res.status(200).json(res.locals.images);
 });
-// Store the images details data to the DynamoDB
+// Store the images data to the DynamoDB
 imagesRouter.post("/store/:accountId/:repoName", dataBaseController_1.default.storeImageDetails, (req, res) => {
-    res.status(200).send("Store images detail success");
+    res.status(200).send("Save images detail to the DB is success");
 });
-// Read the images details from DynamoDB
-imagesRouter.get('/read/:accountId/:repoName', dataBaseController_1.default.scanTable, (req, res, next) => {
+// Read the images data from DynamoDB
+imagesRouter.get('/read/:accountId/:repoName', dataBaseController_1.default.readDataFromTable, (req, res, next) => {
     res.status(200).json(res.locals.dynamoDBdata);
 });
 exports.default = imagesRouter;

@@ -50,14 +50,14 @@ const dataBaseController = {
         TableName: tableName,
       });
       await ddbDocClient.send(describeTableCommand);
-      console.log("Table already exists. Skipping creation.");
+      console.log("Images table already exists. Skipping creation.");
     } catch (error) {
       if ((error as { name: string }).name === "ResourceNotFoundException") {
         // If the table does not exist, create it
-        console.log("Table does not exist. Creating table...");
+        console.log("ImagesTable does not exist. Creating table...");
         const createTableCommand = new CreateTableCommand(input);
         const createTableResponse = await ddbDocClient.send(createTableCommand);
-        console.log("Table creation response:", createTableResponse);
+        console.log("ImagesTable creation response:", createTableResponse);
       } else {
         console.error("Error checking table existence:", error);
         return res
@@ -103,5 +103,74 @@ const dataBaseController = {
       res.status(500).json({ error: "Error occurs when scan table." });
     }
   },
-};
+  storeScanResultData:async (req:Request,res:Response,next:NextFunction) =>{
+    // Read from scanResult controller
+    const scanResults = res.locals.singleScanResult;
+
+    const tableName = process.env.DYNAMODB_SCAN_RESULT_TABLE;
+    const input: CreateTableCommandInput = {
+        AttributeDefinitions: [
+          {
+            AttributeName: 'imageDigest',
+            AttributeType: 'S',
+          },
+        ],
+        TableName: tableName,
+        KeySchema: [
+          {
+            AttributeName: 'imageDigest',
+            KeyType: 'HASH',
+          },
+        ],
+        ProvisionedThroughput: {
+          ReadCapacityUnits: 10,
+          WriteCapacityUnits: 10,
+        },
+      };
+      try {
+        const describeTableCommand = new DescribeTableCommand({ TableName: tableName });
+        await ddbDocClient.send(describeTableCommand);
+        console.log('Scan result table already exists. Skipping creation.');
+      } catch (error) {
+        if ((error as { name: string }).name === 'ResourceNotFoundException') {
+          console.log('SingleScanResult table does not exist. Creating table...');
+          const createTableCommand = new CreateTableCommand(input);
+          const createTableResponse = await ddbDocClient.send(createTableCommand);
+          console.log('SingleScanResult creation response:', createTableResponse);
+        } else {
+          console.error('Error checking table existence:', error);
+          return res.status(500).json({ error: 'Could not check table existence' });
+        }
+      }
+  
+      try {
+        const { imageId, imageScanFindings, registryId, repositoryName, imageScanStatus } = scanResults;
+        const item = {
+          imageDigest: imageId.imageDigest,
+          imageTag: imageId.imageTag,
+          findings: imageScanFindings.findings,
+          findingSeverityCounts: imageScanFindings.findingSeverityCounts,
+          imageScanCompletedAt: new Date(imageScanFindings.imageScanCompletedAt).toISOString(),
+          vulnerabilitySourceUpdatedAt: new Date(imageScanFindings.vulnerabilitySourceUpdatedAt).toISOString(),
+          scanStatus: imageScanStatus.status,
+          scanDescription: imageScanStatus.description,
+          registryId,
+          repositoryName,
+        };
+  
+        const putParams = {
+          TableName: tableName,
+          Item: item,
+        };
+        await ddbDocClient.send(new PutCommand(putParams));
+  
+        res.status(200).json({ message: 'Scan result successfully saved to DynamoDB.' });
+        console.log('Scan result successfully saved to DynamoDB.');
+      } catch (error) {
+        console.error('Error storing scan result:', error);
+        res.status(500).json({ error: 'Could not store scan result' });
+      }
+    },
+  }
+
 export default dataBaseController;
