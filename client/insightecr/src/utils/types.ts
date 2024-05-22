@@ -13,3 +13,15 @@ export interface RepoContextType {
   repositories: Repository[];
   setRepositories: React.Dispatch<React.SetStateAction<Repository[]>>;
 }
+
+export type SeverityCounts = {
+  critical: number;
+  high: number;
+  medium: number;
+  low: number;
+  informational: number;
+};
+
+export type SeverityCountsMap = {
+  [key: string]: SeverityCounts;
+};

@@ -7,7 +7,7 @@ export const getRepositoryData = async (accountId: string, repoName: string) => 
     const response = await axios.get(`${API_BASE_URL}/repository/${accountId}/${repoName}`);
     return response.data;
   } catch (error) {
-    console.log('Error fetching repository data:', error);
+    console.error('Error fetching repository data:', error);
   }
 };
 
@@ -16,7 +16,7 @@ export const getAllRepositories = async (accountId: string) => {
     const response = await axios.get(`${API_BASE_URL}/repository/${accountId}`);
     return response.data;
   } catch (error) {
-    console.log('Error fetching all repositories data:', error);
+    console.error('Error fetching all repositories data:', error);
   }
 };
 
@@ -28,5 +28,20 @@ export const toggleScanOnPush = async (accountId: string, repoName: string, scan
     return response.data;
   } catch (error) {
     console.error('Error toggling scan on push:', error);
+  }
+};
+
+export const getAggregatedScanResults = async (accountId: string, repoName: string) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/results/${accountId}/${repoName}`);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      // Handle 404 not found
+      console.warn(`Data not found for repository ${repoName}`);
+      return null;
+    } else {
+      console.error('Error fetching aggregated results from given repository:', error);
+    }
   }
 };
