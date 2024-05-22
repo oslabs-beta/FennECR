@@ -31,6 +31,7 @@ imagesRouter.get(
     }
 )
 
+// Read the scan result from DynamoDB
 imagesRouter.get(
     '/readscanresult/:accountId/:reponame',
     dataBaseController.readScanResultDataFromTable,

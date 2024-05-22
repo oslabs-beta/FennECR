@@ -16,7 +16,11 @@ imagesRouter.post("/store/:accountId/:repoName", dataBaseController_1.default.st
     res.status(200).send("Save images detail to the DB is success");
 });
 // Read the images data from DynamoDB
-imagesRouter.get('/read/:accountId/:repoName', dataBaseController_1.default.readDataFromTable, (req, res, next) => {
-    res.status(200).json(res.locals.dynamoDBdata);
+imagesRouter.get('/readimg/:accountId/:repoName', dataBaseController_1.default.readImageDataFromTable, (req, res, next) => {
+    res.status(200).json(res.locals.imgDataFromDB);
+});
+// Read the scan result from DynamoDB
+imagesRouter.get('/readscanresult/:accountId/:reponame', dataBaseController_1.default.readScanResultDataFromTable, (req, res, next) => {
+    res.status(200).json(res.locals.resultDataFromDB);
 });
 exports.default = imagesRouter;

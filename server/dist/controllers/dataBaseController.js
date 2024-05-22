@@ -22,7 +22,7 @@ const dataBaseController = {
             return res.status(400).json({ error: "No image details found to store" });
         }
         // Read the table name from the env config file.
-        const tableName = process.env.DYNAMODB_TABLE_NAME;
+        const tableName = process.env.IMAGES_TABLE_NAME;
         const input = {
             AttributeDefinitions: [
                 {
@@ -86,17 +86,17 @@ const dataBaseController = {
             res.status(500).json({ error: "Could not store images" });
         }
     }),
-    // Read data from dynamoDB
-    readDataFromTable: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    // Read images detail data from dynamoDB
+    readImageDataFromTable: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const tableName = process.env.DYNAMODB_TABLE_NAME;
+            const tableName = process.env.IMAGES_TABLE_NAME;
             const params = {
                 TableName: tableName,
             };
             const command = new lib_dynamodb_1.ScanCommand(params);
             const data = yield dynamoDB_1.default.send(command);
             console.log("Data from scan table: ", data);
-            res.locals.dynamoDBdata = data.Items;
+            res.locals.imgDataFromDB = data.Items;
             next();
         }
         catch (error) {
@@ -104,16 +104,21 @@ const dataBaseController = {
             res.status(500).json({ error: "Error occurs when scan table." });
         }
     }),
+    // storeScanResultData function
     storeScanResultData: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        // Read from scanResult controller
         const scanResults = res.locals.singleScanResult;
-        const tableName = process.env.DYNAMODB_SCAN_RESULT_TABLE;
+        const tableName = process.env.SCAN_RESULT_TABLE;
+        // Define the table schema
         const input = {
             AttributeDefinitions: [
                 {
                     AttributeName: 'imageDigest',
                     AttributeType: 'S',
                 },
+                {
+                    AttributeName: "imageScanCompletedAt",
+                    AttributeType: "S"
+                }
             ],
             TableName: tableName,
             KeySchema: [
@@ -121,12 +126,17 @@ const dataBaseController = {
                     AttributeName: 'imageDigest',
                     KeyType: 'HASH',
                 },
+                {
+                    AttributeName: 'imageScanCompletedAt',
+                    KeyType: 'RANGE',
+                }
             ],
             ProvisionedThroughput: {
                 ReadCapacityUnits: 10,
                 WriteCapacityUnits: 10,
             },
         };
+        // Check if the table exists, if not create it
         try {
             const describeTableCommand = new client_dynamodb_1.DescribeTableCommand({ TableName: tableName });
             yield dynamoDB_1.default.send(describeTableCommand);
@@ -144,6 +154,7 @@ const dataBaseController = {
                 return res.status(500).json({ error: 'Could not check table existence' });
             }
         }
+        // Update the scan result data
         try {
             const { imageId, imageScanFindings, registryId, repositoryName, imageScanStatus } = scanResults;
             const item = {
@@ -158,17 +169,68 @@ const dataBaseController = {
                 registryId,
                 repositoryName,
             };
-            const putParams = {
+            // Debugging: Print item keys and values
+            console.log("Item keys and values:", {
+                imageDigest: item.imageDigest,
+                imageScanCompletedAt: item.imageScanCompletedAt,
+            });
+            // update expression
+            const updateParams = {
                 TableName: tableName,
-                Item: item,
+                Key: {
+                    imageDigest: item.imageDigest, // Must match the HASH key defined in the schema
+                },
+                UpdateExpression: `SET 
+          imageTag = :imageTag,
+          findings = :findings,
+          findingSeverityCounts = :findingSeverityCounts,
+          vulnerabilitySourceUpdatedAt = :vulnerabilitySourceUpdatedAt,
+          scanStatus = :scanStatus,
+          scanDescription = :scanDescription,
+          registryId = :registryId,
+          repositoryName = :repositoryName`,
+                ExpressionAttributeValues: {
+                    ":imageTag": item.imageTag,
+                    ":findings": item.findings,
+                    ":findingSeverityCounts": item.findingSeverityCounts,
+                    ":vulnerabilitySourceUpdatedAt": item.vulnerabilitySourceUpdatedAt,
+                    ":scanStatus": item.scanStatus,
+                    ":scanDescription": item.scanDescription,
+                    ":registryId": item.registryId,
+                    ":repositoryName": item.repositoryName
+                },
+                ReturnValues: "ALL_NEW"
             };
-            yield dynamoDB_1.default.send(new lib_dynamodb_1.PutCommand(putParams));
-            res.status(200).json({ message: 'Scan result successfully saved to DynamoDB.' });
+            // Log the entire updateParams for debugging
+            console.log("UpdateParams:", updateParams);
+            const command = new lib_dynamodb_1.UpdateCommand(updateParams);
+            const updateResponse = yield dynamoDB_1.default.send(command);
+            res.status(200).json({ message: 'Scan result successfully saved to DynamoDB.', data: updateResponse.Attributes });
             console.log('Scan result successfully saved to DynamoDB.');
         }
         catch (error) {
             console.error('Error storing scan result:', error);
             res.status(500).json({ error: 'Could not store scan result' });
+        }
+    }),
+    // Read Scan Result data from
+    readScanResultDataFromTable: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const tableName = process.env.SCAN_RESULT_TABLE;
+            const params = {
+                TableName: tableName,
+            };
+            const command = new lib_dynamodb_1.ScanCommand(params);
+            const data = yield dynamoDB_1.default.send(command);
+            console.log("Data from scan result table: ", data);
+            res.locals.resultDataFromDB = data.Items;
+            next();
+        }
+        catch (error) {
+            console.log(error);
+            res
+                .status(500)
+                .json({ error: "Error occurs when scan the scan result table." });
         }
     }),
 };
