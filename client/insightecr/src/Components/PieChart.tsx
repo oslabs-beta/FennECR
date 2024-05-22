@@ -18,7 +18,7 @@ const BasicPie: React.FC<BasicPieProps> = ({ inputData }) => {
     {
       id: 1,
       value: inputData.imageScanned - inputData.vulnerableImageCount,
-      color: '#6BAED6',
+      color: '#7965AF',
       label: `Images without Critical and High Vulnerabilities: ${inputData.imageScanned - inputData.vulnerableImageCount}`,
     },
   ];

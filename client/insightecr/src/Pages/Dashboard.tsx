@@ -115,7 +115,7 @@ const Dashboard: React.FC = () => {
             }}
           >
             <Header title={'Severity Breakdown'} />
-            <BasicStacking />
+            <BasicStacking inputData = {severityCounts}/>
           </Paper>
         </Grid>
         {/* Vulnerability Details */}

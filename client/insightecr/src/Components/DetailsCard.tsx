@@ -20,18 +20,6 @@ import { toggleScanOnPush } from '../utils/api';
 import { Repository, SeverityCounts } from '../utils/types';
 import { AccountContext } from '../contexts/AccountContext.tsx';
 
-// function createData(
-//   critical: number,
-//   high: number,
-//   medium: number,
-//   low: number,
-//   info: number
-// ) {
-//   return { critical, high, medium, low, info };
-// }
-
-// const rows = [createData(0, 0, 9, 15, 4)];
-
 interface DetailsCardProps {
   data: Repository;
   severityCounts:SeverityCounts;
