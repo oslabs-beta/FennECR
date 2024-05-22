@@ -1,35 +1,16 @@
-// import React, { useEffect, useState, useContext } from 'react';
 import { Key, useContext } from 'react';
 import { Container, Grid, Paper } from '@mui/material';
 import BasicPie from '../Components/PieChart';
 import Header from '../Components/Header';
 import BasicStacking from '../Components/BarChart';
 import DetailsCard from '../Components/DetailsCard';
-// import { getAllRepositories } from '../utils/api';
-// import { AccountContext } from '../contexts/AccountContext.tsx';
 import { Repository } from '../utils/types';
 import { RepoContext } from '../contexts/RepoContext.tsx';
 
 // Control whether Nav drawer loads open or closed
 export default function Dashboard() {
-  // const [repositories, setRepositories] = useState<Repository[]>([]);
-  // const accountId = useContext(AccountContext);
   const repoContext = useContext(RepoContext);
   const { repositories, setRepositories } = repoContext;
-  // console.log(`I am accountId: ${accountId}`)
-
-  // useEffect(() => {
-  //   const fetchRepoData = async () => {
-  //     try {
-  //       const data = await getAllRepositories(accountId);
-  //       setRepositories(data.repositories);
-  //     } catch (error) {
-  //       console.error('Error fetching repositories data:', error);
-  //     }
-  //   };
-
-  //   fetchRepoData();
-  // }, [accountId]);
 
   const handleScanOnPushToggle = (repoName: string, scanOnPush: boolean) => {
     setRepositories((prevRepos) =>
