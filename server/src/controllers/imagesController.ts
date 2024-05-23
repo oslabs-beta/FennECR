@@ -17,7 +17,6 @@ const imagesController = {
       };
       const command = new DescribeImagesCommand(input);
       const data = await ecrClient.send(command);
-      console.log("Images data from ECR:", data);
 
       // Ensure imageDetails is always an array
       const imageDetails = data.imageDetails || [];
