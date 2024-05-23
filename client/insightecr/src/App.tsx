@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {
   createTheme,
@@ -11,7 +11,6 @@ import AppBar from './Components/AppBar';
 import NavDrawer from './Components/NavDrawer';
 import Dashboard from './Pages/Dashboard';
 import RepoPage from './Pages/Repository1.tsx';
-import { RepoContext } from './contexts/RepoContext.tsx';
 
 const defaultTheme = createTheme({
   palette: {
@@ -23,7 +22,6 @@ const defaultTheme = createTheme({
 
 export default function App() {
   const [open, setOpen] = React.useState(false);
-  const { selectedRepository, setSelectedRepository } = useContext(RepoContext);
   const toggleDrawer = () => {
     setOpen(!open);
   };

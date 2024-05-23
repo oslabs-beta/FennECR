@@ -135,7 +135,7 @@ const Dashboard: React.FC = () => {
             <Grid container spacing={6} id="detailsContainer">
               {repositories.map(
                 (repo: Repository, index: Key | null | undefined) => (
-                  <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Grid item xs={12} sm={6.5} md={6} lg={5} key={index}>
                     <DetailsCard
                       data={repo}
                       severityCounts={
