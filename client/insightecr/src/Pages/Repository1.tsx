@@ -1,5 +1,4 @@
 import { Button, Grid, List, ListItem, ListItemText } from '@mui/material';
-import '../App.scss';
 import React, { useState, useEffect, useContext } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -36,15 +35,14 @@ const RepoPage: React.FC = () => {
   }, [accountId, repoName]);
 
   return (
-    // <React.Fragment>
-    <>
+    <React.Fragment>
       <Header title={'Images'} />
       <Grid container justifyContent={"center"} gap={2} sx={{'margin-bottom':'40px'}}>
       {images.map((image, index) => {
         return (
           <CardContent id='repoCards'>
             {/* <Grid container spacing={5} key={index}> */}
-              <Grid item xs={12}>
+              <Grid item xs={12} display={'flex'} direction={'column'}>
                 <List>
                   <ListItem>
                     <ListItemText
@@ -123,10 +121,8 @@ const RepoPage: React.FC = () => {
         );
       })}
       </Grid>
-    </>
-    // </React.Fragment>
+    </React.Fragment>
   );
 };
-// }
 
 export default RepoPage;
