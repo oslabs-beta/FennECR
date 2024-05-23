@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const scanResultsController_1 = __importDefault(require("../controllers/scanResultsController"));
 const dataHandlingController_1 = __importDefault(require("../controllers/dataHandlingController"));
+const dataBaseController_1 = __importDefault(require("../controllers/dataBaseController"));
 const scanResultsRouter = (0, express_1.Router)();
-// Get single scan result from given image tag
-scanResultsRouter.get('/:accountId/:repoName/:imageTag', scanResultsController_1.default.getSingleScanResult, (req, res) => {
+// Get single scan result with given image tag from ECR, and save the data to DynamoDB
+scanResultsRouter.get('/:accountId/:repoName/:imageTag', scanResultsController_1.default.getSingleScanResult, dataBaseController_1.default.storeScanResultData, (req, res) => {
     res.status(200).json(res.locals.singleScanResult);
 });
 // Get aggregated scan results from given repo

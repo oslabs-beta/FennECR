@@ -96,6 +96,7 @@ const scanResultsController = {
       //   console.log(`I am scanResults: ${JSON.stringify(scanResult)}`)
       // }
       res.locals.scanResults = scanResults;
+      
       return next();
     } catch (error) {
       return next({
