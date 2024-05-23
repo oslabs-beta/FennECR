@@ -52,7 +52,7 @@ const BasicPie: React.FC<BasicPieProps> = ({ inputData }) => {
               direction: 'row',
               position: { vertical: 'bottom', horizontal: 'middle' },
               padding: 0,
-              labelStyle: { fontSize: 15 },
+              labelStyle: { fontSize: 12 },
             },
           }}
         />

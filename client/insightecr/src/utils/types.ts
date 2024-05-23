@@ -14,27 +14,6 @@ export interface RepoContextType {
   setRepositories: React.Dispatch<React.SetStateAction<Repository[]>>;
 }
 
-
-export interface Image {
-  
-  imageDetails: {
-    imageTags: string[];
-    imageSizeInBytes: number;
-    imageScanStatus: {
-      status:string;
-    };
-    imagePushedAt: string;
-    imageScanFindingsSummary: {
-      findingSeverityCounts:{
-        CRITICAL: number,
-        HIGH: number,
-        MEDIUM: number,
-        LOW: number
-        INFORMATIONAL: number,
-      }
-    }
-  }
-}
 export type SeverityCounts = {
   critical: number;
   high: number;

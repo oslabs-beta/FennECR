@@ -42,7 +42,7 @@ export default function App() {
           >
             <Toolbar />
             <Routes>
-              <Route path='/' element={<Repo1/>} />
+              <Route path='/' element={<Dashboard/>} />
               
               {/* other routes here */}
             </Routes>
