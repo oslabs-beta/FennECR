@@ -45,3 +45,12 @@ export const getAggregatedScanResults = async (accountId: string, repoName: stri
     }
   }
 };
+
+export const getImages = async (accountId: string, repoName: string) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/images/${accountId}/${repoName}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching repository data:', error);
+  }
+};

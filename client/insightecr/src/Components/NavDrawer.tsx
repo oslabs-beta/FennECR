@@ -40,7 +40,11 @@ const DrawerStyle = styled(MuiDrawer, {
 }));
 
 const NavDrawer:React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
-  const { repositories } = useContext(RepoContext)
+  const { repositories, setSelectedRepository } = useContext(RepoContext)
+  const handleRepoClick = (repoName:string) => {
+    setSelectedRepository(repoName)
+    toggleDrawer()
+  }
   return (
     <DrawerStyle variant="permanent" open={open}>
           <Toolbar
@@ -57,7 +61,7 @@ const NavDrawer:React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <ListItems repo={repositories}/>
+            <ListItems repo={repositories} onRepoClick={handleRepoClick}/>
           </List>
         </DrawerStyle>
   );

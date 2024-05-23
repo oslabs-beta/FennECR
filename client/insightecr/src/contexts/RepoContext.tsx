@@ -7,12 +7,15 @@ import { Repository, RepoContextType } from '../utils/types';
 const defaultRepoContext: RepoContextType = {
   repositories: [],
   setRepositories: () => {},
+  selectedRepository: null,
+  setSelectedRepository: () => {},
 };
 
 export const RepoContext = createContext<RepoContextType>(defaultRepoContext);
 
 const RepoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [selectedRepository, setSelectedRepository] = useState<string | null>(null);
   const accountId = useContext(AccountContext);
 
   useEffect(() => {
@@ -29,7 +32,7 @@ const RepoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   }, [accountId]);
 
   return (
-    <RepoContext.Provider value={{ repositories, setRepositories }}>
+    <RepoContext.Provider value={{ repositories, setRepositories, selectedRepository, setSelectedRepository }}>
       {children}
     </RepoContext.Provider>
   );

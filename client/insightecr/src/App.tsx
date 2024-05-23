@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {
   createTheme,
@@ -10,7 +10,8 @@ import {
 import AppBar from './Components/AppBar';
 import NavDrawer from './Components/NavDrawer';
 import Dashboard from './Pages/Dashboard';
-import Repo1 from './Pages/Dummypage';
+import RepoPage from './Pages/Repository1.tsx';
+import { RepoContext } from './contexts/RepoContext.tsx';
 
 const defaultTheme = createTheme({
   palette: {
@@ -22,6 +23,7 @@ const defaultTheme = createTheme({
 
 export default function App() {
   const [open, setOpen] = React.useState(false);
+  const { selectedRepository, setSelectedRepository } = useContext(RepoContext);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -42,8 +44,11 @@ export default function App() {
           >
             <Toolbar />
             <Routes>
-              <Route path='/' element={<Repo1/>} />
-              
+              <Route path='/' element={<Dashboard />} />
+              <Route
+                path='/repository/:repoName'
+                element={<RepoPage />}
+              />
               {/* other routes here */}
             </Routes>
           </Box>

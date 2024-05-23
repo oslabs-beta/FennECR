@@ -12,28 +12,28 @@ export interface Repository {
 export interface RepoContextType {
   repositories: Repository[];
   setRepositories: React.Dispatch<React.SetStateAction<Repository[]>>;
+  selectedRepository: string | null;
+  setSelectedRepository: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-
 export interface Image {
-  
-  imageDetails: {
+
     imageTags: string[];
     imageSizeInBytes: number;
     imageScanStatus: {
-      status:string;
+      status: string;
     };
     imagePushedAt: string;
     imageScanFindingsSummary: {
-      findingSeverityCounts:{
-        CRITICAL: number,
-        HIGH: number,
-        MEDIUM: number,
-        LOW: number
-        INFORMATIONAL: number,
-      }
-    }
-  }
+      findingSeverityCounts: {
+        CRITICAL: number;
+        HIGH: number;
+        MEDIUM: number;
+        LOW: number;
+        INFORMATIONAL: number;
+      };
+    };
+
 }
 export type SeverityCounts = {
   critical: number;
