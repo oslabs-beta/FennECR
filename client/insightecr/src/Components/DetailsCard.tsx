@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -41,6 +42,11 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data, severityCounts, onScanO
     } catch (error) {
       console.error('Error toggling scan on push:', error);
     }
+  };
+
+  const navigate = useNavigate();
+  const handleDetailsClick = () => {
+    navigate(`/repository/${data.repositoryName}`);
   };
 
   if (!data) {
@@ -134,7 +140,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data, severityCounts, onScanO
               </ListItem>
             </List>
 
-            <Button id="detailsButton" size="small" sx={{ marginTop: 2 }}>
+            <Button id="detailsButton" size="small" sx={{ marginTop: 2 }} onClick={handleDetailsClick}>
               Details
             </Button>
           </Grid>
