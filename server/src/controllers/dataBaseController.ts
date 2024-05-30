@@ -59,6 +59,7 @@ const dataBaseController = {
         const createTableCommand = new CreateTableCommand(input);
         const createTableResponse = await ddbDocClient.send(createTableCommand);
       } else {
+        // Refactor: send this to global error handler
         console.error("Error checking table existence:", error);
         return res
           .status(500)
@@ -81,6 +82,7 @@ const dataBaseController = {
         .json({ message: "Images successfully saved to dynamoDB." });
     } catch (error) {
       console.error("Error storing images:", error);
+      // Refactor: send this to global error handler
       res.status(500).json({ error: "Could not store images" });
     }
   },
@@ -101,6 +103,7 @@ const dataBaseController = {
       next();
     } catch (error) {
       console.log(error);
+      // Refactor: send this to global error handler
       res.status(500).json({ error: "Error occurs when scan table." });
     }
   },
@@ -219,7 +222,8 @@ const dataBaseController = {
 
       const command = new UpdateCommand(updateParams);
       const updateResponse = await ddbDocClient.send(command);
-
+      
+      // Refactor: send this to relevant endpoints to response
       res
         .status(200)
         .json({
@@ -228,6 +232,7 @@ const dataBaseController = {
         });
       console.log("Scan result successfully saved to DynamoDB.");
     } catch (error) {
+      // Refactor: send this to global error handler
       console.error("Error storing scan result:", error);
       res.status(500).json({ error: "Could not store scan result" });
     }

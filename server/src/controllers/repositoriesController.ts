@@ -13,7 +13,7 @@ const repositoriesController = {
     next: NextFunction
   ) => {
     const { accountId } = req.params;
-    console.log(`getAllRepositories middleware hit`)
+    //console.log(`getAllRepositories middleware hit`)
 
     try {
       const ecrClient = awsClients.getECRClient(accountId);
