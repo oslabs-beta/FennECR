@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.use(cors());
 
+// Refactor: reconsider this solution
 // Configure session middleware with secret from environment variables
 app.use(session({
     secret: process.env.SESSION_SECRET || 'fallbackSecret',
