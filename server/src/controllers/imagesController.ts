@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from "express";
 import {
   DescribeImagesCommand,
   DescribeImagesCommandInput,
@@ -10,8 +10,7 @@ const imagesController = {
     const { repoName, accountId } = req.params;
 
     try {
-      const ecrClient = awsClients.getECRClient(accountId);
-      // Define the input variable using DescribeImagesCommandInput
+      const ecrClient = awsClients.getECRClient(accountId); // Define the input variable using DescribeImagesCommandInput
       const input: DescribeImagesCommandInput = {
         repositoryName: repoName,
       };
@@ -26,8 +25,7 @@ const imagesController = {
       res.locals.images = { imageDetails };
       return next();
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ error: 'Error when retrieving images from ECR.' });
+      next(error);
     }
   },
 };
