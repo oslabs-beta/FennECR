@@ -9,9 +9,12 @@ import { RepoContext } from '../contexts/RepoContext.tsx';
 import { AccountContext } from '../contexts/AccountContext.tsx';
 import { getAggregatedScanResults } from '../utils/api';
 import { SeverityCountsMap } from '../utils/types';
+import { ThemeContext } from '../App';
 
 // Control whether Nav drawer loads open or closed
 const Dashboard: React.FC = () => {
+// destructure the darkMode value from Context
+const { darkMode } = useContext(ThemeContext);
   const accountId = useContext(AccountContext);
   const repoContext = useContext(RepoContext);
   const { repositories, setRepositories } = repoContext;
@@ -93,7 +96,8 @@ const Dashboard: React.FC = () => {
               flexDirection: 'column',
               height: 360,
               textAlign: 'center',
-              background: '#E8E8FD',
+            //   background: '#E8E8FD',
+              background: darkMode ? '#1E1E1E' : '#E8E8FD',
               borderRadius: 3,
             }}
           >
@@ -110,7 +114,7 @@ const Dashboard: React.FC = () => {
               flexDirection: 'column',
               height: 360,
               textAlign: 'center',
-              background: '#E8E8FD',
+              background: darkMode ? '#1E1E1E' : '#E8E8FD',
               borderRadius: 3,
             }}
           >
@@ -126,7 +130,7 @@ const Dashboard: React.FC = () => {
               display: 'flex',
               flexDirection: 'column',
               textAlign: 'center',
-              background: '#E8E8FD',
+              background: darkMode ? '#1E1E1E' : '#E8E8FD',
               borderRadius: 3,
               alignItems: 'center',
             }}

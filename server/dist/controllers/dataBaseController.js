@@ -57,12 +57,11 @@ const dataBaseController = {
                 console.log("ImagesTable does not exist. Creating table...");
                 const createTableCommand = new client_dynamodb_1.CreateTableCommand(input);
                 const createTableResponse = yield dynamoDB_1.default.send(createTableCommand);
+                console.log(createTableResponse);
             }
             else {
                 console.error("Error checking table existence:", error);
-                return res
-                    .status(500)
-                    .json({ error: "Could not check table existence" });
+                return next(error);
             }
         }
         // Write data to database logic
@@ -81,7 +80,7 @@ const dataBaseController = {
         }
         catch (error) {
             console.error("Error storing images:", error);
-            res.status(500).json({ error: "Could not store images" });
+            return next(error);
         }
     }),
     // Read images detail data from dynamoDB
@@ -98,7 +97,7 @@ const dataBaseController = {
         }
         catch (error) {
             console.log(error);
-            res.status(500).json({ error: "Error occurs when scan table." });
+            return next(error);
         }
     }),
     // storeScanResultData function
@@ -149,9 +148,7 @@ const dataBaseController = {
             }
             else {
                 console.error("Error checking table existence:", error);
-                return res
-                    .status(500)
-                    .json({ error: "Could not check table existence" });
+                return next(error);
             }
         }
         // Update the scan result data
@@ -199,6 +196,7 @@ const dataBaseController = {
             };
             const command = new lib_dynamodb_1.UpdateCommand(updateParams);
             const updateResponse = yield dynamoDB_1.default.send(command);
+            // Refactor: send this to relevant endpoints to response
             res
                 .status(200)
                 .json({
@@ -208,6 +206,7 @@ const dataBaseController = {
             console.log("Scan result successfully saved to DynamoDB.");
         }
         catch (error) {
+            // Refactor: send this to global error handler
             console.error("Error storing scan result:", error);
             res.status(500).json({ error: "Could not store scan result" });
         }
@@ -231,9 +230,7 @@ const dataBaseController = {
         }
         catch (error) {
             console.log(error);
-            res
-                .status(500)
-                .json({ error: "Error occurs when scan the scan result table." });
+            return next(error);
         }
     }),
 };

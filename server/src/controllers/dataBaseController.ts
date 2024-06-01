@@ -58,12 +58,10 @@ const dataBaseController = {
         console.log("ImagesTable does not exist. Creating table...");
         const createTableCommand = new CreateTableCommand(input);
         const createTableResponse = await ddbDocClient.send(createTableCommand);
+        console.log(createTableResponse);
       } else {
-        // Refactor: send this to global error handler
         console.error("Error checking table existence:", error);
-        return res
-          .status(500)
-          .json({ error: "Could not check table existence" });
+        return next(error);
       }
     }
     // Write data to database logic
@@ -81,9 +79,8 @@ const dataBaseController = {
         .status(200)
         .json({ message: "Images successfully saved to dynamoDB." });
     } catch (error) {
-      console.error("Error storing images:", error);
-      // Refactor: send this to global error handler
-      res.status(500).json({ error: "Could not store images" });
+        console.error("Error storing images:", error);
+        return next(error);
     }
   },
   // Read images detail data from dynamoDB
@@ -102,9 +99,8 @@ const dataBaseController = {
       res.locals.imgDataFromDB = data.Items;
       next();
     } catch (error) {
-      console.log(error);
-      // Refactor: send this to global error handler
-      res.status(500).json({ error: "Error occurs when scan table." });
+        console.log(error);
+        return next(error);
     }
   },
   // storeScanResultData function
@@ -159,9 +155,7 @@ const dataBaseController = {
         const createTableResponse = await ddbDocClient.send(createTableCommand);
       } else {
         console.error("Error checking table existence:", error);
-        return res
-          .status(500)
-          .json({ error: "Could not check table existence" });
+        return next(error);
       }
     }
 
@@ -260,10 +254,8 @@ const dataBaseController = {
       console.log(message);
       next();
     } catch (error) {
-      console.log(error);
-      res
-        .status(500)
-        .json({ error: "Error occurs when scan the scan result table." });
+        console.log(error);
+        return next(error);
     }
   },
 };

@@ -18,8 +18,7 @@ const imagesController = {
     getImages: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const { repoName, accountId } = req.params;
         try {
-            const ecrClient = awsClients_1.default.getECRClient(accountId);
-            // Define the input variable using DescribeImagesCommandInput
+            const ecrClient = awsClients_1.default.getECRClient(accountId); // Define the input variable using DescribeImagesCommandInput
             const input = {
                 repositoryName: repoName,
             };
@@ -27,14 +26,14 @@ const imagesController = {
             const data = yield ecrClient.send(command);
             // Ensure imageDetails is always an array
             const imageDetails = data.imageDetails || [];
+            // Refactor: consider the usage of req.session here, remove if neccesary
             // Store imageDetails in session
             req.session.images = { imageDetails };
             res.locals.images = { imageDetails };
             return next();
         }
         catch (error) {
-            console.log(error);
-            res.status(500).json({ error: 'Error when retrieving images from ECR.' });
+            next(error);
         }
     }),
 };

@@ -20,6 +20,8 @@ import Switch from '@mui/material/Switch';
 import { toggleScanOnPush } from '../utils/api';
 import { Repository, SeverityCounts } from '../utils/types';
 import { AccountContext } from '../contexts/AccountContext.tsx';
+import { ThemeContext } from '../App';
+
 
 interface DetailsCardProps {
   data: Repository;
@@ -28,6 +30,8 @@ interface DetailsCardProps {
 }
 
 const DetailsCard: React.FC<DetailsCardProps> = ({ data, severityCounts, onScanOnPushToggle }) => {
+    // destructure the darkMode value from Context
+const { darkMode } = useContext(ThemeContext);
   const accountId = useContext(AccountContext);
   const [scanOnPush, setScanOnPush] = useState(
     data.imageScanningConfiguration.scanOnPush
@@ -73,9 +77,22 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ data, severityCounts, onScanO
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        background: darkMode ? '#1E1E1E' : '#E8E8FD',
+
       }}
     >
-      <CardContent>
+      <CardContent
+            id='cardContent"'
+            sx={{
+              borderRadius: 7,
+              marginBottom: 2,
+              minHeight: '360px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              background: darkMode ? '#45494F' : '#E8E8FD',
+      
+            }} >
         <p id="headerP" style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
           {data.repositoryName}
         </p>
