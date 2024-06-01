@@ -19,6 +19,7 @@ imagesRouter.post("/store/:accountId/:repoName", dataBaseController_1.default.st
 imagesRouter.get('/readimg/:accountId/:repoName', dataBaseController_1.default.readImageDataFromTable, (req, res, next) => {
     res.status(200).json(res.locals.imgDataFromDB);
 });
+// Refactor: move to scanResults
 // Read the scan result from DynamoDB
 imagesRouter.get('/readscanresult/:accountId/:reponame', dataBaseController_1.default.readScanResultDataFromTable, (req, res, next) => {
     res.status(200).json(res.locals.resultDataFromDB);

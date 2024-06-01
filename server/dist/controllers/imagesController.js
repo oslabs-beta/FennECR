@@ -27,6 +27,7 @@ const imagesController = {
             const data = yield ecrClient.send(command);
             // Ensure imageDetails is always an array
             const imageDetails = data.imageDetails || [];
+            // Refactor: consider the usage of req.session here, remove if neccesary
             // Store imageDetails in session
             req.session.images = { imageDetails };
             res.locals.images = { imageDetails };

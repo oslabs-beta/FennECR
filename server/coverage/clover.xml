@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1717275766519" clover="3.2.0">
+  <project timestamp="1717275766519" name="All files">
+    <metrics statements="265" coveredstatements="72" conditionals="51" coveredconditionals="4" methods="37" coveredmethods="0" elements="353" coveredelements="76" complexity="0" loc="265" ncloc="265" packages="5" files="11" classes="11"/>
+    <package name="src">
+      <metrics statements="27" coveredstatements="20" conditionals="6" coveredconditionals="4" methods="4" coveredmethods="0"/>
+      <file name="index.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/index.ts">
+        <metrics statements="27" coveredstatements="20" conditionals="6" coveredconditionals="4" methods="4" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="69" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.controllers">
+      <metrics statements="184" coveredstatements="19" conditionals="37" coveredconditionals="0" methods="22" coveredmethods="0"/>
+      <file name="dataBaseController.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/controllers/dataBaseController.ts">
+        <metrics statements="75" coveredstatements="5" conditionals="9" coveredconditionals="0" methods="8" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="22" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="56" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="101" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="117" count="0" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
+        <line num="149" count="0" type="stmt"/>
+        <line num="150" count="0" type="stmt"/>
+        <line num="153" count="0" type="stmt"/>
+        <line num="154" count="0" type="stmt"/>
+        <line num="156" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="157" count="0" type="stmt"/>
+        <line num="158" count="0" type="stmt"/>
+        <line num="159" count="0" type="stmt"/>
+        <line num="161" count="0" type="stmt"/>
+        <line num="162" count="0" type="stmt"/>
+        <line num="169" count="0" type="stmt"/>
+        <line num="176" count="0" type="stmt"/>
+        <line num="177" count="0" type="stmt"/>
+        <line num="195" count="0" type="stmt"/>
+        <line num="223" count="0" type="stmt"/>
+        <line num="224" count="0" type="stmt"/>
+        <line num="227" count="0" type="stmt"/>
+        <line num="233" count="0" type="stmt"/>
+        <line num="236" count="0" type="stmt"/>
+        <line num="237" count="0" type="stmt"/>
+        <line num="245" count="0" type="stmt"/>
+        <line num="246" count="0" type="stmt"/>
+        <line num="247" count="0" type="stmt"/>
+        <line num="248" count="0" type="stmt"/>
+        <line num="251" count="0" type="stmt"/>
+        <line num="252" count="0" type="stmt"/>
+        <line num="253" count="0" type="stmt"/>
+        <line num="257" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="260" count="0" type="stmt"/>
+        <line num="261" count="0" type="stmt"/>
+        <line num="263" count="0" type="stmt"/>
+        <line num="264" count="0" type="stmt"/>
+        <line num="271" count="1" type="stmt"/>
+      </file>
+      <file name="dataHandlingController.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/controllers/dataHandlingController.ts">
+        <metrics statements="21" coveredstatements="2" conditionals="16" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="35" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="37" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="40" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="41" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+      </file>
+      <file name="imagesController.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/controllers/imagesController.ts">
+        <metrics statements="17" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+      </file>
+      <file name="repositoriesController.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/controllers/repositoriesController.ts">
+        <metrics statements="34" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+      </file>
+      <file name="scanResultsController.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/controllers/scanResultsController.ts">
+        <metrics statements="37" coveredstatements="4" conditionals="10" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="58" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="79" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="81" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="98" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="111" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.models">
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="dynamoDB.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/models/dynamoDB.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.routes">
+      <metrics statements="33" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="0"/>
+      <file name="images.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/routes/images.ts">
+        <metrics statements="13" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+      </file>
+      <file name="repositories.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/routes/repositories.ts">
+        <metrics statements="10" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+      </file>
+      <file name="scanResults.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/routes/scanResults.ts">
+        <metrics statements="10" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.utils">
+      <metrics statements="16" coveredstatements="4" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="awsClients.ts" path="/Users/jing/Documents/CodesmithGithub/InSightECR/server/src/utils/awsClients.ts">
+        <metrics statements="16" coveredstatements="4" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="11" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
