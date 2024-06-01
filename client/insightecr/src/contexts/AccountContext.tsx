@@ -2,7 +2,24 @@
  * @see https://react.dev/learn/passing-data-deeply-with-context
  */
 
-import { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
-// We can set up a drop down menu for user to select it on stretch feature and update it dynamically
-export const AccountContext = createContext<string>('1')//Hardcoded for now, update for stretch feature
+// Set up a drop down menu for user to select accounts dynamically
+interface AccountContextProps {
+  accountId: string;
+  setAccountId: (accountId: string) => void;
+}
+
+const AccountContext = createContext<AccountContextProps| undefined>(undefined);
+
+const AccountProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [accountId, setAccountId] = useState<string>('');
+
+  return (
+    <AccountContext.Provider value={{ accountId, setAccountId }}>
+      {children}
+    </AccountContext.Provider>
+  );
+};
+
+export { AccountContext, AccountProvider };
