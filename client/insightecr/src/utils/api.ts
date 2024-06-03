@@ -2,6 +2,15 @@ import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:3000' // Backend port
 
+export const getAccountId = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/accounts`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching accounts data:', error);
+  }
+};
+
 export const getRepositoryData = async (accountId: string, repoName: string) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/repository/${accountId}/${repoName}`);

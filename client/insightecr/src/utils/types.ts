@@ -35,14 +35,20 @@ export interface Image {
     };
 
 }
-export type SeverityCounts = {
+
+export interface SeverityCounts {
   critical: number;
   high: number;
   medium: number;
   low: number;
   informational: number;
-};
+}
 
-export type SeverityCountsMap = {
+export interface SeverityCountsMap {
   [key: string]: SeverityCounts;
-};
+}
+
+export interface AccountContextProps {
+  accountId: string;
+  setAccountId: (accountId: string) => void;
+}
