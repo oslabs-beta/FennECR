@@ -12,8 +12,11 @@ import { Image } from '../utils/types';
 import { AccountContext } from '../contexts/AccountContext.tsx';
 import { getImages } from '../utils/api';
 import { useParams } from 'react-router-dom';
+import { ThemeContext } from '../App';
 
 const RepoPage: React.FC = () => {
+const { darkMode } = useContext(ThemeContext);
+
   const [images, setImages] = useState<Image[]>([]);
   const accountId = useContext(AccountContext);
   const { repoName } = useParams<{ repoName: string }>();
@@ -61,9 +64,7 @@ const RepoPage: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                // background: darkMode ? '#45494F' : '#E8DEF8',
-                background: '#E8DEF8',
-
+                background: darkMode ? '#45494F' : '#E8DEF8',
             }}>
           <CardContent id='repoCards'>
               <Grid item xs={12} display={'flex'} direction={'column'}>
