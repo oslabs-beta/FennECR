@@ -28,7 +28,13 @@ interface DetailsCardProps {
 }
 
 const DetailsCard: React.FC<DetailsCardProps> = ({ data, severityCounts, onScanOnPushToggle }) => {
-  const accountId = useContext(AccountContext);
+  // Account Context
+  const accountContext = useContext(AccountContext);
+  // Check if context is undefined
+  if (!accountContext) {
+    throw new Error('Dashboard must be used within an AccountProvider');
+  }
+  const { accountId } = accountContext;
   const [scanOnPush, setScanOnPush] = useState(
     data.imageScanningConfiguration.scanOnPush
   );

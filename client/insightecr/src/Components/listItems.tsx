@@ -12,7 +12,7 @@ import EqualizerSharpIcon from '@mui/icons-material/EqualizerSharp';
 import { Divider, ListSubheader } from '@mui/material';
 import { Repository } from '../utils/types';
 import { AccountContext } from '../contexts/AccountContext.tsx';
-import { RepoContext } from '../contexts/RepoContext.tsx';
+// import { RepoContext } from '../contexts/RepoContext.tsx';
 
 interface ListItemsProps {
   repo: Repository[];
@@ -20,7 +20,13 @@ interface ListItemsProps {
 }
 
 const ListItems: React.FC<ListItemsProps> = ({ repo, onRepoClick }) => {
-  const accountId = useContext(AccountContext);
+    // Account Context
+    const accountContext = useContext(AccountContext);
+    // Check if context is undefined
+    if (!accountContext) {
+      throw new Error('Dashboard must be used within an AccountProvider');
+    }
+    const { accountId } = accountContext;
   return (
     <React.Fragment>
       <ListSubheader component='div' inset sx={{ backgroundColor: '#D1D0FB' }}>

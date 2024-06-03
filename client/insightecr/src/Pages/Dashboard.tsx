@@ -12,7 +12,14 @@ import { SeverityCountsMap } from '../utils/types';
 
 // Control whether Nav drawer loads open or closed
 const Dashboard: React.FC = () => {
-  const accountId = useContext(AccountContext);
+  // Account Context
+  const accountContext = useContext(AccountContext);
+    // Check if context is undefined
+  if (!accountContext) {
+    throw new Error('Dashboard must be used within an AccountProvider');
+  }
+  const { accountId } = accountContext;
+  // Repo Context
   const repoContext = useContext(RepoContext);
   const { repositories, setRepositories } = repoContext;
   const [aggregatedPieData, setAggregatedPieData] = useState({

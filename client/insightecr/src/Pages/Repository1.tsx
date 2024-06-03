@@ -15,7 +15,13 @@ import { useParams } from 'react-router-dom';
 
 const RepoPage: React.FC = () => {
   const [images, setImages] = useState<Image[]>([]);
-  const accountId = useContext(AccountContext);
+  // Account Context
+  const accountContext = useContext(AccountContext);
+  // Check if context is undefined
+  if (!accountContext) {
+    throw new Error('Dashboard must be used within an AccountProvider');
+  }
+    const { accountId } = accountContext;
   const { repoName } = useParams<{ repoName: string }>();
 
   useEffect(() => {

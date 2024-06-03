@@ -15,11 +15,13 @@ const AccountProvider: React.FC<{ children: React.ReactNode}> = ({
   children, 
 }) => {
   const [accountId, setAccountId] = useState<string>('');
+  const [accounts, setAccounts] = useState<{ id: string }[]>([]);
 
   useEffect(() => {
     const fetchAccountId = async () => {
       try {
         const data = await getAccountId();
+        setAccounts([data]);
         setAccountId(data.accountId);
       } catch (error) {
         console.error('Error fetching account ID:', error);
@@ -30,7 +32,7 @@ const AccountProvider: React.FC<{ children: React.ReactNode}> = ({
   }, []);
 
   return (
-    <AccountContext.Provider value={{ accountId, setAccountId }}>
+    <AccountContext.Provider value={{ accountId, setAccountId, accounts }}>
       {children}
     </AccountContext.Provider>
   );
