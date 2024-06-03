@@ -1,4 +1,4 @@
-import { Button, Grid, List, ListItem, ListItemText } from '@mui/material';
+import { Button, Card, Grid, List, ListItem, ListItemText } from '@mui/material';
 import React, { useState, useEffect, useContext } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,8 +12,11 @@ import { Image } from '../utils/types';
 import { AccountContext } from '../contexts/AccountContext.tsx';
 import { getImages } from '../utils/api';
 import { useParams } from 'react-router-dom';
+import { ThemeContext } from '../App';
 
 const RepoPage: React.FC = () => {
+const { darkMode } = useContext(ThemeContext);
+
   const [images, setImages] = useState<Image[]>([]);
   // Account Context
   const accountContext = useContext(AccountContext);
@@ -43,12 +46,23 @@ const RepoPage: React.FC = () => {
   return (
     <React.Fragment>
       <Header title={'Images'} />
-      <Grid container justifyContent={"center"} gap={2} sx={{'margin-bottom':'40px'}}>
-      {images.map((image, index) => {
+      <Grid container justifyContent={"center"} gap={2} sx={{'marginBottom':'40px'}}>
+
+      {images.map((image,index) => {
         return (
+            <Card
+            key={index}
+            sx={{
+                borderRadius: 7,
+                marginBottom: 2,
+                minHeight: '360px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                background: darkMode ? '#45494F' : '#E8DEF8',
+            }}>
           <CardContent id='repoCards'>
-            {/* <Grid container spacing={5} key={index}> */}
-              <Grid item xs={12} display={'flex'} direction={'column'}>
+              <Grid container item xs={12} display={'flex'} direction={'column'}>
                 <List>
                   <ListItem>
                     <ListItemText
@@ -124,6 +138,7 @@ const RepoPage: React.FC = () => {
               </Grid>
             {/* </Grid> */}
           </CardContent>
+          </Card>
         );
       })}
       </Grid>

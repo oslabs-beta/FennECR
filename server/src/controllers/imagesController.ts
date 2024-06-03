@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from "express";
 import {
   DescribeImagesCommand,
   DescribeImagesCommandInput,
@@ -10,8 +10,7 @@ const imagesController = {
     const { repoName, accountId } = req.params;
 
     try {
-      const ecrClient = awsClients.getECRClient(accountId);
-      // Define the input variable using DescribeImagesCommandInput
+      const ecrClient = awsClients.getECRClient(accountId); // Define the input variable using DescribeImagesCommandInput
       const input: DescribeImagesCommandInput = {
         repositoryName: repoName,
       };
@@ -21,14 +20,11 @@ const imagesController = {
       // Ensure imageDetails is always an array
       const imageDetails = data.imageDetails || [];
 
-      // Refactor: consider the usage of req.session here, remove if neccesary
-      // Store imageDetails in session
-      req.session.images = { imageDetails };
+      // Store imageDetails in locals
       res.locals.images = { imageDetails };
       return next();
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ error: 'Error when retrieving images from ECR.' });
+      next(error);
     }
   },
 };

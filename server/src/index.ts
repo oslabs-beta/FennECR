@@ -14,17 +14,6 @@ app.use(express.json());
 
 app.use(cors());
 
-// Refactor: reconsider this solution
-// Configure session middleware with secret from environment variables
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || 'fallbackSecret',
-    resave: false,
-    saveUninitialized: true,
-    // cookie: { secure: false } // Set secure to true if using HTTPS
-  })
-);
-
 // Routers
 app.get('/', (req: Request, res: Response) => {
   res.send('InsightECR ts server is running.');

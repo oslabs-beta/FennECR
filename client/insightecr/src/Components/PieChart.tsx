@@ -1,5 +1,6 @@
 import { DefaultizedPieValueType, PieChart } from '@mui/x-charts';
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../App';
 
 interface BasicPieProps {
   inputData: {
@@ -8,17 +9,22 @@ interface BasicPieProps {
   };
 }
 const BasicPie: React.FC<BasicPieProps> = ({ inputData }) => {
+    // destructure the darkMode value from Context
+    const { darkMode } = useContext(ThemeContext);
+
   const data = [
     {
       id: 0,
       value: inputData.vulnerableImageCount,
-      color: '#FF6F61',
+    //   color: '#FF6F61',
+      color: darkMode ? '#03DAC5' : '#FF6F61',
       label: `Images with Critical and High Vulnerabilities: ${inputData.vulnerableImageCount}`,
     },
     {
       id: 1,
       value: inputData.imageScanned - inputData.vulnerableImageCount,
-      color: '#7965AF',
+    //   color: '#7965AF',
+      color: darkMode ? '#BB86FC' : '#7965AF', 
       label: `Images without Critical and High Vulnerabilities: ${inputData.imageScanned - inputData.vulnerableImageCount}`,
     },
   ];

@@ -9,12 +9,15 @@ import { RepoContext } from '../contexts/RepoContext.tsx';
 import { AccountContext } from '../contexts/AccountContext.tsx';
 import { getAggregatedScanResults } from '../utils/api';
 import { SeverityCountsMap } from '../utils/types';
+import { ThemeContext } from '../App';
 
 // Control whether Nav drawer loads open or closed
 const Dashboard: React.FC = () => {
+  // destructure the darkMode value from Context
+  const { darkMode } = useContext(ThemeContext);
   // Account Context
   const accountContext = useContext(AccountContext);
-    // Check if context is undefined
+  // Check if context is undefined
   if (!accountContext) {
     throw new Error('Dashboard must be used within an AccountProvider');
   }
@@ -89,7 +92,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <Container id="charts" maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container id='charts' maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={5}>
         {/* Vulnerability Summary */}
         <Grid item xs={12} md={5} lg={5}>
@@ -100,7 +103,7 @@ const Dashboard: React.FC = () => {
               flexDirection: 'column',
               height: 360,
               textAlign: 'center',
-              background: '#E8E8FD',
+              background: darkMode ? '#1E1E1E' : '#E8E8FD',
               borderRadius: 3,
             }}
           >
@@ -117,12 +120,12 @@ const Dashboard: React.FC = () => {
               flexDirection: 'column',
               height: 360,
               textAlign: 'center',
-              background: '#E8E8FD',
+              background: darkMode ? '#1E1E1E' : '#E8E8FD',
               borderRadius: 3,
             }}
           >
             <Header title={'Severity Breakdown'} />
-            <BasicStacking inputData = {severityCounts}/>
+            <BasicStacking inputData={severityCounts} />
           </Paper>
         </Grid>
         {/* Vulnerability Details */}
@@ -133,13 +136,13 @@ const Dashboard: React.FC = () => {
               display: 'flex',
               flexDirection: 'column',
               textAlign: 'center',
-              background: '#E8E8FD',
+              background: darkMode ? '#1E1E1E' : '#E8E8FD',
               borderRadius: 3,
               alignItems: 'center',
             }}
           >
             <Header title={'Repository Vulnerability Details'} />
-            <Grid container spacing={6} id="detailsContainer">
+            <Grid container spacing={6} id='detailsContainer'>
               {repositories.map(
                 (repo: Repository, index: Key | null | undefined) => (
                   <Grid item xs={12} sm={6.5} md={6} lg={5} key={index}>

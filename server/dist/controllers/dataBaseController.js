@@ -17,10 +17,6 @@ const client_dynamodb_1 = require("@aws-sdk/client-dynamodb");
 const dynamoDB_1 = __importDefault(require("../models/dynamoDB"));
 const dataBaseController = {
     storeImageDetails: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("Checking session data in storeImageDetails:", req.session.images);
-        if (!req.session.images || !req.session.images.imageDetails) {
-            return res.status(400).json({ error: "No image details found to store" });
-        }
         // Read the table name from the env config file.
         const tableName = process.env.IMAGES_TABLE_NAME;
         const input = {
@@ -57,18 +53,16 @@ const dataBaseController = {
                 console.log("ImagesTable does not exist. Creating table...");
                 const createTableCommand = new client_dynamodb_1.CreateTableCommand(input);
                 const createTableResponse = yield dynamoDB_1.default.send(createTableCommand);
+                console.log(createTableResponse);
             }
             else {
-                // Refactor: send this to global error handler
                 console.error("Error checking table existence:", error);
-                return res
-                    .status(500)
-                    .json({ error: "Could not check table existence" });
+                return next(error);
             }
         }
         // Write data to database logic
         try {
-            const images = req.session.images.imageDetails;
+            const images = res.locals.images;
             for (const image of images) {
                 const putParams = {
                     TableName: tableName,
@@ -82,8 +76,7 @@ const dataBaseController = {
         }
         catch (error) {
             console.error("Error storing images:", error);
-            // Refactor: send this to global error handler
-            res.status(500).json({ error: "Could not store images" });
+            return next(error);
         }
     }),
     // Read images detail data from dynamoDB
@@ -100,8 +93,7 @@ const dataBaseController = {
         }
         catch (error) {
             console.log(error);
-            // Refactor: send this to global error handler
-            res.status(500).json({ error: "Error occurs when scan table." });
+            return next(error);
         }
     }),
     // storeScanResultData function
@@ -152,9 +144,7 @@ const dataBaseController = {
             }
             else {
                 console.error("Error checking table existence:", error);
-                return res
-                    .status(500)
-                    .json({ error: "Could not check table existence" });
+                return next(error);
             }
         }
         // Update the scan result data
@@ -202,10 +192,7 @@ const dataBaseController = {
             };
             const command = new lib_dynamodb_1.UpdateCommand(updateParams);
             const updateResponse = yield dynamoDB_1.default.send(command);
-            // Refactor: send this to relevant endpoints to response
-            res
-                .status(200)
-                .json({
+            res.status(200).json({
                 message: "Scan result successfully saved to DynamoDB.",
                 data: updateResponse.Attributes,
             });
@@ -214,7 +201,7 @@ const dataBaseController = {
         catch (error) {
             // Refactor: send this to global error handler
             console.error("Error storing scan result:", error);
-            res.status(500).json({ error: "Could not store scan result" });
+            return next(error);
         }
     }),
     // Read Scan Result data from
@@ -236,9 +223,7 @@ const dataBaseController = {
         }
         catch (error) {
             console.log(error);
-            res
-                .status(500)
-                .json({ error: "Error occurs when scan the scan result table." });
+            return next(error);
         }
     }),
 };

@@ -14,14 +14,6 @@ const dataBaseController = {
     res: Response,
     next: NextFunction
   ) => {
-    console.log(
-      "Checking session data in storeImageDetails:",
-      req.session.images
-    );
-
-    if (!req.session.images || !req.session.images.imageDetails) {
-      return res.status(400).json({ error: "No image details found to store" });
-    }
     // Read the table name from the env config file.
     const tableName = process.env.IMAGES_TABLE_NAME;
 
@@ -58,17 +50,16 @@ const dataBaseController = {
         console.log("ImagesTable does not exist. Creating table...");
         const createTableCommand = new CreateTableCommand(input);
         const createTableResponse = await ddbDocClient.send(createTableCommand);
+        console.log(createTableResponse);
       } else {
-        // Refactor: send this to global error handler
         console.error("Error checking table existence:", error);
-        return res
-          .status(500)
-          .json({ error: "Could not check table existence" });
+        return next(error);
       }
     }
     // Write data to database logic
     try {
-      const images = req.session.images.imageDetails;
+      const images = res.locals.images;
+
       for (const image of images) {
         const putParams = {
           TableName: tableName,
@@ -82,8 +73,7 @@ const dataBaseController = {
         .json({ message: "Images successfully saved to dynamoDB." });
     } catch (error) {
       console.error("Error storing images:", error);
-      // Refactor: send this to global error handler
-      res.status(500).json({ error: "Could not store images" });
+      return next(error);
     }
   },
   // Read images detail data from dynamoDB
@@ -103,8 +93,7 @@ const dataBaseController = {
       next();
     } catch (error) {
       console.log(error);
-      // Refactor: send this to global error handler
-      res.status(500).json({ error: "Error occurs when scan table." });
+      return next(error);
     }
   },
   // storeScanResultData function
@@ -159,9 +148,7 @@ const dataBaseController = {
         const createTableResponse = await ddbDocClient.send(createTableCommand);
       } else {
         console.error("Error checking table existence:", error);
-        return res
-          .status(500)
-          .json({ error: "Could not check table existence" });
+        return next(error);
       }
     }
 
@@ -222,19 +209,15 @@ const dataBaseController = {
 
       const command = new UpdateCommand(updateParams);
       const updateResponse = await ddbDocClient.send(command);
-      
-      // Refactor: send this to relevant endpoints to response
-      res
-        .status(200)
-        .json({
-          message: "Scan result successfully saved to DynamoDB.",
-          data: updateResponse.Attributes,
-        });
+      res.status(200).json({
+        message: "Scan result successfully saved to DynamoDB.",
+        data: updateResponse.Attributes,
+      });
       console.log("Scan result successfully saved to DynamoDB.");
     } catch (error) {
       // Refactor: send this to global error handler
       console.error("Error storing scan result:", error);
-      res.status(500).json({ error: "Could not store scan result" });
+      return next(error);
     }
   },
   // Read Scan Result data from
@@ -261,9 +244,7 @@ const dataBaseController = {
       next();
     } catch (error) {
       console.log(error);
-      res
-        .status(500)
-        .json({ error: "Error occurs when scan the scan result table." });
+      return next(error);
     }
   },
 };
