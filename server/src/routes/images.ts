@@ -31,7 +31,6 @@ imagesRouter.get(
     }
 )
 
-// Refactor: move to scanResults
 // Read the scan result from DynamoDB
 imagesRouter.get(
     '/readscanresult/:accountId/:reponame',

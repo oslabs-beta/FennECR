@@ -9,19 +9,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const repositories_1 = __importDefault(require("./routes/repositories"));
 const images_1 = __importDefault(require("./routes/images"));
 const scanResults_1 = __importDefault(require("./routes/scanResults"));
-const express_session_1 = __importDefault(require("express-session"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-// Refactor: reconsider this solution
-// Configure session middleware with secret from environment variables
-app.use((0, express_session_1.default)({
-    secret: process.env.SESSION_SECRET || 'fallbackSecret',
-    resave: false,
-    saveUninitialized: true,
-    // cookie: { secure: false } // Set secure to true if using HTTPS
-}));
 // Routers
 app.get('/', (req, res) => {
     res.send('InsightECR ts server is running.');

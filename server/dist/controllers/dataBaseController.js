@@ -17,10 +17,6 @@ const client_dynamodb_1 = require("@aws-sdk/client-dynamodb");
 const dynamoDB_1 = __importDefault(require("../models/dynamoDB"));
 const dataBaseController = {
     storeImageDetails: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("Checking session data in storeImageDetails:", req.session.images);
-        if (!req.session.images || !req.session.images.imageDetails) {
-            return res.status(400).json({ error: "No image details found to store" });
-        }
         // Read the table name from the env config file.
         const tableName = process.env.IMAGES_TABLE_NAME;
         const input = {
@@ -66,7 +62,8 @@ const dataBaseController = {
         }
         // Write data to database logic
         try {
-            const images = req.session.images.imageDetails;
+            //   const images = req.session.images.imageDetails;
+            const images = res.locals.images;
             for (const image of images) {
                 const putParams = {
                     TableName: tableName,

@@ -58,7 +58,8 @@ const dataBaseController = {
     }
     // Write data to database logic
     try {
-      const images = req.session.images.imageDetails;
+      const images = res.locals.images;
+
       for (const image of images) {
         const putParams = {
           TableName: tableName,
@@ -71,8 +72,8 @@ const dataBaseController = {
         .status(200)
         .json({ message: "Images successfully saved to dynamoDB." });
     } catch (error) {
-        console.error("Error storing images:", error);
-        return next(error);
+      console.error("Error storing images:", error);
+      return next(error);
     }
   },
   // Read images detail data from dynamoDB
@@ -91,8 +92,8 @@ const dataBaseController = {
       res.locals.imgDataFromDB = data.Items;
       next();
     } catch (error) {
-        console.log(error);
-        return next(error);
+      console.log(error);
+      return next(error);
     }
   },
   // storeScanResultData function
@@ -208,19 +209,15 @@ const dataBaseController = {
 
       const command = new UpdateCommand(updateParams);
       const updateResponse = await ddbDocClient.send(command);
-      
-      // Refactor: send this to relevant endpoints to response
-      res
-        .status(200)
-        .json({
-          message: "Scan result successfully saved to DynamoDB.",
-          data: updateResponse.Attributes,
-        });
+      res.status(200).json({
+        message: "Scan result successfully saved to DynamoDB.",
+        data: updateResponse.Attributes,
+      });
       console.log("Scan result successfully saved to DynamoDB.");
     } catch (error) {
       // Refactor: send this to global error handler
       console.error("Error storing scan result:", error);
-      res.status(500).json({ error: "Could not store scan result" });
+      return next(error);
     }
   },
   // Read Scan Result data from
@@ -246,8 +243,8 @@ const dataBaseController = {
       console.log(message);
       next();
     } catch (error) {
-        console.log(error);
-        return next(error);
+      console.log(error);
+      return next(error);
     }
   },
 };
