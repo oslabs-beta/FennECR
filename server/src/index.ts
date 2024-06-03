@@ -7,7 +7,6 @@ import imagesRouter from './routes/images';
 import scanResultsRouter from './routes/scanResults';
 import session from 'express-session';
 
-
 dotenv.config();
 
 const app: Express = express();
@@ -17,13 +16,14 @@ app.use(cors());
 
 // Refactor: reconsider this solution
 // Configure session middleware with secret from environment variables
-app.use(session({
+app.use(
+  session({
     secret: process.env.SESSION_SECRET || 'fallbackSecret',
     resave: false,
     saveUninitialized: true,
     // cookie: { secure: false } // Set secure to true if using HTTPS
-  }));
-  
+  })
+);
 
 // Routers
 app.get('/', (req: Request, res: Response) => {
@@ -32,15 +32,17 @@ app.get('/', (req: Request, res: Response) => {
 
 // Prepare availiable accounts from env for frontend to select
 app.get('/accounts', (req, res) => {
-  const accountKeys = Object.keys(process.env).filter(key => key.startsWith('AWS_ACCESS_KEY_ID_'));
-  console.log(`I am account Keys: ${accountKeys}`)
+  const accountKeys = Object.keys(process.env).filter((key) =>
+    key.startsWith('AWS_ACCESS_KEY_ID_')
+  );
   if (accountKeys.length > 0) {
-    const accountIds = accountKeys.map(key => key.split('_').pop()); // Extract all account IDs
-    const accounts = accountIds.map(accountId => ({ accountId })); // Create an array of account objects
-    console.log(`I am account IDs: ${accounts}`)
+    const accountIds = accountKeys.map((key) => key.split('_').pop()); // Extract all account IDs
+    const accounts = accountIds.map((accountId) => ({ accountId })); // Create an array of account objects
     res.status(200).json({ accounts });
   } else {
-    res.status(404).json({ message: 'No account ID found in environment variables' });
+    res
+      .status(404)
+      .json({ message: 'No account ID found in environment variables' });
   }
 });
 
@@ -49,7 +51,6 @@ app.use('/repository', repositoriesRouter);
 
 // Images routes
 app.use('/images', imagesRouter);
-
 
 // Scan result routes
 app.use('/results', scanResultsRouter);

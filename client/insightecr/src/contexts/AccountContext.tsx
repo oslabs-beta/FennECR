@@ -21,10 +21,8 @@ const AccountProvider: React.FC<{ children: React.ReactNode }> = ({
     const fetchAccountId = async () => {
       try {
         const data = await getAccountId();
-        console.log('Fetched account data:', data);
         setAccounts(data);
         if (data.length > 0) {
-          console.log(`I am default accountId: ${data[0].accountId}`);
           setAccountId(data[0].accountId); // Set default accountId to the first account
         }
       } catch (error) {
