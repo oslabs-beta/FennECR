@@ -1,37 +1,37 @@
-import React, { createContext } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { createContext } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {
   createTheme,
   ThemeProvider,
   CssBaseline,
   Box,
   Toolbar,
-} from "@mui/material";
-import AppBar from "./Components/AppBar";
-import NavDrawer from "./Components/NavDrawer";
-import Dashboard from "./Pages/Dashboard";
-import RepoPage from "./Pages/Repository1.tsx";
+} from '@mui/material';
+import AppBar from './Components/AppBar';
+import NavDrawer from './Components/NavDrawer';
+import Dashboard from './Pages/Dashboard';
+import RepoPage from './Pages/Repository.tsx';
 
 // Define the ThemeContext
 export const ThemeContext = createContext({ darkMode: false });
 
 const lightTheme = createTheme({
   palette: {
-    mode: "light",
+    mode: 'light',
     text: {
-      primary: "#21005D",
+      primary: '#21005D',
     },
   },
 });
 
 const darkTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: 'dark',
     text: {
-      primary: "#EADDFF",
+      primary: '#EADDFF',
     },
     background: {
-        default:'#121212',
+      default: '#121212',
     },
   },
 });
@@ -52,7 +52,7 @@ export default function App() {
     <ThemeContext.Provider value={{ darkMode }}>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <Router>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar
               open={open}
@@ -62,17 +62,17 @@ export default function App() {
             />
             <NavDrawer open={open} toggleDrawer={toggleDrawer} />
             <Box
-              component="main"
+              component='main'
               sx={{
                 flexGrow: 1,
-                height: "100vh",
-                overflow: "auto",
+                height: '100vh',
+                overflow: 'auto',
               }}
             >
               <Toolbar />
               <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/repository/:repoName" element={<RepoPage />} />
+                <Route path='/' element={<Dashboard />} />
+                <Route path='/repository/:repoName' element={<RepoPage />} />
                 {/* other routes here */}
               </Routes>
             </Box>

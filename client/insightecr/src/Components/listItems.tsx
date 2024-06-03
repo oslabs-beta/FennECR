@@ -6,8 +6,8 @@ import ListItemText from '@mui/material/ListItemText';
 import PublicIcon from '@mui/icons-material/Public';
 import DescriptionIcon from '@mui/icons-material/Description';
 import EmailIcon from '@mui/icons-material/Email';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import InsightsSharpIcon from '@mui/icons-material/InsightsSharp';
+// import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+// import InsightsSharpIcon from '@mui/icons-material/InsightsSharp';
 import EqualizerSharpIcon from '@mui/icons-material/EqualizerSharp';
 import { Divider, ListSubheader } from '@mui/material';
 import { Repository } from '../utils/types';
@@ -46,12 +46,12 @@ const ListItems: React.FC<ListItemsProps> = ({ repo, onRepoClick }) => {
         </ListItemIcon>
         <ListItemText primary='Stats' />
       </ListItemButton>
-      <ListItemButton>
+      {/* <ListItemButton>
         <ListItemIcon>
           <InsightsSharpIcon sx={{ color: darkMode ? '#EADDFF' : '#21005D' }} />
         </ListItemIcon>
         <ListItemText primary='Trends' />
-      </ListItemButton>
+      </ListItemButton> */}
       <Divider sx={{ my: 1 }} />
       <ListSubheader
         component='div'
@@ -79,16 +79,16 @@ const ListItems: React.FC<ListItemsProps> = ({ repo, onRepoClick }) => {
         inset
         sx={{ backgroundColor: darkMode ? '#292929' : '#E8DEF8' }}
       >
-        Tools
+        Others
       </ListSubheader>
-      <ListItemButton>
+      {/* <ListItemButton>
         <ListItemIcon>
           <NotificationsActiveIcon
             sx={{ color: darkMode ? '#EADDFF' : '#21005D' }}
           />
         </ListItemIcon>
         <ListItemText primary='Alert' />
-      </ListItemButton>
+      </ListItemButton> */}
       <ListItemButton>
         <ListItemIcon>
           <DescriptionIcon sx={{ color: darkMode ? '#EADDFF' : '#21005D' }} />
