@@ -8,6 +8,17 @@ import {
 } from "@aws-sdk/client-dynamodb";
 import ddbDocClient from "../models/dynamoDB";
 
+// Helper function to convert Date objects to ISO strings in an object
+const convertDatesToISOString = (obj: any) => {
+  for (const key in obj) {
+    if (obj[key] instanceof Date) {
+      obj[key] = obj[key].toISOString();
+    } else if (typeof obj[key] === "object" && obj[key] !== null) {
+      convertDatesToISOString(obj[key]);
+    }
+  }
+};
+
 const dataBaseController = {
   storeImageDetails: async (
     req: Request,
@@ -58,7 +69,17 @@ const dataBaseController = {
     }
     // Write data to database logic
     try {
-      const images = res.locals.images;
+        console.log('res.locals.images from storeImageDetails:', res.locals.images);
+
+        // Make sure the images is an array
+
+        const images = res.locals.images;
+        if (!Array.isArray(images)) {
+          throw new TypeError("res.locals.images is not an array");
+        }
+  
+        // Convert the date to ISOString
+        images.forEach(convertDatesToISOString);
 
       for (const image of images) {
         const putParams = {

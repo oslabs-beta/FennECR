@@ -15,6 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const lib_dynamodb_1 = require("@aws-sdk/lib-dynamodb");
 const client_dynamodb_1 = require("@aws-sdk/client-dynamodb");
 const dynamoDB_1 = __importDefault(require("../models/dynamoDB"));
+// Helper function to convert Date objects to ISO strings in an object
+const convertDatesToISOString = (obj) => {
+    for (const key in obj) {
+        if (obj[key] instanceof Date) {
+            obj[key] = obj[key].toISOString();
+        }
+        else if (typeof obj[key] === "object" && obj[key] !== null) {
+            convertDatesToISOString(obj[key]);
+        }
+    }
+};
 const dataBaseController = {
     storeImageDetails: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         // Read the table name from the env config file.
@@ -62,8 +73,14 @@ const dataBaseController = {
         }
         // Write data to database logic
         try {
-            //   const images = req.session.images.imageDetails;
+            console.log('res.locals.images from storeImageDetails:', res.locals.images);
+            // 确保 res.locals.images 是一个数组
             const images = res.locals.images;
+            if (!Array.isArray(images)) {
+                throw new TypeError("res.locals.images is not an array");
+            }
+            // 转换每个图像对象中的 Date 对象
+            images.forEach(convertDatesToISOString);
             for (const image of images) {
                 const putParams = {
                     TableName: tableName,
@@ -193,10 +210,7 @@ const dataBaseController = {
             };
             const command = new lib_dynamodb_1.UpdateCommand(updateParams);
             const updateResponse = yield dynamoDB_1.default.send(command);
-            // Refactor: send this to relevant endpoints to response
-            res
-                .status(200)
-                .json({
+            res.status(200).json({
                 message: "Scan result successfully saved to DynamoDB.",
                 data: updateResponse.Attributes,
             });
@@ -205,7 +219,7 @@ const dataBaseController = {
         catch (error) {
             // Refactor: send this to global error handler
             console.error("Error storing scan result:", error);
-            res.status(500).json({ error: "Could not store scan result" });
+            return next(error);
         }
     }),
     // Read Scan Result data from

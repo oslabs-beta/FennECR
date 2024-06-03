@@ -16,6 +16,7 @@ imagesRouter.get(
 // Store the images data to the DynamoDB
 imagesRouter.post(
   "/store/:accountId/:repoName",
+  imagesController.getImages, 
   dataBaseController.storeImageDetails,
   (req: Request, res: Response) => {
     res.status(200).send("Save images detail to the DB is success");

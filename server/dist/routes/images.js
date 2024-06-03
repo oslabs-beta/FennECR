@@ -12,7 +12,7 @@ imagesRouter.get("/:accountId/:repoName", imagesController_1.default.getImages, 
     res.status(200).json(res.locals.images);
 });
 // Store the images data to the DynamoDB
-imagesRouter.post("/store/:accountId/:repoName", dataBaseController_1.default.storeImageDetails, (req, res) => {
+imagesRouter.post("/store/:accountId/:repoName", imagesController_1.default.getImages, dataBaseController_1.default.storeImageDetails, (req, res) => {
     res.status(200).send("Save images detail to the DB is success");
 });
 // Read the images data from DynamoDB

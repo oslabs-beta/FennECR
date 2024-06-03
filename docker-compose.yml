@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: ./client/insightecr
+      dockerfile: Dockerfile.client
+    ports:
+      - "80:80"
+    volumes:
+      - ./client/insightecr:/app
+      - /app/node_modules
+    depends_on:
+      - server
+
+  client-dev:
+    image: node:20
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ./client/insightecr:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - dynamodb
+
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb
+    ports:
+      - "8000:8000"
+    volumes:
+      - dynamodbdata:/data
+
+volumes:
+  dynamodbdata:

@@ -19,9 +19,9 @@ const imagesController = {
 
       // Ensure imageDetails is always an array
       const imageDetails = data.imageDetails || [];
-
+      console.log('imagesDetails from imagecontroller: ',imageDetails)
       // Store imageDetails in locals
-      res.locals.images = { imageDetails };
+      res.locals.images = imageDetails;
       return next();
     } catch (error) {
       next(error);
