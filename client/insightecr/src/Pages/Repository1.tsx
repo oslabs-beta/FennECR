@@ -1,4 +1,4 @@
-import { Button, Grid, List, ListItem, ListItemText } from '@mui/material';
+import { Button, Card, Grid, List, ListItem, ListItemText } from '@mui/material';
 import React, { useState, useEffect, useContext } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -37,11 +37,35 @@ const RepoPage: React.FC = () => {
   return (
     <React.Fragment>
       <Header title={'Images'} />
-      <Grid container justifyContent={"center"} gap={2} sx={{'margin-bottom':'40px'}}>
-      {images.map((image, index) => {
+      {/* <Grid 
+      container justifyContent={"center"} gap={2} 
+      sx={{
+        'margin-bottom':'40px',
+        borderRadius: 7,
+        marginBottom: 2,
+        minHeight: '360px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        // background: darkMode ? '#45494F' : '#E8DEF8',
+        background: '#E8DEF8',
+    }}
+      > */}
+      {images.map((image) => {
         return (
+            <Card
+            sx={{
+                borderRadius: 7,
+                marginBottom: 2,
+                minHeight: '360px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                // background: darkMode ? '#45494F' : '#E8DEF8',
+                background: '#E8DEF8',
+
+            }}>
           <CardContent id='repoCards'>
-            {/* <Grid container spacing={5} key={index}> */}
               <Grid item xs={12} display={'flex'} direction={'column'}>
                 <List>
                   <ListItem>
@@ -118,9 +142,10 @@ const RepoPage: React.FC = () => {
               </Grid>
             {/* </Grid> */}
           </CardContent>
+          </Card>
         );
       })}
-      </Grid>
+      {/* </Grid> */}
     </React.Fragment>
   );
 };

@@ -70,15 +70,14 @@ const { darkMode } = useContext(ThemeContext);
   return (
     <Card
       id='detailCard1"'
-      sx={{
+      sx={{   
         borderRadius: 7,
         marginBottom: 2,
         minHeight: '360px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        background: darkMode ? '#1E1E1E' : '#E8E8FD',
-
+        background: darkMode ? '#45494F' : '#E8DEF8',
       }}
     >
       <CardContent
@@ -90,8 +89,6 @@ const { darkMode } = useContext(ThemeContext);
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
-              background: darkMode ? '#45494F' : '#E8E8FD',
-      
             }} >
         <p id="headerP" style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
           {data.repositoryName}
