@@ -12,7 +12,8 @@ import EqualizerSharpIcon from '@mui/icons-material/EqualizerSharp';
 import { Divider, ListSubheader } from '@mui/material';
 import { Repository } from '../utils/types';
 import { AccountContext } from '../contexts/AccountContext.tsx';
-import { RepoContext } from '../contexts/RepoContext.tsx';
+import { ThemeContext } from '../App';
+
 
 interface ListItemsProps {
   repo: Repository[];
@@ -20,26 +21,28 @@ interface ListItemsProps {
 }
 
 const ListItems: React.FC<ListItemsProps> = ({ repo, onRepoClick }) => {
+    const { darkMode } = useContext(ThemeContext);
+
   const accountId = useContext(AccountContext);
   return (
     <React.Fragment>
-      <ListSubheader component='div' inset sx={{ backgroundColor: '#D1D0FB' }}>
+      <ListSubheader component='div' inset sx={{ backgroundColor: darkMode ? '#292929' : '#E8DEF8' }}>
         Dashboard
       </ListSubheader>
       <ListItemButton component={Link} to='/'>
         <ListItemIcon>
-          <EqualizerSharpIcon />
+          <EqualizerSharpIcon sx={{color: darkMode ? "#EADDFF" : "#21005D"}}/>
         </ListItemIcon>
         <ListItemText primary='Stats' />
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <InsightsSharpIcon />
+          <InsightsSharpIcon sx={{color: darkMode ? "#EADDFF" : "#21005D"}}/>
         </ListItemIcon>
         <ListItemText primary='Trends' />
       </ListItemButton>
       <Divider sx={{ my: 1 }} />
-      <ListSubheader component='div' inset sx={{ backgroundColor: '#D1D0FB' }}>
+      <ListSubheader component='div' inset sx={{ backgroundColor: darkMode ? '#292929' : '#E8DEF8' }}>
         {`AWS Account - ${accountId}`}
       </ListSubheader>
       {repo.map((repo) => (
@@ -50,30 +53,30 @@ const ListItems: React.FC<ListItemsProps> = ({ repo, onRepoClick }) => {
           onClick={() => onRepoClick(repo.repositoryName)}
         >
           <ListItemIcon>
-            <PublicIcon />
+            <PublicIcon sx={{color: darkMode ? "#EADDFF" : "#21005D"}}/>
           </ListItemIcon>
           <ListItemText primary={repo.repositoryName} />
         </ListItemButton>
       ))}
       <Divider sx={{ my: 1 }} />
-      <ListSubheader component='div' inset sx={{ backgroundColor: '#D1D0FB' }}>
+      <ListSubheader component='div' inset sx={{ backgroundColor: darkMode ? '#292929' : '#E8DEF8' }}>
         Tools
       </ListSubheader>
       <ListItemButton>
         <ListItemIcon>
-          <NotificationsActiveIcon />
+          <NotificationsActiveIcon sx={{color: darkMode ? "#EADDFF" : "#21005D"}}/>
         </ListItemIcon>
         <ListItemText primary='Alert' />
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <DescriptionIcon />
+          <DescriptionIcon sx={{color: darkMode ? "#EADDFF" : "#21005D"}}/>
         </ListItemIcon>
         <ListItemText primary='Documentation' />
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <EmailIcon />
+          <EmailIcon sx={{color: darkMode ? "#EADDFF" : "#21005D"}}/>
         </ListItemIcon>
         <ListItemText primary='Contact Us' />
       </ListItemButton>

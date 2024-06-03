@@ -40,23 +40,12 @@ const { darkMode } = useContext(ThemeContext);
   return (
     <React.Fragment>
       <Header title={'Images'} />
-      {/* <Grid 
-      container justifyContent={"center"} gap={2} 
-      sx={{
-        'margin-bottom':'40px',
-        borderRadius: 7,
-        marginBottom: 2,
-        minHeight: '360px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        // background: darkMode ? '#45494F' : '#E8DEF8',
-        background: '#E8DEF8',
-    }}
-      > */}
-      {images.map((image) => {
+      <Grid container justifyContent={"center"} gap={2} sx={{'marginBottom':'40px'}}>
+
+      {images.map((image,index) => {
         return (
             <Card
+            key={index}
             sx={{
                 borderRadius: 7,
                 marginBottom: 2,
@@ -67,7 +56,7 @@ const { darkMode } = useContext(ThemeContext);
                 background: darkMode ? '#45494F' : '#E8DEF8',
             }}>
           <CardContent id='repoCards'>
-              <Grid item xs={12} display={'flex'} direction={'column'}>
+              <Grid container item xs={12} display={'flex'} direction={'column'}>
                 <List>
                   <ListItem>
                     <ListItemText
@@ -146,7 +135,7 @@ const { darkMode } = useContext(ThemeContext);
           </Card>
         );
       })}
-      {/* </Grid> */}
+      </Grid>
     </React.Fragment>
   );
 };

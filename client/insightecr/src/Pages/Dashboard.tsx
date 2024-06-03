@@ -96,7 +96,6 @@ const { darkMode } = useContext(ThemeContext);
               flexDirection: 'column',
               height: 360,
               textAlign: 'center',
-            //   background: '#E8E8FD',
               background: darkMode ? '#1E1E1E' : '#E8E8FD',
               borderRadius: 3,
             }}

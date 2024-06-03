@@ -37,7 +37,7 @@ const BasicStacking: React.FC<BasicStackingProps> = ({ inputData }) => {
   const info = {
     data: repoNames.map((repoName) => inputData[repoName].informational),
     label: 'info',
-    color: darkMode ? '#D0BCFF' : '#CCC2DC'
+    color: darkMode ? '#E6E6FA	' : '#CCC2DC'
 
   };
 

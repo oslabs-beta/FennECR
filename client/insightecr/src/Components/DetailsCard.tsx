@@ -8,7 +8,6 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import '../App.scss';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';

@@ -40,20 +40,21 @@ const AppBar: React.FC<AppBarProps> = ({
   handleThemeChange,
 }) => {
   return (
-    <AppBarStyle position="absolute" open={open}>
-      <Toolbar sx={{ pr: "24px" }}>
+    <AppBarStyle position="absolute" open={open} elevation={1}>
+      <Toolbar sx={{ pr: "24px" ,    background: darkMode ? '#292929' : '#E8DEF8',
+}}>
         <IconButton
           edge="start"
           aria-label="open drawer"
           onClick={toggleDrawer}
-          sx={{ marginRight: "36px", ...(open && { display: "none" }) }}
+          sx={{ marginRight: "36px", ...(open && { display: "none" }),color:darkMode ? '#EADDFF' :'#21005D' }}
         >
           <MenuIcon />
         </IconButton>
         <Typography
           component="h1"
           variant="h6"
-          color={darkMode ? "#FFFFFF" : "#21005D"}
+          color={darkMode ? "#EADDFF" : "#21005D"}
           noWrap
           sx={{ flexGrow: 1, textAlign: "center" }}
         >
@@ -61,7 +62,7 @@ const AppBar: React.FC<AppBarProps> = ({
         </Typography>
         <IconButton
           edge="end"
-          sx={{ color: darkMode ? "#FFFFFF" : "#21005D" }}
+          sx={{ color: darkMode ? "#EADDFF" : "#21005D" }}
           aria-label="toggle dark mode"
           onClick={handleThemeChange}
         >
