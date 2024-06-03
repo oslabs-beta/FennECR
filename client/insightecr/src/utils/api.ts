@@ -36,7 +36,9 @@ export const getAggregatedScanResults = async (accountId: string, repoName: stri
     const response = await axios.get(`${API_BASE_URL}/results/${accountId}/${repoName}`);
     return response.data;
   } catch (error) {
-    if (error.response && error.response.status === 404) {
+    const typedError = error as Error;
+
+    if (typedError.message && typedError.message === '404') {
       // Handle 404 not found
       console.warn(`Data not found for repository ${repoName}`);
       return null;

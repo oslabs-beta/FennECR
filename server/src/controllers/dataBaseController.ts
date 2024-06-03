@@ -14,14 +14,6 @@ const dataBaseController = {
     res: Response,
     next: NextFunction
   ) => {
-    console.log(
-      "Checking session data in storeImageDetails:",
-      req.session.images
-    );
-
-    if (!req.session.images || !req.session.images.imageDetails) {
-      return res.status(400).json({ error: "No image details found to store" });
-    }
     // Read the table name from the env config file.
     const tableName = process.env.IMAGES_TABLE_NAME;
 
