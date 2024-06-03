@@ -1,11 +1,23 @@
 import * as React from 'react';
-import { styled, Typography, Toolbar, IconButton } from '@mui/material';
+import { useContext } from 'react';
+import {
+  styled,
+  Typography,
+  Toolbar,
+  IconButton,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  FormControl,
+  Box,
+} from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
+import { AccountContext } from '../contexts/AccountContext';
 
 const drawerWidth: number = 240;
 
-interface AppBarProps extends MuiAppBarProps{
+interface AppBarProps extends MuiAppBarProps {
   open: boolean;
   toggleDrawer: () => void;
 }
@@ -30,6 +42,19 @@ const AppBarStyle = styled(MuiAppBar, {
 }));
 
 const AppBar: React.FC<AppBarProps> = ({ open, toggleDrawer }) => {
+  // Account Context
+  const accountContext = useContext(AccountContext);
+  // Check if context is undefined
+  if (!accountContext) {
+    throw new Error('Dashboard must be used within an AccountProvider');
+  }
+  const { accountId, setAccountId, accounts } = accountContext;
+
+  // Handle dropdown menu select
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setAccountId(event.target.value);
+  };
+
   return (
     <AppBarStyle position='absolute' open={open}>
       <Toolbar sx={{ pr: '24px' }}>
@@ -46,10 +71,24 @@ const AppBar: React.FC<AppBarProps> = ({ open, toggleDrawer }) => {
           variant='h6'
           color='#21005D'
           noWrap
-          sx={{ flexGrow: 1, textAlign: 'center'  }}
+          sx={{ flexGrow: 1, textAlign: 'center' }}
         >
-          InSightECR
+          FennECR
         </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Typography variant='body1' color='#21005D' sx={{ mr: 2 }}>
+            Current Account:
+          </Typography>
+          <FormControl variant='outlined' size='small'>
+            <Select value={accountId} onChange={handleChange} displayEmpty>
+              {accounts.map((account, index) => (
+                <MenuItem key={index} value={account.accountId}>
+                  {account.accountId}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
       </Toolbar>
     </AppBarStyle>
   );

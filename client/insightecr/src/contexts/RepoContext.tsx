@@ -16,13 +16,13 @@ export const RepoContext = createContext<RepoContextType>(defaultRepoContext);
 const RepoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [selectedRepository, setSelectedRepository] = useState<string | null>(null);
-    // Account Context
-    const accountContext = useContext(AccountContext);
-    // Check if context is undefined
-    if (!accountContext) {
-      throw new Error('Dashboard must be used within an AccountProvider');
-    }
-    const { accountId } = accountContext;
+  // Account Context
+  const accountContext = useContext(AccountContext);
+  // Check if context is undefined
+  if (!accountContext) {
+    throw new Error('Dashboard must be used within an AccountProvider');
+  }
+  const { accountId } = accountContext;
 
   useEffect(() => {
     const fetchRepoData = async () => {

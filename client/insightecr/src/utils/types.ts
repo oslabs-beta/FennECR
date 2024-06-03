@@ -51,5 +51,5 @@ export interface SeverityCountsMap {
 export interface AccountContextProps {
   accountId: string;
   setAccountId: (accountId: string) => void;
-  accounts: { id: string }[];
+  accounts: { accountId: string }[];
 }

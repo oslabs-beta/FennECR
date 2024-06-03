@@ -11,18 +11,22 @@ const AccountContext = createContext<AccountContextProps | undefined>(
   undefined
 );
 
-const AccountProvider: React.FC<{ children: React.ReactNode}> = ({
-  children, 
+const AccountProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
 }) => {
   const [accountId, setAccountId] = useState<string>('');
-  const [accounts, setAccounts] = useState<{ id: string }[]>([]);
+  const [accounts, setAccounts] = useState<{ accountId: string }[]>([]);
 
   useEffect(() => {
     const fetchAccountId = async () => {
       try {
         const data = await getAccountId();
-        setAccounts([data]);
-        setAccountId(data.accountId);
+        console.log('Fetched account data:', data);
+        setAccounts(data);
+        if (data.length > 0) {
+          console.log(`I am default accountId: ${data[0].accountId}`);
+          setAccountId(data[0].accountId); // Set default accountId to the first account
+        }
       } catch (error) {
         console.error('Error fetching account ID:', error);
       }

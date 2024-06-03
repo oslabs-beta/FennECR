@@ -29,9 +29,12 @@ app.get('/', (req, res) => {
 // Prepare availiable accounts from env for frontend to select
 app.get('/accounts', (req, res) => {
     const accountKeys = Object.keys(process.env).filter(key => key.startsWith('AWS_ACCESS_KEY_ID_'));
+    console.log(`I am account Keys: ${accountKeys}`);
     if (accountKeys.length > 0) {
-        const accountId = accountKeys[0].split('_').pop(); // Extract the account
-        res.status(200).json({ accountId });
+        const accountIds = accountKeys.map(key => key.split('_').pop()); // Extract all account IDs
+        const accounts = accountIds.map(accountId => ({ accountId })); // Create an array of account objects
+        console.log(`I am account IDs: ${accounts}`);
+        res.status(200).json({ accounts });
     }
     else {
         res.status(404).json({ message: 'No account ID found in environment variables' });
