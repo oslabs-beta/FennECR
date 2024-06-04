@@ -40,7 +40,6 @@ const RepoPage: React.FC = () => {
   const { accountId } = accountContext;
   const { repoName } = useParams<{ repoName: string }>();
 
-  const [selectedImage, setSelectedImage] = useState<string[] | null>(null);
   const [open, setOpen] = useState<boolean>(false);
   const [findings, setFindings] = useState<Finding[]>([]);
 
@@ -101,12 +100,13 @@ const RepoPage: React.FC = () => {
     }
   };
 
-  const handleClickOpen = (image: any) => {
-    if (image.imageTags && image.imageTags.length > 0) {
+  const handleClickOpen = (image: Image) => {
+    if (Array.isArray(image.imageTags) && image.imageTags.length > 0) {
       const imageTag = image.imageTags[0]; // Use the first image tag
-      setSelectedImage(image.imageTags);
       setOpen(true);
-      fetchImageFinding(accountId, repoName, imageTag);
+      if (repoName) {
+        fetchImageFinding(accountId, repoName, imageTag);
+      }
     } else {
       console.warn('No image tags found for the selected image.');
     }
@@ -114,7 +114,6 @@ const RepoPage: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedImage(null);
     setFindings([]);
   };
 
