@@ -1,0 +1,74 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: ./client/insightecr
+      dockerfile: Dockerfile.client
+    ports:
+      - "80:80"
+    volumes:
+      - ./client/insightecr:/app
+      - /app/node_modules
+    depends_on:
+      - server
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION_1
+      - IMAGES_TABLE_NAME
+      - SCAN_RESULT_TABLE
+
+
+  client-dev:
+    image: node:20
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ./client/insightecr:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION_1
+      - IMAGES_TABLE_NAME
+      - SCAN_RESULT_TABLE
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - dynamodb
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION_1
+      - IMAGES_TABLE_NAME
+      - SCAN_RESULT_TABLE
+
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb
+    ports:
+      - "8000:8000"
+    volumes:
+      - dynamodbdata:/data
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION_1
+      - IMAGES_TABLE_NAME
+      - SCAN_RESULT_TABLE
+
+volumes:
+  dynamodbdata:
