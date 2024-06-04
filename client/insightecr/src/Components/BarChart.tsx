@@ -5,7 +5,7 @@ interface BasicStackingProps {
   inputData: SeverityCountsMap;
 }
 
-const BasicStacking: React.FC<BasicStackingProps> = ({ inputData }) => {
+export const BasicStacking: React.FC<BasicStackingProps> = ({ inputData }) => {
   // Unpacking repository names and initializing arrays for severity counts
   const repoNames = Object.keys(inputData);
   const critical = {
@@ -50,5 +50,3 @@ const BasicStacking: React.FC<BasicStackingProps> = ({ inputData }) => {
     />
   );
 };
-
-export default BasicStacking;

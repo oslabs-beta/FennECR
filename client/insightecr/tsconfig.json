@@ -6,7 +6,7 @@
     "module": "commonjs",
     "skipLibCheck": true,
     "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -15,8 +15,8 @@
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["jest", "@testing-library/jest-dom"],
   },
   "include": ["src", "__tests__"],
-  "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -6,6 +6,8 @@ import repositoriesRouter from './routes/repositories';
 import imagesRouter from './routes/images';
 import scanResultsRouter from './routes/scanResults';
 import session from 'express-session';
+import http, { Server } from 'http'; // Import http module and Server type
+
 
 
 dotenv.config();
@@ -67,6 +69,19 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Server settings
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`InsightECR server is running at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`InsightECR server is running at http://localhost:${port}`);
+// });
+
+
+let server: Server;
+
+if (process.env.NODE_ENV !== 'test') {
+    server = app.listen(port, () => {
+        console.log(`InsightECR server is running at http://localhost:${port}`);
+    });
+} else {
+    server = app.listen(0); // Start on a random available port for testing
+}
+
+export default server;

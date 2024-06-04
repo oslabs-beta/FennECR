@@ -1,6 +1,10 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: {
+    browser: true,
+    es2020: true,
+    node: true, // Add this line to enable Node.js global variables
+  },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -15,4 +19,4 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-}
+};
