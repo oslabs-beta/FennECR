@@ -3,7 +3,7 @@ import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb'
 
 // Configure the DynamoDB client to point to the local DynamoDB instance
 const ddbClient = new DynamoDBClient({
-//   region: 'us-east-1', 
+  region: 'us-east-1', 
   endpoint: 'http://localhost:8000', // Point to local DynamoDB
 });
 

@@ -53,6 +53,16 @@ app.use((req, res, next) => {
 });
 // Server settings
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`InsightECR server is running at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`InsightECR server is running at http://localhost:${port}`);
+// });
+let server;
+if (process.env.NODE_ENV !== 'test') {
+    server = app.listen(port, () => {
+        console.log(`InsightECR server is running at http://localhost:${port}`);
+    });
+}
+else {
+    server = app.listen(0); // Start on a random available port for testing
+}
+exports.default = server;
