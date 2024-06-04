@@ -38,9 +38,8 @@ const RepoPage: React.FC = () => {
     throw new Error('Dashboard must be used within an AccountProvider');
   }
   const { accountId } = accountContext;
-  const { repoName } = useParams<{ repoName: string }>();
+  const { repoName } = useParams<{ repoName: string | undefined }>();
 
-  const [selectedImage, setSelectedImage] = useState<string[] | null>(null);
   const [open, setOpen] = useState<boolean>(false);
   const [findings, setFindings] = useState<Finding[]>([]);
 
@@ -101,10 +100,9 @@ const RepoPage: React.FC = () => {
     }
   };
 
-  const handleClickOpen = (image: any) => {
+  const handleClickOpen = (image: object) => {
     if (image.imageTags && image.imageTags.length > 0) {
       const imageTag = image.imageTags[0]; // Use the first image tag
-      setSelectedImage(image.imageTags);
       setOpen(true);
       fetchImageFinding(accountId, repoName, imageTag);
     } else {
@@ -114,7 +112,6 @@ const RepoPage: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedImage(null);
     setFindings([]);
   };
 

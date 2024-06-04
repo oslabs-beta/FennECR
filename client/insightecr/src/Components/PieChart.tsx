@@ -50,7 +50,6 @@ const BasicPie: React.FC<BasicPieProps> = ({ inputData }) => {
               faded: { innerRadius: 10, additionalRadius: -30, color: 'gray' },
             },
           ]}
-          margin={{ bottom: 100, left: 100, right: 100 }}
           slotProps={{
             legend: {
               direction: 'row',
