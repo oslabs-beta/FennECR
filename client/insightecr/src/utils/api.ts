@@ -88,3 +88,31 @@ export const getImages = async (accountId: string, repoName: string) => {
     console.error('Error fetching repository data:', error);
   }
 };
+
+export const getSingleScanResults = async (
+  accountId: string,
+  repoName: string,
+  imageTag: string
+) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/results/${accountId}/${repoName}/${imageTag}`
+    );
+    return response.data;
+  } catch (error) {
+    const typedError = error as Error;
+
+    if (typedError.message && typedError.message === '404') {
+      // Handle 404 not found
+      console.warn(
+        `Data not found for repository ${repoName} image ${imageTag}`
+      );
+      return null;
+    } else {
+      console.error(
+        'Error fetching image scan results from given repository:',
+        error
+      );
+    }
+  }
+};

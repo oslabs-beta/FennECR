@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { styled ,Divider, Toolbar,IconButton,List } from '@mui/material';
+import { styled, Divider, Toolbar, IconButton, List } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 import { RepoContext } from '../contexts/RepoContext.tsx';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -12,9 +12,7 @@ interface DrawerProps {
   open?: boolean;
   toggleDrawer: () => void;
   darkMode?: boolean;
-
 }
-
 
 const DrawerStyle = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open' && prop !== 'darkMode',
@@ -43,34 +41,32 @@ const DrawerStyle = styled(MuiDrawer, {
   },
 }));
 
-const NavDrawer:React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
-    
-    
-    const { repositories, setSelectedRepository } = useContext(RepoContext)
-    const { darkMode } = useContext(ThemeContext);
-  const handleRepoClick = (repoName:string) => {
-    setSelectedRepository(repoName)
-    toggleDrawer()
-  }
+const NavDrawer: React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
+  const { repositories, setSelectedRepository } = useContext(RepoContext);
+  const { darkMode } = useContext(ThemeContext);
+  const handleRepoClick = (repoName: string) => {
+    setSelectedRepository(repoName);
+    toggleDrawer();
+  };
   return (
-    <DrawerStyle variant="permanent" open={open} darkMode={darkMode}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            <ListItems repo={repositories} onRepoClick={handleRepoClick}/>
-          </List>
-        </DrawerStyle>
+    <DrawerStyle variant='permanent' open={open} darkMode={darkMode}>
+      <Toolbar
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          px: [1],
+        }}
+      >
+        <IconButton onClick={toggleDrawer}>
+          <ChevronLeftIcon />
+        </IconButton>
+      </Toolbar>
+      <Divider />
+      <List component='nav'>
+        <ListItems repo={repositories} onRepoClick={handleRepoClick} />
+      </List>
+    </DrawerStyle>
   );
 };
 

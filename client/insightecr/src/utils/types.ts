@@ -17,23 +17,21 @@ export interface RepoContextType {
 }
 
 export interface Image {
-
-    imageTags: string[];
-    imageSizeInBytes: number;
-    imageScanStatus: {
-      status: string;
+  imageTags: string[];
+  imageSizeInBytes: number;
+  imageScanStatus: {
+    status: string;
+  };
+  imagePushedAt: string;
+  imageScanFindingsSummary: {
+    findingSeverityCounts: {
+      CRITICAL: number;
+      HIGH: number;
+      MEDIUM: number;
+      LOW: number;
+      INFORMATIONAL: number;
     };
-    imagePushedAt: string;
-    imageScanFindingsSummary: {
-      findingSeverityCounts: {
-        CRITICAL: number;
-        HIGH: number;
-        MEDIUM: number;
-        LOW: number;
-        INFORMATIONAL: number;
-      };
-    };
-
+  };
 }
 
 export interface SeverityCounts {
@@ -52,4 +50,31 @@ export interface AccountContextProps {
   accountId: string;
   setAccountId: (accountId: string) => void;
   accounts: { accountId: string }[];
+}
+
+export interface Finding {
+  id: string;
+  name: string;
+  package: string;
+  description: string;
+  severity: string;
+  uri: string;
+}
+
+export interface ImageAttribute {
+  key: string;
+  value: string;
+}
+
+export interface ImageFinding {
+  description: string;
+  severity: string;
+  uri: string;
+  attributes: ImageAttribute[];
+}
+
+export interface ImageScanResult {
+  imageScanFindings: {
+    findings: ImageFinding[];
+  };
 }

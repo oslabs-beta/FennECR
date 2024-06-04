@@ -5,6 +5,11 @@ import {
   List,
   ListItem,
   ListItemText,
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from '@mui/material';
 import React, { useState, useEffect, useContext } from 'react';
 import Table from '@mui/material/Table';
@@ -14,10 +19,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import CardContent from '@mui/material/CardContent';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Header from '../Components/Header.tsx';
-import { Image } from '../utils/types.ts';
+import {
+  Finding,
+  Image,
+  ImageFinding,
+  ImageScanResult,
+} from '../utils/types.ts';
 import { AccountContext } from '../contexts/AccountContext.tsx';
-import { getImages } from '../utils/api.ts';
+import { getImages, getSingleScanResults } from '../utils/api.ts';
 import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../App.tsx';
 
@@ -33,6 +44,10 @@ const RepoPage: React.FC = () => {
   }
   const { accountId } = accountContext;
   const { repoName } = useParams<{ repoName: string }>();
+
+  const [selectedImage, setSelectedImage] = useState<string[] | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const [findings, setFindings] = useState<Finding[]>([]);
 
   useEffect(() => {
     const fetchImages = async (accountId: string, repoName: string) => {
@@ -50,9 +65,79 @@ const RepoPage: React.FC = () => {
     }
   }, [accountId, repoName]);
 
+  const fetchImageFinding = async (
+    accountId: string,
+    repoName: string,
+    imageTag: string
+  ) => {
+    try {
+      const data: ImageScanResult = await getSingleScanResults(
+        accountId,
+        repoName,
+        imageTag
+      );
+      if (data && data.imageScanFindings) {
+        const mappedData = data.imageScanFindings.findings.map(
+          (finding: ImageFinding, index: number) => {
+            let packageName = '';
+            let packageVersion = '';
+
+            for (const attributes of finding.attributes) {
+              if (attributes.key === 'package_name') {
+                packageName = attributes.value;
+              } else if (attributes.key === 'package_version') {
+                packageVersion = attributes.value;
+              }
+            }
+
+            return {
+              id: `${packageName}-${packageVersion}-${index}`,
+              name: packageName,
+              package: packageVersion,
+              description: finding.description,
+              severity: finding.severity,
+              uri: finding.uri,
+            };
+          }
+        );
+        setFindings(mappedData);
+      }
+    } catch (error) {
+      console.error('Error fetching image scan results:', error);
+    }
+  };
+
+  const handleClickOpen = (image: any) => {
+    if (image.imageTags && image.imageTags.length > 0) {
+      const imageTag = image.imageTags[0]; // Use the first image tag
+      setSelectedImage(image.imageTags);
+      setOpen(true);
+      fetchImageFinding(accountId, repoName, imageTag);
+    } else {
+      console.warn('No image tags found for the selected image.');
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedImage(null);
+    setFindings([]);
+  };
+
+  const columns: GridColDef[] = [
+    { field: 'name', headerName: 'Name', flex: 1 },
+    { field: 'package', headerName: 'Package', flex: 1 },
+    { field: 'severity', headerName: 'Severity', flex: 1 },
+    { field: 'description', headerName: 'Description', flex: 3 },
+  ];
+
+  const rows = findings;
+
   return (
     <React.Fragment>
-      <Header title={'Images'} />
+      <Box marginLeft={'140px'}>
+        <Header title={'Images'} />
+      </Box>
       <Grid
         container
         justifyContent={'center'}
@@ -156,9 +241,15 @@ const RepoPage: React.FC = () => {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                  <Button id='VulnerabilityDetails' size='small'>
-                    Vulnerability Details
-                  </Button>
+                  {image.imageTags && image.imageTags.length > 0 && (
+                    <Button
+                      id='VulnerabilityDetails'
+                      size='small'
+                      onClick={() => handleClickOpen(image)}
+                    >
+                      Vulnerability Details
+                    </Button>
+                  )}
                 </Grid>
                 {/* </Grid> */}
               </CardContent>
@@ -166,6 +257,21 @@ const RepoPage: React.FC = () => {
           );
         })}
       </Grid>
+      <Dialog open={open} onClose={handleClose} maxWidth='md' fullWidth>
+        <DialogTitle>Vulnerability Details</DialogTitle>
+        <DialogContent>
+          <Box sx={{ height: 600, width: '100%' }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              pageSizeOptions={[25, 50, 100]}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 };
