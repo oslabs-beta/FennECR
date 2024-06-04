@@ -100,11 +100,13 @@ const RepoPage: React.FC = () => {
     }
   };
 
-  const handleClickOpen = (image: object) => {
-    if (image.imageTags && image.imageTags.length > 0) {
+  const handleClickOpen = (image: Image) => {
+    if (Array.isArray(image.imageTags) && image.imageTags.length > 0) {
       const imageTag = image.imageTags[0]; // Use the first image tag
       setOpen(true);
-      fetchImageFinding(accountId, repoName, imageTag);
+      if (repoName) {
+        fetchImageFinding(accountId, repoName, imageTag);
+      }
     } else {
       console.warn('No image tags found for the selected image.');
     }
