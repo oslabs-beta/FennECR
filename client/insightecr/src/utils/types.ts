@@ -67,10 +67,11 @@ export interface ImageAttribute {
 }
 
 export interface ImageFinding {
+  attributes: ImageAttribute[];
   description: string;
+  name: string;
   severity: string;
   uri: string;
-  attributes: ImageAttribute[];
 }
 
 export interface ImageScanResult {

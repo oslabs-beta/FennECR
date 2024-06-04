@@ -92,8 +92,8 @@ const RepoPage: React.FC = () => {
 
             return {
               id: `${packageName}-${packageVersion}-${index}`,
-              name: packageName,
-              package: packageVersion,
+              name: finding.name,
+              package: `${packageName}:${packageVersion}`,
               description: finding.description,
               severity: finding.severity,
               uri: finding.uri,
@@ -241,15 +241,17 @@ const RepoPage: React.FC = () => {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                  {image.imageTags && image.imageTags.length > 0 && (
-                    <Button
-                      id='VulnerabilityDetails'
-                      size='small'
-                      onClick={() => handleClickOpen(image)}
-                    >
-                      Vulnerability Details
-                    </Button>
-                  )}
+                  {image.imageTags &&
+                    image.imageTags.length > 0 &&
+                    image.imageScanStatus.status === 'COMPLETE' && (
+                      <Button
+                        id='VulnerabilityDetails'
+                        size='small'
+                        onClick={() => handleClickOpen(image)}
+                      >
+                        Vulnerability Details
+                      </Button>
+                    )}
                 </Grid>
                 {/* </Grid> */}
               </CardContent>
