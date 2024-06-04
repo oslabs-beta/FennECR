@@ -22,15 +22,15 @@ const dataBaseController = {
         const input = {
             AttributeDefinitions: [
                 {
-                    AttributeName: "imageDigest",
-                    AttributeType: "S",
+                    AttributeName: 'imageDigest',
+                    AttributeType: 'S',
                 },
             ],
             TableName: tableName,
             KeySchema: [
                 {
-                    AttributeName: "imageDigest",
-                    KeyType: "HASH",
+                    AttributeName: 'imageDigest',
+                    KeyType: 'HASH',
                 },
             ],
             ProvisionedThroughput: {
@@ -45,19 +45,23 @@ const dataBaseController = {
                 TableName: tableName,
             });
             yield dynamoDB_1.default.send(describeTableCommand);
-            console.log("Images table already exists. Skipping creation.");
+            console.log('Images table already exists. Skipping creation.');
         }
         catch (error) {
-            if (error.name === "ResourceNotFoundException") {
+            if (error.name === 'ResourceNotFoundException') {
                 // If the table does not exist, create it
-                console.log("ImagesTable does not exist. Creating table...");
+                console.log('ImagesTable does not exist. Creating table...');
                 const createTableCommand = new client_dynamodb_1.CreateTableCommand(input);
                 const createTableResponse = yield dynamoDB_1.default.send(createTableCommand);
                 console.log(createTableResponse);
             }
             else {
-                console.error("Error checking table existence:", error);
-                return next(error);
+                console.error('Error checking table existence:', error);
+                return next({
+                    log: `Error in dataBaseController.storeImageDetails: ${error}`,
+                    status: 500,
+                    message: 'Error checking table existence',
+                });
             }
         }
         // Write data to database logic
@@ -73,8 +77,12 @@ const dataBaseController = {
             return next();
         }
         catch (error) {
-            console.error("Error storing images:", error);
-            return next(error);
+            console.error('Error storing images:', error);
+            return next({
+                log: `Error in dataBaseController.storeImageDetails: ${error}`,
+                status: 500,
+                message: 'Error storing images',
+            });
         }
     }),
     // Read images detail data from dynamoDB
@@ -90,8 +98,12 @@ const dataBaseController = {
             return next();
         }
         catch (error) {
-            console.log(error);
-            return next(error);
+            console.error('Error reading image details from db table:', error);
+            return next({
+                log: `Error in dataBaseController.readImageDataFromTable: ${error}`,
+                status: 500,
+                message: 'Error reading image details from db table',
+            });
         }
     }),
     // storeScanResultData function
@@ -102,23 +114,23 @@ const dataBaseController = {
         const input = {
             AttributeDefinitions: [
                 {
-                    AttributeName: "imageDigest",
-                    AttributeType: "S",
+                    AttributeName: 'imageDigest',
+                    AttributeType: 'S',
                 },
                 {
-                    AttributeName: "imageScanCompletedAt",
-                    AttributeType: "S",
+                    AttributeName: 'imageScanCompletedAt',
+                    AttributeType: 'S',
                 },
             ],
             TableName: tableName,
             KeySchema: [
                 {
-                    AttributeName: "imageDigest",
-                    KeyType: "HASH",
+                    AttributeName: 'imageDigest',
+                    KeyType: 'HASH',
                 },
                 {
-                    AttributeName: "imageScanCompletedAt",
-                    KeyType: "RANGE",
+                    AttributeName: 'imageScanCompletedAt',
+                    KeyType: 'RANGE',
                 },
             ],
             ProvisionedThroughput: {
@@ -132,17 +144,21 @@ const dataBaseController = {
                 TableName: tableName,
             });
             yield dynamoDB_1.default.send(describeTableCommand);
-            console.log("Scan result table already exists. Skipping creation.");
+            console.log('Scan result table already exists. Skipping creation.');
         }
         catch (error) {
-            if (error.name === "ResourceNotFoundException") {
-                console.log("SingleScanResult table does not exist. Creating table...");
+            if (error.name === 'ResourceNotFoundException') {
+                console.log('SingleScanResult table does not exist. Creating table...');
                 const createTableCommand = new client_dynamodb_1.CreateTableCommand(input);
                 const createTableResponse = yield dynamoDB_1.default.send(createTableCommand);
             }
             else {
-                console.error("Error checking table existence:", error);
-                return next(error);
+                console.error('Error checking table existence:', error);
+                return next({
+                    log: `Error in dataBaseController.storeScanResultData: ${error}`,
+                    status: 500,
+                    message: 'Error checking table existence',
+                });
             }
         }
         // Update the scan result data
@@ -177,25 +193,29 @@ const dataBaseController = {
           registryId = :registryId,
           repositoryName = :repositoryName`,
                 ExpressionAttributeValues: {
-                    ":imageTag": item.imageTag,
-                    ":findings": item.findings,
-                    ":findingSeverityCounts": item.findingSeverityCounts,
-                    ":vulnerabilitySourceUpdatedAt": item.vulnerabilitySourceUpdatedAt,
-                    ":scanStatus": item.scanStatus,
-                    ":scanDescription": item.scanDescription,
-                    ":registryId": item.registryId,
-                    ":repositoryName": item.repositoryName,
+                    ':imageTag': item.imageTag,
+                    ':findings': item.findings,
+                    ':findingSeverityCounts': item.findingSeverityCounts,
+                    ':vulnerabilitySourceUpdatedAt': item.vulnerabilitySourceUpdatedAt,
+                    ':scanStatus': item.scanStatus,
+                    ':scanDescription': item.scanDescription,
+                    ':registryId': item.registryId,
+                    ':repositoryName': item.repositoryName,
                 },
-                ReturnValues: "ALL_NEW",
+                ReturnValues: 'ALL_NEW',
             };
             const command = new lib_dynamodb_1.UpdateCommand(updateParams);
             const updateResponse = yield dynamoDB_1.default.send(command);
-            console.log("Scan result successfully saved to DynamoDB.");
+            console.log('Scan result successfully saved to DynamoDB.');
             return next();
         }
         catch (error) {
-            console.error("Error storing scan result:", error);
-            return next(error);
+            console.error('Error storing scan result:', error);
+            return next({
+                log: `Error in dataBaseController.storeScanResultData: ${error}`,
+                status: 500,
+                message: 'Error storing scan result',
+            });
         }
     }),
     // Read Scan Result data from
@@ -210,14 +230,18 @@ const dataBaseController = {
             res.locals.resultDataFromDB = data.Items;
             // Log the message to the console
             const message = res.locals.resultDataFromDB.length > 0
-                ? "Reading scan result from DB is successful."
-                : "Got nothing from ScanResultTable.";
+                ? 'Reading scan result from DB is successful.'
+                : 'Got nothing from ScanResultTable.';
             console.log(message);
             return next();
         }
         catch (error) {
-            console.log(error);
-            return next(error);
+            console.log('Error reading scan result:', error);
+            return next({
+                log: `Error in dataBaseController.readScanResultDataFromTable: ${error}`,
+                status: 500,
+                message: 'Error reading scan result',
+            });
         }
     }),
 };

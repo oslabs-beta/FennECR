@@ -1,12 +1,7 @@
-/**
- * @see https://react.dev/learn/passing-data-deeply-with-context
- */
-
 import React, { createContext, useState, useEffect } from 'react';
 import { AccountContextProps } from '../utils/types';
 import { getAccountId } from '../utils/api';
 
-// Set up a drop down menu for user to select accounts dynamically
 const AccountContext = createContext<AccountContextProps | undefined>(
   undefined
 );

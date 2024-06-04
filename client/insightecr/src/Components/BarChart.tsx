@@ -40,8 +40,6 @@ const BasicStacking: React.FC<BasicStackingProps> = ({ inputData }) => {
 
   return (
     <BarChart
-      // width={600}
-      // height={300}
       series={[
         { ...critical, stack: 'total' },
         { ...high, stack: 'total' },

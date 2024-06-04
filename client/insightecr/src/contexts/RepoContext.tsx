@@ -13,14 +13,18 @@ const defaultRepoContext: RepoContextType = {
 
 export const RepoContext = createContext<RepoContextType>(defaultRepoContext);
 
-const RepoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const RepoProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [repositories, setRepositories] = useState<Repository[]>([]);
-  const [selectedRepository, setSelectedRepository] = useState<string | null>(null);
+  const [selectedRepository, setSelectedRepository] = useState<string | null>(
+    null
+  );
   // Account Context
   const accountContext = useContext(AccountContext);
   // Check if context is undefined
   if (!accountContext) {
-    throw new Error('Dashboard must be used within an AccountProvider');
+    throw new Error('RepoContext must be used within an AccountProvider');
   }
   const { accountId } = accountContext;
 
@@ -33,12 +37,18 @@ const RepoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         console.error('Error fetching repositories data:', error);
       }
     };
-
-    fetchRepoData();
+    if (accountId) fetchRepoData();
   }, [accountId]);
 
   return (
-    <RepoContext.Provider value={{ repositories, setRepositories, selectedRepository, setSelectedRepository }}>
+    <RepoContext.Provider
+      value={{
+        repositories,
+        setRepositories,
+        selectedRepository,
+        setSelectedRepository,
+      }}
+    >
       {children}
     </RepoContext.Provider>
   );

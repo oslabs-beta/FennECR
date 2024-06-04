@@ -77,15 +77,13 @@ const scanResultsController = {
                         console.log(`Scan result not found for image: ${imageId.imageDigest || imageId.imageTag}`);
                     }
                     else {
-                        // update for better error handling
                         console.error(`Error fetching scan result for image: ${imageId.imageDigest || imageId.imageTag}`, err);
-                        return res.status(500).json({ error: 'Error fetching scan results' });
+                        return res
+                            .status(500)
+                            .json({ error: 'Error fetching scan results' });
                     }
                 }
             }
-            // for (const scanResult of scanResults) {
-            //   console.log(`I am scanResults: ${JSON.stringify(scanResult)}`)
-            // }
             res.locals.scanResults = scanResults;
             return next();
         }

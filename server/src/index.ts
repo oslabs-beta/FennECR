@@ -1,13 +1,10 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
-import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import repositoriesRouter from './routes/repositories';
 import imagesRouter from './routes/images';
 import scanResultsRouter from './routes/scanResults';
-import session from 'express-session';
-import http, { Server } from 'http'; // Import http module and Server type
-
+import { Server } from 'http'; // Import http module and Server type
 
 dotenv.config();
 
@@ -18,7 +15,7 @@ app.use(cors());
 
 // Routers
 app.get('/', (req: Request, res: Response) => {
-  res.send('InsightECR ts server is running.');
+  res.send('FennECR ts server is running.');
 });
 
 // Prepare availiable accounts from env for frontend to select
@@ -73,19 +70,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Server settings
 const port = process.env.PORT || 3000;
-// app.listen(port, () => {
-//   console.log(`InsightECR server is running at http://localhost:${port}`);
-// });
-
 
 let server: Server;
 
 if (process.env.NODE_ENV !== 'test') {
-    server = app.listen(port, () => {
-        console.log(`InsightECR server is running at http://localhost:${port}`);
-    });
+  server = app.listen(port, () => {
+    console.log(`FennECR server is running at http://localhost:${port}`);
+  });
 } else {
-    server = app.listen(0); // Start on a random available port for testing
+  server = app.listen(0); // Start on a random available port for testing
 }
 
 export default server;

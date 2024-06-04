@@ -20,17 +20,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import CardContent from '@mui/material/CardContent';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import Header from '../Components/Header.tsx';
-import {
-  Finding,
-  Image,
-  ImageFinding,
-  ImageScanResult,
-} from '../utils/types.ts';
-import { AccountContext } from '../contexts/AccountContext.tsx';
-import { getImages, getSingleScanResults } from '../utils/api.ts';
+import Header from '../Components/Header';
+import { Finding, Image, ImageFinding, ImageScanResult } from '../utils/types';
+import { AccountContext } from '../contexts/AccountContext';
+import { getImages, getSingleScanResults } from '../utils/api';
 import { useParams } from 'react-router-dom';
-import { ThemeContext } from '../App.tsx';
+import { ThemeContext } from '../App';
 
 const RepoPage: React.FC = () => {
   const { darkMode } = useContext(ThemeContext);
@@ -53,7 +48,6 @@ const RepoPage: React.FC = () => {
     const fetchImages = async (accountId: string, repoName: string) => {
       try {
         const response = await getImages(accountId, repoName);
-        //console.log('--------> ', response.imageDetails);
         setImages(response.imageDetails);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -253,7 +247,6 @@ const RepoPage: React.FC = () => {
                       </Button>
                     )}
                 </Grid>
-                {/* </Grid> */}
               </CardContent>
             </Card>
           );

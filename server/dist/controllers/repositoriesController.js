@@ -17,13 +17,11 @@ const awsClients_1 = __importDefault(require("../utils/awsClients"));
 const repositoriesController = {
     getAllRepositories: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const { accountId } = req.params;
-        //console.log(`getAllRepositories middleware hit`)
         try {
             const ecrClient = awsClients_1.default.getECRClient(accountId);
             const input = {};
             const command = new client_ecr_1.DescribeRepositoriesCommand(input);
             const data = yield ecrClient.send(command);
-            //console.log(data)
             res.locals.repositories = data;
             return next();
         }

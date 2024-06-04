@@ -6,12 +6,10 @@ import ListItemText from '@mui/material/ListItemText';
 import PublicIcon from '@mui/icons-material/Public';
 import DescriptionIcon from '@mui/icons-material/Description';
 import EmailIcon from '@mui/icons-material/Email';
-// import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-// import InsightsSharpIcon from '@mui/icons-material/InsightsSharp';
 import EqualizerSharpIcon from '@mui/icons-material/EqualizerSharp';
 import { Divider, ListSubheader } from '@mui/material';
 import { Repository } from '../utils/types';
-import { AccountContext } from '../contexts/AccountContext.tsx';
+import { AccountContext } from '../contexts/AccountContext';
 import { ThemeContext } from '../App';
 
 interface ListItemsProps {
@@ -21,12 +19,11 @@ interface ListItemsProps {
 
 const ListItems: React.FC<ListItemsProps> = ({ repo, onRepoClick }) => {
   const { darkMode } = useContext(ThemeContext);
-
   // Account Context
   const accountContext = useContext(AccountContext);
   // Check if context is undefined
   if (!accountContext) {
-    throw new Error('Dashboard must be used within an AccountProvider');
+    throw new Error('ListItem must be used within an AccountProvider');
   }
   const { accountId } = accountContext;
   return (
@@ -46,12 +43,6 @@ const ListItems: React.FC<ListItemsProps> = ({ repo, onRepoClick }) => {
         </ListItemIcon>
         <ListItemText primary='Stats' />
       </ListItemButton>
-      {/* <ListItemButton>
-        <ListItemIcon>
-          <InsightsSharpIcon sx={{ color: darkMode ? '#EADDFF' : '#21005D' }} />
-        </ListItemIcon>
-        <ListItemText primary='Trends' />
-      </ListItemButton> */}
       <Divider sx={{ my: 1 }} />
       <ListSubheader
         component='div'
@@ -81,21 +72,18 @@ const ListItems: React.FC<ListItemsProps> = ({ repo, onRepoClick }) => {
       >
         Others
       </ListSubheader>
-      {/* <ListItemButton>
-        <ListItemIcon>
-          <NotificationsActiveIcon
-            sx={{ color: darkMode ? '#EADDFF' : '#21005D' }}
-          />
-        </ListItemIcon>
-        <ListItemText primary='Alert' />
-      </ListItemButton> */}
-      <ListItemButton>
+      <ListItemButton
+        component='a'
+        href='https://github.com/oslabs-beta/FennECR'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
         <ListItemIcon>
           <DescriptionIcon sx={{ color: darkMode ? '#EADDFF' : '#21005D' }} />
         </ListItemIcon>
         <ListItemText primary='Documentation' />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton component='a' href='https://fennecr.com/' target='_blank'>
         <ListItemIcon>
           <EmailIcon sx={{ color: darkMode ? '#EADDFF' : '#21005D' }} />
         </ListItemIcon>

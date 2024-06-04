@@ -13,7 +13,6 @@ const repositoriesController = {
     next: NextFunction
   ) => {
     const { accountId } = req.params;
-    //console.log(`getAllRepositories middleware hit`)
 
     try {
       const ecrClient = awsClients.getECRClient(accountId);
@@ -21,7 +20,6 @@ const repositoriesController = {
       const command = new DescribeRepositoriesCommand(input);
 
       const data = await ecrClient.send(command);
-      //console.log(data)
       res.locals.repositories = data;
       return next();
     } catch (error) {

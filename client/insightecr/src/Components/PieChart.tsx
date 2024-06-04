@@ -9,23 +9,23 @@ interface BasicPieProps {
   };
 }
 const BasicPie: React.FC<BasicPieProps> = ({ inputData }) => {
-    // destructure the darkMode value from Context
-    const { darkMode } = useContext(ThemeContext);
+  // destructure the darkMode value from Context
+  const { darkMode } = useContext(ThemeContext);
 
   const data = [
     {
       id: 0,
       value: inputData.vulnerableImageCount,
-    //   color: '#FF6F61',
       color: darkMode ? '#03DAC5' : '#FF6F61',
       label: `Images with Critical and High Vulnerabilities: ${inputData.vulnerableImageCount}`,
     },
     {
       id: 1,
       value: inputData.imageScanned - inputData.vulnerableImageCount,
-    //   color: '#7965AF',
-      color: darkMode ? '#BB86FC' : '#7965AF', 
-      label: `Images without Critical and High Vulnerabilities: ${inputData.imageScanned - inputData.vulnerableImageCount}`,
+      color: darkMode ? '#BB86FC' : '#7965AF',
+      label: `Images without Critical and High Vulnerabilities: ${
+        inputData.imageScanned - inputData.vulnerableImageCount
+      }`,
     },
   ];
 
@@ -33,7 +33,7 @@ const BasicPie: React.FC<BasicPieProps> = ({ inputData }) => {
 
   const getArcLabel = (params: DefaultizedPieValueType) => {
     const percent = params.value / TOTAL;
-    return params.value > 0 ?`${(percent * 100).toFixed(0)}%`:'';
+    return params.value > 0 ? `${(percent * 100).toFixed(0)}%` : '';
   };
   return (
     <React.Fragment>
@@ -50,8 +50,6 @@ const BasicPie: React.FC<BasicPieProps> = ({ inputData }) => {
               faded: { innerRadius: 10, additionalRadius: -30, color: 'gray' },
             },
           ]}
-          // width={400}
-          // height={330}
           margin={{ bottom: 100, left: 100, right: 100 }}
           slotProps={{
             legend: {

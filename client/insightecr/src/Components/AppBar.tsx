@@ -55,7 +55,7 @@ const AppBar: React.FC<AppBarProps> = ({
   const accountContext = useContext(AccountContext);
   // Check if context is undefined
   if (!accountContext) {
-    throw new Error('Dashboard must be used within an AccountProvider');
+    throw new Error('App Bar must be used within an AccountProvider');
   }
   const { accountId, setAccountId, accounts } = accountContext;
 

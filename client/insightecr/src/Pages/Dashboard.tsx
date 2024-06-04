@@ -1,17 +1,17 @@
 import { Key, useContext, useState, useEffect } from 'react';
-import { Container, Grid, Paper } from '@mui/material';
+import { Container, Grid, Paper, Box } from '@mui/material';
 import BasicPie from '../Components/PieChart';
 import Header from '../Components/Header';
 import BasicStacking from '../Components/BarChart';
 import DetailsCard from '../Components/DetailsCard';
 import { Repository } from '../utils/types';
-import { RepoContext } from '../contexts/RepoContext.tsx';
-import { AccountContext } from '../contexts/AccountContext.tsx';
+import { RepoContext } from '../contexts/RepoContext';
+import { AccountContext } from '../contexts/AccountContext';
 import { getAggregatedScanResults } from '../utils/api';
 import { SeverityCountsMap } from '../utils/types';
 import { ThemeContext } from '../App';
+import { Margin } from '@mui/icons-material';
 
-// Control whether Nav drawer loads open or closed
 const Dashboard: React.FC = () => {
   // destructure the darkMode value from Context
   const { darkMode } = useContext(ThemeContext);
@@ -142,10 +142,23 @@ const Dashboard: React.FC = () => {
             }}
           >
             <Header title={'Repository Vulnerability Details'} />
-            <Grid container spacing={6} id='detailsContainer'>
+            <Box
+              display={'flex'}
+              justifyContent={'space-around'}
+              flexWrap={'wrap'}
+              id='detailsContainer'
+            >
               {repositories.map(
                 (repo: Repository, index: Key | null | undefined) => (
-                  <Grid item xs={12} sm={6.5} md={6} lg={5} key={index}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6.5}
+                    md={6}
+                    lg={5}
+                    key={index}
+                    margin={'20px'}
+                  >
                     <DetailsCard
                       data={repo}
                       severityCounts={
@@ -162,7 +175,7 @@ const Dashboard: React.FC = () => {
                   </Grid>
                 )
               )}
-            </Grid>
+            </Box>
           </Paper>
         </Grid>
       </Grid>

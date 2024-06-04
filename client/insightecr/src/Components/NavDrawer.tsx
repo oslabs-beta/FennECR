@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { styled, Divider, Toolbar, IconButton, List } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
-import { RepoContext } from '../contexts/RepoContext.tsx';
+import { RepoContext } from '../contexts/RepoContext';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ListItems from './listItems.tsx';
+import ListItems from './listItems';
 import { ThemeContext } from '../App';
 
 const drawerWidth: number = 240;

@@ -10,7 +10,7 @@ import {
 import AppBar from './Components/AppBar';
 import NavDrawer from './Components/NavDrawer';
 import Dashboard from './Pages/Dashboard';
-import RepoPage from './Pages/Repository.tsx';
+import RepoPage from './Pages/Repository';
 
 // Define the ThemeContext
 export const ThemeContext = createContext({ darkMode: false });

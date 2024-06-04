@@ -15,7 +15,7 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 // Routers
 app.get('/', (req, res) => {
-    res.send('InsightECR ts server is running.');
+    res.send('FennECR ts server is running.');
 });
 // Prepare availiable accounts from env for frontend to select
 app.get('/accounts', (req, res) => {
@@ -53,13 +53,10 @@ app.use((req, res, next) => {
 });
 // Server settings
 const port = process.env.PORT || 3000;
-// app.listen(port, () => {
-//   console.log(`InsightECR server is running at http://localhost:${port}`);
-// });
 let server;
 if (process.env.NODE_ENV !== 'test') {
     server = app.listen(port, () => {
-        console.log(`InsightECR server is running at http://localhost:${port}`);
+        console.log(`FennECR server is running at http://localhost:${port}`);
     });
 }
 else {

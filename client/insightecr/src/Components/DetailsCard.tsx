@@ -18,7 +18,7 @@ import CardContent from '@mui/material/CardContent';
 import Switch from '@mui/material/Switch';
 import { toggleScanOnPush } from '../utils/api';
 import { Repository, SeverityCounts } from '../utils/types';
-import { AccountContext } from '../contexts/AccountContext.tsx';
+import { AccountContext } from '../contexts/AccountContext';
 import { ThemeContext } from '../App';
 
 interface DetailsCardProps {
@@ -38,7 +38,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({
   const accountContext = useContext(AccountContext);
   // Check if context is undefined
   if (!accountContext) {
-    throw new Error('Dashboard must be used within an AccountProvider');
+    throw new Error('DetailsCard must be used within an AccountProvider');
   }
   const { accountId } = accountContext;
   const [scanOnPush, setScanOnPush] = useState(
@@ -162,7 +162,6 @@ const DetailsCard: React.FC<DetailsCardProps> = ({
                 />
               </ListItem>
             </List>
-
             <Button
               id='detailsButton'
               size='small'
