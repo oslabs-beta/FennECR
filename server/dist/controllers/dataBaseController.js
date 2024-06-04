@@ -74,12 +74,12 @@ const dataBaseController = {
         // Write data to database logic
         try {
             console.log('res.locals.images from storeImageDetails:', res.locals.images);
-            // 确保 res.locals.images 是一个数组
+            // Make sure the images is an array
             const images = res.locals.images;
             if (!Array.isArray(images)) {
                 throw new TypeError("res.locals.images is not an array");
             }
-            // 转换每个图像对象中的 Date 对象
+            // Convert the date to ISOString
             images.forEach(convertDatesToISOString);
             for (const image of images) {
                 const putParams = {

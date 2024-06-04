@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.588.0",
     "@aws-sdk/client-sns": "^3.577.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -23,7 +24,9 @@
     "@mui/x-charts": "^7.4.0",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
+    "connect-history-api-fallback": "^2.0.0",
     "dotenv": "^16.4.5",
+    "http-proxy-middleware": "^3.0.0",
     "nodemon": "^3.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -33,6 +36,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/connect-history-api-fallback": "^1.5.4",
     "concurrently": "^8.2.2",
     "sass": "^1.77.1"
   }

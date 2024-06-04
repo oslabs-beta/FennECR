@@ -6,7 +6,7 @@ services:
       context: ./client/insightecr
       dockerfile: Dockerfile.client
     ports:
-      - "80:80"
+      - "80:5000"
     volumes:
       - ./client/insightecr:/app
       - /app/node_modules
@@ -36,6 +36,9 @@ services:
       - /usr/src/app/node_modules
     depends_on:
       - dynamodb
+    env_file:
+      - ./server/.env
+    command: sh -c "echo $AWS_ACCESS_KEY_ID_1 && echo $AWS_SECRET_ACCESS_KEY_1 && echo $AWS_REGION_1 && echo $IMAGES_TABLE_NAME && echo $SCAN_RESULT_TABLE && node dist/index.js"
 
   dynamodb:
     image: amazon/dynamodb-local

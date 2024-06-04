@@ -26,7 +26,6 @@ const imagesController = {
             const data = yield ecrClient.send(command);
             // Ensure imageDetails is always an array
             const imageDetails = data.imageDetails || [];
-            console.log('imagesDetails from imagecontroller: ', imageDetails);
             // Store imageDetails in locals
             res.locals.images = imageDetails;
             return next();

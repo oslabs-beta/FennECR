@@ -25,10 +25,14 @@ const { darkMode } = useContext(ThemeContext);
     const fetchImages = async (accountId: string, repoName: string) => {
       try {
         const response = await getImages(accountId, repoName);
-        //console.log('--------> ', response.imageDetails);
-        setImages(response.imageDetails);
+        if (response && response.imageDetails) {
+            setImages(response.imageDetails);
+          } else {
+            setImages([]); 
+          }
       } catch (error) {
         console.error('Error fetching data:', error);
+        setImages([]); 
       }
     };
 

@@ -11,8 +11,8 @@ COPY package.json ./
 # Install dependencies
 RUN npm install
 
-# Install TypeScript and ts-node
-RUN npm install -g typescript ts-node
+# Install TypeScript
+RUN npm install -g typescript
 
 # Copy the rest of the application code
 COPY . .
@@ -23,5 +23,12 @@ RUN tsc
 # Expose port
 EXPOSE 3000
 
+# Verify environment variables
+RUN echo "AWS_ACCESS_KEY_ID_1=${AWS_ACCESS_KEY_ID_1}"
+RUN echo "AWS_SECRET_ACCESS_KEY_1=${AWS_SECRET_ACCESS_KEY_1}"
+RUN echo "AWS_REGION_1=${AWS_REGION_1}"
+RUN echo "IMAGES_TABLE_NAME=${IMAGES_TABLE_NAME}"
+RUN echo "SCAN_RESULT_TABLE=${SCAN_RESULT_TABLE}"
+
 # Start the application
-CMD ["ts-node", "src/index.ts"]
+CMD ["node", "dist/index.js"]

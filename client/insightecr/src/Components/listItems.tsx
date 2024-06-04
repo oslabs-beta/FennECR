@@ -50,6 +50,7 @@ const ListItems: React.FC<ListItemsProps> = ({ repo, onRepoClick }) => {
           key={repo.repositoryName}
           component={Link}
           to={`/repository/${repo.repositoryName}`}
+        //   to={`/images/${accountId}/${repo.repositoryName}`}
           onClick={() => onRepoClick(repo.repositoryName)}
         >
           <ListItemIcon>
