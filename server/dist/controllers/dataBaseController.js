@@ -70,9 +70,10 @@ const dataBaseController = {
                 };
                 yield dynamoDB_1.default.send(new lib_dynamodb_1.PutCommand(putParams));
             }
-            res
-                .status(200)
-                .json({ message: "Images successfully saved to dynamoDB." });
+            return next();
+            //   res
+            //     .status(200)
+            //     .json({ message: "Images successfully saved to dynamoDB." });
         }
         catch (error) {
             console.error("Error storing images:", error);
@@ -192,11 +193,12 @@ const dataBaseController = {
             };
             const command = new lib_dynamodb_1.UpdateCommand(updateParams);
             const updateResponse = yield dynamoDB_1.default.send(command);
-            res.status(200).json({
-                message: "Scan result successfully saved to DynamoDB.",
-                data: updateResponse.Attributes,
-            });
+            // res.status(200).json({
+            //   message: "Scan result successfully saved to DynamoDB.",
+            //   data: updateResponse.Attributes,
+            // });
             console.log("Scan result successfully saved to DynamoDB.");
+            return next();
         }
         catch (error) {
             // Refactor: send this to global error handler
