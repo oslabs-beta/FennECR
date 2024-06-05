@@ -64,9 +64,9 @@ docker pull fennecr/insightecr-client
 touch .env
 ```
 
-5. Setup environment variables
+If you don't see the `.env` file, make the hidden files appear.
 
-- 5.1 Create a `.env` file <u>in the root of server folder</u> using below template
+- 4.1 `.env` file example
 
   ```sh
   # AWS Credentials for Development Environment
@@ -90,18 +90,18 @@ touch .env
   DYNAMODB_ENDPOINT="http://dynamodb:8000"
   ```
 
-- 5.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
+- 4.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
 
-6. Download the docker-compose.yml file (need to be in the same directory with the `.env`)
+5. Download the docker-compose.yml file (need to be in the same directory with the `.env`)
 
 ```sh
 wget https://github.com/oslabs-beta/FennECR/blob/e849150593f26c3768fa5a839c79a8e54afb4e11/docker-compose.yml -O docker-compose.yml
 ```
 
-7. Run the app
+6. Run the app
 
 ```sh
 docker-compose up -d
 ```
 
-8. Browse to http://localhost
+7. Browse to http://localhost
