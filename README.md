@@ -42,43 +42,66 @@
 
 ### Docker Container
 
-1. Creating a directory structure
+1. Install [docker](https://www.docker.com/)
+
+2. Create a directory structure
+
 ```sh
-mkdir -p Your-APP
-cd Your-App
+mkdir -p FennECR
+cd FennECR
 ```
 
-2. Download the Docker images
+3. Download both Docker images
+
 ```sh
 docker pull fennecr/insightecr-server
 docker pull fennecr/insightecr-client
 ```
 
-3. Create the .env file
+4. Create the .env file
+
 ```sh
 touch .env
 ```
-And then put your credential info in the .env file
-Example:
-```
-AWS_ACCESS_KEY_ID_1="YOUR-ACCESS-KEY"
-AWS_SECRET_ACCESS_KEY_1="YOUR-SECRET-ACCESS-KEY"
-AWS_REGION_1="us-east-1"
-IMAGES_TABLE_NAME="ImagesTable"
-SCAN_RESULT_TABLE="SingleScanResult"
-DYNAMODB_REGION = "us-east-1"
-DYNAMODB_ACCESS_KEY_ID="local"
-DYNAMODB_SECRET_ACCESS_KEY="local"
-DYNAMODB_ENDPOINT="http://dynamodb:8000"
-```
 
-4. Download the docker-compose.yml file
+5. Setup environment variables
+
+- 5.1 Create a `.env` file <u>in the root of server folder</u> using below template
+
+  ```sh
+  # AWS Credentials for Development Environment
+  AWS_REGION_DEV="your_aws_region"
+  AWS_ACCESS_KEY_ID_DEV="your_iam_access_key_id"
+  AWS_SECRET_ACCESS_KEY_DEV="your_iam_secret_access_key"
+
+  # AWS Credentials for Production Environment(e.g., for other aws roles or accounts, you can replace DEV or PROD with other string)
+  AWS_REGION_PROD="your_aws_region"
+  AWS_ACCESS_KEY_ID_PROD="your_iam_access_key_id"
+  AWS_SECRET_ACCESS_KEY_PROD="your_iam_secret_access_key"
+
+  # DynamoDB Configuration
+  DYNAMODB_TABLE_NAME="ImagesTable"
+  SCAN_RESULT_TABLE="SingleScanResult"
+  DYNAMODB_ACCESS_KEY_ID="local"
+  DYNAMODB_SECRET_ACCESS_KEY="local"
+
+  # Use "http://localhost:8000" when running on localhost
+  # Use "http://dynamodb:8000" when running the docker version
+  DYNAMODB_ENDPOINT="http://dynamodb:8000"
+  ```
+
+- 5.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
+
+6. Download the docker-compose.yml file (need to be in the same directory with the `.env`)
+
 ```sh
 wget https://github.com/oslabs-beta/FennECR/blob/e849150593f26c3768fa5a839c79a8e54afb4e11/docker-compose.yml -O docker-compose.yml
 ```
 
+7. Run the app
 
-5. Run the app 
 ```sh
 docker-compose up -d
 ```
+
+8. Browse to http://localhost
