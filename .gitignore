@@ -2,3 +2,4 @@ node_modules
 .env
 package-lock*.*
 package-lock.json
+.DS_Store

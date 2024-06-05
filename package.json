@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "./server/src",
   "scripts": {
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "start": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "cd server && tsc && nodemon dist/index.js",
     "dev:client": "cd client/insightecr && npm run dev",
     "test": "jest"
