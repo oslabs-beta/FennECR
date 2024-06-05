@@ -13,8 +13,15 @@ RUN npm install --verbose
 # Copy everything
 COPY . ./
 
+
+# run npm install again
+RUN npm install
 # 
 RUN npm run build
+
+# Set npm and node paths
+ENV PATH /app/node_modules/.bin:$PATH
+
 
 # Production
 FROM nginx:latest

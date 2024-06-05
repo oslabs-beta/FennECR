@@ -6,7 +6,7 @@ services:
       context: ./client/insightecr
       dockerfile: Dockerfile.client
     ports:
-      - "80:5000"
+      - "80:80"
     volumes:
       - ./client/insightecr:/app
       - /app/node_modules
@@ -27,7 +27,7 @@ services:
       - ./client/insightecr:/app
       - /app/node_modules
     ports:
-      - "4173:5000"
+      - "8080:80"
     depends_on:
       - server
     env_file:
