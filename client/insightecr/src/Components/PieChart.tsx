@@ -31,7 +31,7 @@ const BasicPie: React.FC<BasicPieProps> = ({ inputData }) => {
 
   const TOTAL = data.map((item) => item.value).reduce((a, b) => a + b, 0);
 
-  const getArcLabel = (params: DefaultizedPieValueType) => {
+  const getArcLabel = (params: Omit<DefaultizedPieValueType, "label"> & { label?: string | undefined; }) => {
     const percent = params.value / TOTAL;
     return params.value > 0 ? `${(percent * 100).toFixed(0)}%` : '';
   };
@@ -50,6 +50,7 @@ const BasicPie: React.FC<BasicPieProps> = ({ inputData }) => {
               faded: { innerRadius: 10, additionalRadius: -30, color: 'gray' },
             },
           ]}
+          margin={{ bottom: 100, left: 100, right: 100 }}
           slotProps={{
             legend: {
               direction: 'row',

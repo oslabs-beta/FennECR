@@ -10,7 +10,6 @@ import { AccountContext } from '../contexts/AccountContext';
 import { getAggregatedScanResults } from '../utils/api';
 import { SeverityCountsMap } from '../utils/types';
 import { ThemeContext } from '../App';
-import { Margin } from '@mui/icons-material';
 
 const Dashboard: React.FC = () => {
   // destructure the darkMode value from Context

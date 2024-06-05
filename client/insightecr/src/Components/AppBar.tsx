@@ -17,6 +17,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { AccountContext } from '../contexts/AccountContext';
 import Logo from '../assets/Fennecr logo.svg';
+import LogoDark from '../assets/Fennecer logo dark.svg';
 
 const drawerWidth: number = 240;
 
@@ -89,15 +90,27 @@ const AppBar: React.FC<AppBarProps> = ({
           noWrap
           sx={{ flexGrow: 1, textAlign: 'center' }}
         >
-          <img
-            src={Logo}
-            alt='Logo'
-            style={{
-              marginRight: '8px',
-              marginTop: '12px',
-              marginLeft: '25px',
-            }}
-          />
+          {darkMode ? (
+            <img
+              src={LogoDark}
+              alt='Logo'
+              style={{
+                marginRight: '8px',
+                marginTop: '12px',
+                marginLeft: '25px',
+              }}
+            />
+          ) : (
+            <img
+              src={Logo}
+              alt='Logo'
+              style={{
+                marginRight: '8px',
+                marginTop: '12px',
+                marginLeft: '25px',
+              }}
+            />
+          )}
           FennECR
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
