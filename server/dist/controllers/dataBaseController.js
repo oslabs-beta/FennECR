@@ -180,7 +180,7 @@ const dataBaseController = {
             const updateParams = {
                 TableName: tableName,
                 Key: {
-                    imageDigest: item.imageDigest, // Must match the HASH key defined in the schema
+                    imageDigest: item.imageDigest,
                     imageScanCompletedAt: item.imageScanCompletedAt,
                 },
                 UpdateExpression: `SET 
