@@ -7,6 +7,8 @@ export default defineConfig({
     proxy: {
       '/api': 'http://localhost:3000',
     },
+    port: 80
+
   },
   build: {
     target: 'es6',
