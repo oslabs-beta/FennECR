@@ -8,6 +8,8 @@
 
 ## Summary
 
+![](https://github.com/oslabs-beta/FennECR/blob/main/client/insightecr/Public/FennecrBanner.png?raw=true)
+
 FennECR tracks and organizes vulnerability scans performed by AWS ECR, and provides a user-friendly interface to manage and respond to security findings effectively.
 
 ## Key Features of FennECR
@@ -50,14 +52,18 @@ Enjoy the flexibility of dark mode, designed to reduce eye strain and provide a 
 5. Run `cd server && npm install && cd ..` to install server side dependencies
 6. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
 7. Setup DynamoDB local
+8. Run `npm install` to install dependencies in the root folder
+9. Run `cd server && npm install && cd ..` to install server side dependencies
+10. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
+11. Setup DynamoDB local
 
-- 7.1 Install [docker](https://www.docker.com/)
-- 7.2 Pull the DynamoDB docker image from docker Hub ` docker pull amazon/dynamodb-local`
-- 7.3 Run the image `docker run -p 8000:8000 amazon/dynamodb-local` and keep the terminal open
+- &nbsp; 7.1 Install [docker](https://www.docker.com/)
+- &nbsp; 7.2 Pull the DynamoDB docker image from docker Hub ` docker pull amazon/dynamodb-local`
+- &nbsp; 7.3 Run the image `docker run -p 8000:8000 amazon/dynamodb-local` and keep the terminal open
 
 8. Setup environment variables
 
-- 8.1 Create a `.env` file <u>in the root of server folder</u> using below template
+- &nbsp; 8.1 Create a `.env` file <strong><u>in the root of server folder</u></strong> using below template
 
   ```sh
   # AWS Credentials for Development Environment
@@ -81,16 +87,18 @@ Enjoy the flexibility of dark mode, designed to reduce eye strain and provide a 
   DYNAMODB_ENDPOINT="http://localhost:8000"
   ```
 
-- 8.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
+- &nbsp; 8.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
 
 9. Run `npm start`
 10. Browse to http://localhost:5173
+11. Run `npm start`
+12. Browse to http://localhost:5173
 
 ### Docker Container
 
 Coming soon
 
-# The FennECR Team
+## The FennECR Team
 
 |     Developed By     |                                                                                                                                               |                                                                                                                                               |
 | :------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
