@@ -1,0 +1,52 @@
+{
+  "name": "insightecr",
+  "version": "1.0.0",
+  "main": "./server/src",
+  "scripts": {
+    "start": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && tsc && nodemon dist/index.js",
+    "dev:client": "cd client/insightecr && npm run dev",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.588.0",
+    "@aws-sdk/client-sns": "^3.577.0",
+    "@aws-sdk/lib-dynamodb": "^3.588.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.18",
+    "@mui/joy": "^5.0.0-beta.36",
+    "@mui/material": "^5.15.18",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-charts": "^7.4.0",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "dotenv": "^16.4.5",
+    "node": "^20.14.0",
+    "nodemon": "^3.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.23.1",
+    "styled-components": "^6.1.11",
+    "ts-node-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.6",
+    "@babel/preset-env": "^7.24.6",
+    "@babel/preset-typescript": "^7.24.6",
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^29.5.12",
+    "babel-jest": "^29.7.0",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.21.4",
+    "jest": "^29.7.0",
+    "sass": "^1.77.1",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.1.4",
+    "vite": "^5.2.12"
+  }
+}
