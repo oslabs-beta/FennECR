@@ -48,7 +48,7 @@ Enjoy the flexibility of dark mode, designed to reduce eye strain and provide a 
 1. Install [docker](https://www.docker.com/)
 2. Create a folder for the app `mkdir FennECR`
 3. Go to the folder you just created `cd FennECR`
-4. Create Docker compose file(run `touch docker-compose.yml` and paste in the below template or [download](https://github.com/oslabs-beta/FennECR/docker-compose.yml) here and put in the same folder)
+4. Create Docker compose file(run `touch docker-compose.yml` and paste in the below template or [download](https://github.com/oslabs-beta/FennECR/raw/main/docker-compose.yml) here and put in the same folder)
 
 - docker-compose.yml template
 
@@ -127,7 +127,8 @@ networks:
 
 - &nbsp; 5.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
 
-6. Browse to http://localhost
+6. Run `docker-compose up`
+7. Browse to http://localhost
 
 ### From Sources
 
