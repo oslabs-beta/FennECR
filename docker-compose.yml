@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: ./client/insightecr
+      dockerfile: Dockerfile.client
+    ports:
+      - "80:80"
+    volumes:
+      - ./client/insightecr:/app
+      - /app/node_modules
+    depends_on:
+      - server
+    env_file:
+      - .env
+
+  client-dev:
+    build:
+      context: ./client/insightecr
+      dockerfile: Dockerfile.client
+    working_dir: /app
+    command: sh -c "npm install && npm run preview"
+    # command: sh -c "npm install --legacy-peer-deps && npm run preview"
+
+    volumes:
+      - ./client/insightecr:/app
+      - /app/node_modules
+    ports:
+      - "8080:80"
+    depends_on:
+      - server
+    env_file:
+      - .env
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - dynamodb
+    env_file:
+      - .env
+
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb
+    ports:
+      - "8000:8000"
+    volumes:
+      - dynamodbdata:/data
+    env_file:
+      - .env
+
+volumes:
+  dynamodbdata:
