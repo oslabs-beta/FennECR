@@ -2,8 +2,8 @@
 
 - [Summary](#summary)
 - [Key Features](#key-features-of-fennecr)
-- [Setup for source version](#from-sources)
 - [Setup for docker image version](#docker-container)
+- [Setup for source version](#from-sources)
 - [Meet the team](#the-fennecr-team)
 
 ## Summary
@@ -27,9 +27,9 @@ Easily toggle scan-on-push settings for your repositories directly from our inte
 
 Secure Credential Management: Your credentials remain under your control. Security is our utmost priority, your local environment variables are managed with the highest level of security on your local environment.
 
-#### c. Multi-IAM Roles Support
+#### c. Multi-Access Key Support
 
-Are you managing multiple AWS accounts? FennECR seamlessly supports multi-IAM roles, allowing you to track and manage vulnerabilities across various accounts with ease, as demonstrated in this demo.
+Are you managing multiple AWS accounts? FennECR seamlessly supports multi access keys, allowing you to track and manage vulnerabilities across various accounts with ease, as demonstrated in this demo.
 ![](https://github.com/oslabs-beta/FennECR/blob/main/client/insightecr/Public/AccountSwitchingDemo.gif?raw=true)
 
 #### d. Historical scan results secured in DynamoDB
@@ -43,27 +43,65 @@ Enjoy the flexibility of dark mode, designed to reduce eye strain and provide a 
 
 ## Setup
 
-### From Sources
+### Docker Container
 
-1. Install [Node.js](https://nodejs.org/en/download/package-manager)
-2. Run `git clone https://github.com/oslabs-beta/FennECR.git` (or clone [your own fork](https://github.com/oslabs-beta/FennECR/fork) of the repository)
-3. Go into the cloned folder with `cd FennECR`
-4. Run `npm install` to install dependencies in the root folder
-5. Run `cd server && npm install && cd ..` to install server side dependencies
-6. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
-7. Setup DynamoDB local
-8. Run `npm install` to install dependencies in the root folder
-9. Run `cd server && npm install && cd ..` to install server side dependencies
-10. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
-11. Setup DynamoDB local
+1. Install [docker](https://www.docker.com/)
+2. Create a folder for the app `mkdir FennECR`
+3. Go to the folder you just created `cd FennECR`
+4. Create Docker compose file(run `touch docker-compose.yml` and paste in the below template or [download](https://github.com/oslabs-beta/FennECR/raw/main/docker-compose.yml) here and put in the same folder)
 
-- &nbsp; 7.1 Install [docker](https://www.docker.com/)
-- &nbsp; 7.2 Pull the DynamoDB docker image from docker Hub ` docker pull amazon/dynamodb-local`
-- &nbsp; 7.3 Run the image `docker run -p 8000:8000 amazon/dynamodb-local` and keep the terminal open
+- docker-compose.yml template
 
-8. Setup environment variables
+```yml
+version: '3.8'
 
-- &nbsp; 8.1 Create a `.env` file <strong><u>in the root of server folder</u></strong> using below template
+services:
+  client:
+    image: fennecr/insightecr-client
+    ports:
+      - '80:80'
+    depends_on:
+      - server
+    env_file:
+      - .env
+    networks:
+      - insightecr-network
+
+  server:
+    image: fennecr/insightecr-server
+    ports:
+      - '3000:3000'
+    container_name: insightecr-server-1
+    depends_on:
+      - dynamodb
+    env_file:
+      - .env
+    networks:
+      - insightecr-network
+
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb
+    ports:
+      - '8000:8000'
+    volumes:
+      - dynamodbdata:/data
+    env_file:
+      - .env
+    networks:
+      - insightecr-network
+
+volumes:
+  dynamodbdata:
+
+networks:
+  insightecr-network:
+    driver: bridge
+```
+
+5. Setup environment variables
+
+- &nbsp; 5.1 Create a `.env` file <strong><u>in the same folder</u></strong> using below template
 
   ```sh
   # AWS Credentials for Development Environment
@@ -87,16 +125,59 @@ Enjoy the flexibility of dark mode, designed to reduce eye strain and provide a 
   DYNAMODB_ENDPOINT="http://localhost:8000"
   ```
 
-- &nbsp; 8.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
+- &nbsp; 5.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
 
-9. Run `npm start`
-10. Browse to http://localhost:5173
-11. Run `npm start`
-12. Browse to http://localhost:5173
+6. Run `docker-compose up`
+7. Browse to http://localhost
 
-### Docker Container
+### From Sources
 
-Coming soon
+1. Install [Node.js](https://nodejs.org/en/download/package-manager)
+2. Run `git clone https://github.com/oslabs-beta/FennECR.git` (or clone [your own fork](https://github.com/oslabs-beta/FennECR/fork) of the repository)
+3. Go into the cloned folder with `cd FennECR`
+4. Run `npm install` to install dependencies in the root folder
+5. Run `cd server && npm install && cd ..` to install server side dependencies
+6. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
+7. Setup DynamoDB local
+8. Run `npm install` to install dependencies in the root folder
+9. Run `cd server && npm install && cd ..` to install server side dependencies
+10. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
+11. Setup DynamoDB local
+
+- &nbsp; 11.1 Install [docker](https://www.docker.com/)
+- &nbsp; 11.2 Pull the DynamoDB docker image from docker Hub ` docker pull amazon/dynamodb-local`
+- &nbsp; 11.3 Run the image `docker run -p 8000:8000 amazon/dynamodb-local` and keep the terminal open
+
+12. Setup environment variables
+
+- &nbsp; 12.1 Create a `.env` file <strong><u>in the root of server folder</u></strong> using below template
+
+  ```sh
+  # AWS Credentials for Development Environment
+  AWS_REGION_DEV="your_aws_region"
+  AWS_ACCESS_KEY_ID_DEV="your_iam_access_key_id"
+  AWS_SECRET_ACCESS_KEY_DEV="your_iam_secret_access_key"
+
+  # AWS Credentials for Production Environment(e.g., for other aws roles or accounts, you can replace DEV or PROD with other string)
+  AWS_REGION_PROD="your_aws_region"
+  AWS_ACCESS_KEY_ID_PROD="your_iam_access_key_id"
+  AWS_SECRET_ACCESS_KEY_PROD="your_iam_secret_access_key"
+
+  # DynamoDB Configuration
+  DYNAMODB_TABLE_NAME="ImagesTable"
+  SCAN_RESULT_TABLE="SingleScanResult"
+  DYNAMODB_ACCESS_KEY_ID="local"
+  DYNAMODB_SECRET_ACCESS_KEY="local"
+
+  # Use "http://localhost:8000" when running on localhost
+  # Use "http://dynamodb:8000" when running the docker version
+  DYNAMODB_ENDPOINT="http://localhost:8000"
+  ```
+
+- &nbsp; 12.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
+
+13. Run `npm start`
+14. Browse to http://localhost:80
 
 ## The FennECR Team
 

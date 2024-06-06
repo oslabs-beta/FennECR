@@ -6,22 +6,22 @@ WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json if available
 COPY package.json ./
-# COPY package-lock.json ./
 
 # Install dependencies
 RUN npm install
 
-# Install TypeScript and ts-node
+# Install TypeScript and ts-node globally
 RUN npm install -g typescript ts-node
 
 # Copy the rest of the application code
 COPY . .
 
 # Compile TypeScript files
-RUN tsc
+RUN npx tsc
 
 # Expose port
 EXPOSE 3000
 
 # Start the application
-CMD ["ts-node", "src/index.ts"]
+# CMD ["ts-node", "src/index.ts"]
+CMD ["node", "dist/index.js"]
