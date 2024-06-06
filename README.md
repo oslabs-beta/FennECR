@@ -52,6 +52,10 @@ Enjoy the flexibility of dark mode, designed to reduce eye strain and provide a 
 5. Run `cd server && npm install && cd ..` to install server side dependencies
 6. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
 7. Setup DynamoDB local
+8. Run `npm install` to install dependencies in the root folder
+9. Run `cd server && npm install && cd ..` to install server side dependencies
+10. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
+11. Setup DynamoDB local
 
 - &nbsp; 7.1 Install [docker](https://www.docker.com/)
 - &nbsp; 7.2 Pull the DynamoDB docker image from docker Hub ` docker pull amazon/dynamodb-local`
@@ -87,6 +91,8 @@ Enjoy the flexibility of dark mode, designed to reduce eye strain and provide a 
 
 9. Run `npm start`
 10. Browse to http://localhost:5173
+11. Run `npm start`
+12. Browse to http://localhost:5173
 
 ### Docker Container
 
