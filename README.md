@@ -27,9 +27,9 @@ Easily toggle scan-on-push settings for your repositories directly from our inte
 
 Secure Credential Management: Your credentials remain under your control. Security is our utmost priority, your local environment variables are managed with the highest level of security on your local environment.
 
-#### c. Multi-IAM Roles Support
+#### c. Multi-Access Key Support
 
-Are you managing multiple AWS accounts? FennECR seamlessly supports multi-IAM roles, allowing you to track and manage vulnerabilities across various accounts with ease, as demonstrated in this demo.
+Are you managing multiple AWS accounts? FennECR seamlessly supports multi access keys, allowing you to track and manage vulnerabilities across various accounts with ease, as demonstrated in this demo.
 ![](https://github.com/oslabs-beta/FennECR/blob/main/client/insightecr/Public/AccountSwitchingDemo.gif?raw=true)
 
 #### d. Historical scan results secured in DynamoDB
