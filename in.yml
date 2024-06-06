@@ -1,37 +1,28 @@
-version: "3.8"
+version: '3.8'
 
 services:
   client:
-    build:
-      context: ./client/insightecr
-      dockerfile: Dockerfile.client
+    image: petergaoxl/insightecr-client
     ports:
       - "80:80"
-    volumes:
-      - ./client/insightecr:/app
-      - /app/node_modules
     depends_on:
       - server
     env_file:
       - .env
     networks:
-      - fennecr-network
+      - insightecr-network
 
   server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile.server
+    image: petergaoxl/insightecr-server
     ports:
       - "3000:3000"
-    volumes:
-      - ./server:/usr/src/app
-      - /usr/src/app/node_modules
+    container_name: insightecr-server-1
     depends_on:
       - dynamodb
     env_file:
       - .env
     networks:
-      - fennecr-network
+      - insightecr-network
 
   dynamodb:
     image: amazon/dynamodb-local
@@ -43,11 +34,11 @@ services:
     env_file:
       - .env
     networks:
-      - fennecr-network
+      - insightecr-network
 
 volumes:
   dynamodbdata:
 
 networks:
-  fennecr-network:
+  insightecr-network:
     driver: bridge
