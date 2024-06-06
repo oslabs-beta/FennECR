@@ -177,7 +177,7 @@ networks:
 - &nbsp; 12.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
 
 13. Run `npm start`
-14. Browse to http://localhost:80
+14. Browse to http://localhost
 
 ## The FennECR Team
 
