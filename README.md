@@ -122,7 +122,7 @@ networks:
 
   # Use "http://localhost:8000" when running on localhost
   # Use "http://dynamodb:8000" when running the docker version
-  DYNAMODB_ENDPOINT="http://localhost:8000"
+  DYNAMODB_ENDPOINT="http://dynamodb:8000"
   ```
 
 - &nbsp; 5.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
