@@ -20,7 +20,7 @@ const scanResultsController = {
         try {
             const ecrClient = awsClients_1.default.getECRClient(accountId);
             const input = {
-                repositoryName: repoName,
+                repositoryName: repoName, //required
                 imageId: {
                     //required
                     imageTag: imageTag,
