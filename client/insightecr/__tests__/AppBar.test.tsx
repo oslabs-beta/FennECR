@@ -17,7 +17,7 @@ describe('AppBar Component', () => {
       />
     );
 
-    const titleElement = screen.getByText(/InSightECR/i);
+    const titleElement = screen.getByText(/FennECR/i);
     expect(titleElement).toBeInTheDocument();
   });
 });
