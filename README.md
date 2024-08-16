@@ -139,18 +139,14 @@ networks:
 5. Run `cd server && npm install && cd ..` to install server side dependencies
 6. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
 7. Setup DynamoDB local
-8. Run `npm install` to install dependencies in the root folder
-9. Run `cd server && npm install && cd ..` to install server side dependencies
-10. Run `cd client/insightecr && npm install && cd ../..` to install client side dependencies
-11. Setup DynamoDB local
 
-- &nbsp; 11.1 Install [docker](https://www.docker.com/)
-- &nbsp; 11.2 Pull the DynamoDB docker image from docker Hub ` docker pull amazon/dynamodb-local`
-- &nbsp; 11.3 Run the image `docker run -p 8000:8000 amazon/dynamodb-local` and keep the terminal open
+- &nbsp; 7.1 Install [docker](https://www.docker.com/)
+- &nbsp; 7.2 Pull the DynamoDB docker image from docker Hub ` docker pull amazon/dynamodb-local`
+- &nbsp; 7.3 Run the image `docker run -p 8000:8000 amazon/dynamodb-local` and keep the terminal open
 
-12. Setup environment variables
+8. Setup environment variables
 
-- &nbsp; 12.1 Create a `.env` file <strong><u>in the root of server folder</u></strong> using below template
+- &nbsp; 8.1 Create a `.env` file <strong><u>in the root of server folder</u></strong> using below template
 
   ```sh
   # AWS Credentials for Development Environment
@@ -174,10 +170,10 @@ networks:
   DYNAMODB_ENDPOINT="http://localhost:8000"
   ```
 
-- &nbsp; 12.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
+- &nbsp; 8.2 Replace "your_aws_region", "your_iam_access_key_id", "your_iam_secret_access_key" with your own credentials
 
-13. Run `npm start`
-14. Browse to http://localhost
+9. Run `npm start`
+10. Browse to http://localhost
 
 ## The FennECR Team
 
